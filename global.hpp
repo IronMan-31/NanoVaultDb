@@ -11,10 +11,11 @@
 #include "databaseSchemaReader.hpp"
 #include "storageTree.hpp"
 
+
 // --- File Paths ---
-inline std::string currentDbPath = "db/current_db.meta";
+inline std::string currentDbPath = "./db/current_db.meta";
 inline std::string dbDirectoryPath = "./db";
-inline std::string allTableDataDirectory = "./db/data";
+//inline std::string allTableDataDirectory = "./db/data";
 inline std::string currentDatabase = "";
 inline std::string tableDirectory = "./db/tables";
 // --- Schema Node Structure ---
@@ -42,6 +43,7 @@ struct TableGlobalColumnNode {
         std::vector<std::shared_ptr<TableGlobalColumnNode>>>>
     globalTableCache;
 
+
 // --- Index Node Representation ---
 struct IndexNode {
     int64_t start;
@@ -49,8 +51,9 @@ struct IndexNode {
 };
 
 // --- B+ Tree Variant for different key types ---
+// only int64_t and string call be index in the b+ trees
 using TreeVariant = std::variant<
-    std::shared_ptr<BPlusTree<int, IndexNode>>,
+    std::shared_ptr<BPlusTree<int64_t, IndexNode>>,
     std::shared_ptr<BPlusTree<std::string, IndexNode>>>;
 
 // --- B+ Tree Cache ---
@@ -238,4 +241,4 @@ struct InsertStatement
     std::vector<std::string> values;
 };
 
-#endif // GLOBALS_HPP
+#endif

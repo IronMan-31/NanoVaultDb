@@ -462,8 +462,10 @@ public:
                 }
                 else
                 {
+                    
                     throw std::runtime_error("Parsing error at line " + std::to_string(lineNumber) + " at character " + std::to_string(characterNumber) + " - unexpected character: " + current);
                 }
+
                 break;
             }
         }

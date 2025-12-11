@@ -13,11 +13,87 @@
 #include "json.hpp"
 #include "utility.hpp"
 #include "global.hpp"
-#include "SQL_PARSER.hpp"
+
 
 namespace CommandRunner
 {
 
+    void generateInsertTableStatement(const std::unique_ptr<InsertStatement> &stmt)
+    {
+
+        std::string tableName = stmt->tableName;
+        // column , <value isUnique>
+        std::vector<std::pair<std::string, std::pair<std::string,bool>>> column;
+        std::vector<std::pair<std::string,bool>>actualColumn ;
+        std::string primaryColName = "";
+        for (int i = 0; i < stmt->columns.size(); i++)
+        {
+
+            column.push_back(make_pair(stmt->columns[i], make_pair(stmt->values[i],false)));
+        }
+
+        std::sort(column.begin(), column.end(), [](const auto &a, const auto &b)
+                  { return a.first < b.first; });
+
+        auto it_db = globalTableCache.find(currentDatabase);
+        if (it_db != globalTableCache.end())
+        {
+            auto it_table = it_db->second.find(tableName);
+            if (it_table != it_db->second.end())
+            {
+                std::vector<std::shared_ptr<TableGlobalColumnNode>> &columns = it_table->second;
+
+                // Use `columns` here
+                for ( auto &col : columns)
+                {
+                    if(!col->isPrimary){
+
+                        actualColumn.push_back(make_pair(col->name,col->isUnique));
+                    }else{
+                        primaryColName = col->name;
+                    }
+                    // Example: assuming TableGlobalColumnNode has a `name` field
+
+                    //std::cout << col->name << '\n';
+                }
+
+                sort(actualColumn.begin(),actualColumn.end(),[](const auto &a, const auto &b)
+                  { return a.first < b.first; });
+                if(actualColumn.size()!=column.size()){
+                    throw std::runtime_error("the given column size does not match with the actual column size");
+                }
+                for(int i = 0;i<actualColumn.size();i++){
+
+                    if(actualColumn[i].first!=column[i].first){
+                        std::stringstream s;
+                        s<<"error "<<" get column Name "<<column[i].first<<" instead of  "<<actualColumn[i].first<<"\n";
+                        throw std::runtime_error(s.str());
+                    }
+                    else{
+                        if(actualColumn[i].second){
+                            column[i].second.second = true;
+                        }
+                    }
+
+
+                }
+
+                PagerHandler::insertRow(std::move(primaryColName),std::move(column),std::move(tableName));
+            }
+            else
+            {
+                std::stringstream s ;
+                s << "Table not found: " << tableName << '\n';
+                throw std::runtime_error(s.str());
+            }
+        }
+        else
+        {
+            std::stringstream s;
+            s << "Database not found: " << currentDatabase << '\n';
+            throw std::runtime_error(s.str());
+        }
+    }
     void generateCreateTableStatement(const std::unique_ptr<CreateStatement> &stmt)
     {
         // Step 1: Convert column definitions to JSON
@@ -30,6 +106,8 @@ namespace CommandRunner
                 {"type", JSONParser::JSONValue(col.type)}};
 
             // Extract length if it's a VARCHAR with size, e.g., varchar(255)
+            std::cout<<"getting col type\n";
+            std::cout<<col.type<<"\n";
             if (col.type.find("varchar(") != std::string::npos)
             {
                 size_t start = col.type.find("(") + 1;
@@ -80,7 +158,7 @@ namespace CommandRunner
         // Step 0: Check if table already exists in globalTableCache
         if (globalTableCache[currentDatabase].find(stmt->name) != globalTableCache[currentDatabase].end())
         {
-            throw std::runtime_error("❌ Table '" + stmt->name + "' already exists in DB '" + currentDatabase + "'");
+            throw std::runtime_error(" Table '" + stmt->name + "' already exists in DB '" + currentDatabase + "'");
         }
 
         // Step 2: Create table JSON
@@ -94,7 +172,7 @@ namespace CommandRunner
 
         if (!parser.loadFromFile())
         {
-            throw std::runtime_error("❌ Failed to load DB file: " + filePath);
+            throw std::runtime_error(" Failed to load DB file: " + filePath);
         }
 
         JSONParser::JSONValue root = parser.getObject(0);
@@ -125,26 +203,25 @@ namespace CommandRunner
 
         if (!parser.saveToFile())
         {
-            throw std::runtime_error("❌ Failed to save DB JSON file");
+            throw std::runtime_error(" Failed to save DB JSON file");
         }
 
         // Optional: Update in-memory cache too
         globalTableCache[currentDatabase][stmt->name] = {}; // You can populate columns later
-
-        std::cout << "✅ Table '" << stmt->name << "' added to DB '" << currentDatabase << "' successfully.\n";
+                                            
+        std::cout << " Table '" << stmt->name << "' added to DB '" << currentDatabase << "' successfully.\n";
         std::string tablename = stmt->name;
         std::stringstream indexFile, dataFile;
 
-        indexFile << tableDirectory << "/" << currentDatabase <<"/"<< tablename << ".index";
-        dataFile << tableDirectory << "/" << currentDatabase <<"/"<< tablename << ".data";
+        indexFile << tableDirectory << "/" << currentDatabase << "/" << tablename << ".index";
+        dataFile << tableDirectory << "/" << currentDatabase << "/" << tablename << ".data";
 
-        MyUtility::createFile(indexFile.str(),"");
-        MyUtility::createFile(dataFile.str(),"");
+        MyUtility::createFile(indexFile.str(), "");
+        MyUtility::createFile(dataFile.str(), "");
     }
 
-
-    void generateInsertStatement(){
-        
+    void generateInsertStatement()
+    {
     }
 
 };

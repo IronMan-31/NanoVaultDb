@@ -6,48 +6,50 @@
 #include "SQL_PARSER.hpp"
 #include "initialLoad.hpp"
 
-// ✅ Fix: Proper declaration with semicolon
-
 using namespace std;
 std::string typeToString(TokenType TYPE);
 
-int main(int argc, char const *argv[]) {
-    initialDatabseLoad();  // Load DB metadata
-    initializePrimaryIndexBtrees();
+int main(int argc, char const *argv[])
+{
+    initialDatabseLoad(); // Load DB metadata
+//    initializePrimaryIndexBtrees();
+std::vector<std::string> testSQLs = {
 
-    vector<string> testSQLs = {
-       R"(
-        CREATE DATABASE testing;
-       )", R"(
 
-CREATE TABLE testing(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255),
-    email VARCHAR(255) UNIQUE
-);
-
+R"(
+INSERT INTO students (rollno)
+VALUES ("1ffgfggg01");
 )"
-    };
 
-    for (const auto& sql : testSQLs) {
+};
+
+
+
+
+    for (const auto &sql : testSQLs)
+    {
         cout << "\n=============================\n";
-        cout << "SQL:\n" << sql << endl;
+        cout << "SQL:\n"
+             << sql << endl;
         cout << "=============================\n";
 
-        try {
+        try
+        {
             Lexer lexer(sql);
-            vector<Token*> tokens = lexer.tokenize();
+            vector<Token *> tokens = lexer.tokenize();
 
             // Debug: Print tokens
             cout << "Tokens:\n";
-            for (Token* token : tokens) {
+            for (Token *token : tokens)
+            {
                 cout << typeToString(token->TYPE) << " : " << token->VALUE << endl;
             }
 
             Parser parser(tokens);
-            parser.parse();  // Parse the SQL
-
-        } catch (const std::exception& e) {
+            parser.parse(); // Parse the SQL
+        }
+        catch (const std::exception &e)
+        {
             cerr << "Error: " << e.what() << endl;
         }
 

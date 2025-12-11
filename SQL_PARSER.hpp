@@ -182,6 +182,15 @@ public:
 
         expect(TokenType::CLOSE_PAREN, "Expected ')' after values");
         expect(TokenType::SEMICOLON, "Expected ';' at end");
+        if (stmt->columns.size() != stmt->values.size())
+        {
+            throw std::runtime_error("Number of columns and values do not match make sure you does not pass the primary key column");
+        }
+        std::pair<bool, std::string> check = MyUtility::checkIfTableExist(stmt->tableName);
+        if (!check.first)
+            throw std::runtime_error(check.second);
+        else
+            CommandRunner::generateInsertTableStatement(stmt);
 
         return stmt;
     }
@@ -205,6 +214,7 @@ public:
                 Token *typeToken = current();
                 if (match(TokenType::INT) || match(TokenType::VARCHAR))
                 {
+
                     typeToken = previous();
                 }
                 else
@@ -220,6 +230,8 @@ public:
                     Token *size = expect(TokenType::NUMBER, "Expected size in VARCHAR()");
                     expect(TokenType::CLOSE_PAREN, "Expected ')' after VARCHAR size");
                     column.type += "(" + size->VALUE + ")";
+
+                    // std::cout<<"PARSER COLUMN TYPE \n" << "COLUMN TYPE "<< column.type <<"  size value  "<<size->VALUE<<"\n";
                 }
 
                 // Parse optional constraints
@@ -258,7 +270,7 @@ public:
                 else if (peek()->TYPE == TokenType::CLOSE_PAREN)
                 {
                     continue;
-                }
+                }   
                 else
                 {
                     throw std::runtime_error("Expected ',' or ')' in column list");
@@ -557,11 +569,7 @@ public:
         {
             rewind();
             auto stmt = parseInsertStatement();
-            std::pair<bool, std::string> check = MyUtility::checkIfTableExist(stmt->tableName);
-            if (!check.first)
-                throw std::runtime_error(check.second);
-
-            printInsertStatement(*stmt);
+            // printInsertStatement(*stmt);
         }
         else if (match(TokenType::SELECT))
         {
@@ -609,7 +617,7 @@ public:
     }
     void printCreateStatement(const CreateStatement &stmt)
     {
-        std::cout << "CREATE ";
+    std::cout << "CREATE ";
         if (stmt.isDatabase)
         {
             std::cout << "DATABASE ";
@@ -669,5 +677,8 @@ public:
         std::cout << ");\n";
     }
 };
+
+
+
 
 #endif

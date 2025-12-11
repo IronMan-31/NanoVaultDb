@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <filesystem> // Include for std::filesystem
 #include <fstream>
+#include <sys/stat.h>
 #include "json.hpp"   // Assuming this is a necessary include
 #include "global.hpp" // Assuming this is a necessary include
 #include <utility>
@@ -105,4 +106,133 @@ namespace MyUtility
 
 } // namespace MyUtility
 
+
+
+namespace PagerHandler
+{
+
+    struct RowIndex
+    {
+        int64_t row_start, row_end;
+    };
+
+    std::mutex tableIndexMutex;
+    std::mutex tableDataMutex;
+    int64_t getFileSize(const std::string &filename)
+    {
+        struct stat st;
+        if (stat(filename.c_str(), &st) != 0)
+            return 0;
+        return st.st_size;
+    }
+
+    void insertRow(std::string primaryName, std::vector<std::pair<std::string, std::pair<std::string, bool>>> data, std::string tableName)
+    {
+        if (data.empty())
+        {
+            throw std::runtime_error("Cannot insert empty row data");
+        }
+
+        std::stringstream indexFileName;
+        indexFileName << tableDirectory << "/" << currentDatabase << "/" << tableName << ".index";
+
+        std::stringstream dataFileName;
+        dataFileName << tableDirectory << "/" << currentDatabase << "/" << tableName << ".data";
+
+        if (!MyUtility::checkIfFileExist(indexFileName.str()))
+        {
+            throw std::runtime_error("Table " + tableName + " does not exist. Create it first.");
+        }
+
+        if (!MyUtility::checkIfFileExist(dataFileName.str()))
+        {
+            throw std::runtime_error("Data file for table " + tableName + " does not exist.");
+        }
+
+        int64_t currentIndexFileSize = getFileSize(indexFileName.str());
+        int64_t colsize = data.size();
+
+        std::lock_guard<std::mutex> indexLock(tableIndexMutex);
+        std::lock_guard<std::mutex> dataLock(tableDataMutex);
+
+        std::fstream indexFile(indexFileName.str(), std::ios::in | std::ios::out | std::ios::binary | std::ios::app);
+        std::fstream dataFile(dataFileName.str(), std::ios::in | std::ios::out | std::ios::binary | std::ios::app);
+
+        if (!indexFile.is_open())
+        {
+            throw std::runtime_error("Failed to open index file: " + indexFileName.str());
+        }
+        if (!dataFile.is_open())
+        {
+            throw std::runtime_error("Failed to open data file: " + dataFileName.str());
+        }
+
+        int64_t newRowId;
+
+        if (currentIndexFileSize == 0)
+        {
+            newRowId = 1;
+            std::cout << "Inserting first row (ID: " << newRowId << ")\n";
+        }
+        else
+        {
+            int64_t rowEntrySize = sizeof(int64_t) + colsize * sizeof(RowIndex);
+            int64_t lastRowIdPos = currentIndexFileSize - rowEntrySize;
+
+            indexFile.seekg(lastRowIdPos);
+            int64_t lastRowId;
+            indexFile.read(reinterpret_cast<char *>(&lastRowId), sizeof(int64_t));
+
+            if (indexFile.fail())
+            {
+                throw std::runtime_error("Failed to read last row ID from index file");
+            }
+
+            newRowId = lastRowId + 1;
+            std::cout << "Inserting new row (ID: " << newRowId << ")\n";
+        }
+
+        indexFile.seekp(0, std::ios::end);
+        dataFile.seekp(0, std::ios::end);
+
+        indexFile.write(reinterpret_cast<const char *>(&newRowId), sizeof(int64_t));
+        if (indexFile.fail())
+        {
+            throw std::runtime_error("Failed to write row ID to index file");
+        }
+
+        for (size_t i = 0; i < data.size(); i++)
+        {
+            const std::string &columnData = data[i].second.first;
+
+            int64_t start = dataFile.tellp();
+
+            dataFile.write(columnData.c_str(), columnData.size());
+            if (dataFile.fail())
+            {
+                throw std::runtime_error("Failed to write column data to data file");
+            }
+
+            int64_t end = dataFile.tellp();
+
+            RowIndex entry{start, end};
+            indexFile.write(reinterpret_cast<const char *>(&entry), sizeof(RowIndex));
+            if (indexFile.fail())
+            {
+                throw std::runtime_error("Failed to write index entry");
+            }
+
+            std::cout << "Column " << i << ": '" << columnData
+                      << "' stored at [" << start << "-" << end << "]\n";
+        }
+
+        dataFile.flush();
+        indexFile.flush();
+
+        std::cout << "Successfully inserted row with ID: " << newRowId << "\n";
+    }
+
+};
+
+// for this does not cahnge the function name just make it thread safe
 #endif
