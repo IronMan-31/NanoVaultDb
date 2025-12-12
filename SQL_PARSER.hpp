@@ -115,7 +115,6 @@ public:
         }
         else
         {
-            std::cout << "hfffffffffff\n";
             std::ifstream in(filePath);
             std::stringstream buffer;
             buffer << in.rdbuf();
