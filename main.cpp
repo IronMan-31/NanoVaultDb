@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
  std::vector<std::string> testSQLs = {
 
 R"(
-CREATE DATABASE  school;
+CREATE DATABASE  ;
 )",
 
 R"(
@@ -27,8 +27,12 @@ CREATE TABLE students (
 
 R"(
 INSERT INTO students (rollno)
-VALUES ("1ffgfggg01");
-)"
+VALUES ("23");
+)",
+
+// R"(
+// DROP TABLE students;
+// )"
 
 };
 
