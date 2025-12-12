@@ -40,6 +40,7 @@ void initialDatabseLoad()
                 globalJsonCache[dbname] = parser;
 
                 std::string fullPath = dbDirectoryPath + "/" + filename;
+                std::cout<<"FULL PATH "<<fullPath<<"\n";
                 if (!parser->loadFromFile(fullPath))
                 {
                     std::cerr << "Failed to load file: " << fullPath << std::endl;
@@ -174,7 +175,7 @@ void loadAllNodesOfBtree(TreeVariant &tree, int64_t size, std::string columnName
 {
     std::stringstream indexFileName;
     indexFileName << tableDirectory << "/" << currentDatabase << columnName << ".index";
-    if (MyUtility::checkIfFileExist(indexFileName.str()))
+    if (!MyUtility::checkIfFileExist(indexFileName.str()))
     {
         throw std::runtime_error("the table does not exist");
 

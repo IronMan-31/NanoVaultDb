@@ -1,0 +1,236 @@
+warning: unused manifest key: target.x86_64-unknown-linux-gnu.linker
+   0.015049245s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="nano_vault_db_networking"}: cargo::core::compiler::fingerprint: fingerprint error for nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking)/Check { test: false }/TargetInner { name: "nano_vault_db_networking", doc: true, ..: with_path("/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/src/main.rs", Edition2024) }
+   0.015067689s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="nano_vault_db_networking"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/nano_vault_db_networking-72f1137577674e75/bin-nano_vault_db_networking`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: cargo_util::paths::read_bytes
+   1: cargo_util::paths::read
+   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   3: cargo::core::compiler::fingerprint::prepare_target
+   4: cargo::core::compiler::compile
+   5: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   6: cargo::ops::cargo_compile::compile_ws
+   7: cargo::ops::cargo_compile::compile_with_exec
+   8: cargo::ops::cargo_compile::compile
+   9: cargo::commands::check::exec
+  10: <cargo::cli::Exec>::exec
+  11: cargo::main
+  12: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  13: std::rt::lang_start::<()>::{closure#0}
+  14: core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &F>::call_once
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/core/src/ops/function.rs:290:21
+  15: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  16: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  17: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  18: std::rt::lang_start_internal::{{closure}}
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:175:24
+  19: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  20: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  21: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  22: std::rt::lang_start_internal
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:171:5
+  23: main
+  24: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  25: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  26: <unknown>
+   0.086085140s  INFO prepare_target{force=false package_id=termion v1.5.6 target="termion"}: cargo::core::compiler::fingerprint: fingerprint error for termion v1.5.6/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("termion", ["lib"], "/home/shivam/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/termion-1.5.6/src/lib.rs", Edition2015) }
+   0.086099290s  INFO prepare_target{force=false package_id=termion v1.5.6 target="termion"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/termion-664acd67177cf129/lib-termion`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: cargo_util::paths::read_bytes
+   1: cargo_util::paths::read
+   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   3: cargo::core::compiler::fingerprint::prepare_target
+   4: cargo::core::compiler::compile
+   5: cargo::core::compiler::compile
+   6: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   7: cargo::ops::cargo_compile::compile_ws
+   8: cargo::ops::cargo_compile::compile_with_exec
+   9: cargo::ops::cargo_compile::compile
+  10: cargo::commands::check::exec
+  11: <cargo::cli::Exec>::exec
+  12: cargo::main
+  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  14: std::rt::lang_start::<()>::{closure#0}
+  15: core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &F>::call_once
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/core/src/ops/function.rs:290:21
+  16: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  17: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  18: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  19: std::rt::lang_start_internal::{{closure}}
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:175:24
+  20: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  21: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  22: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  23: std::rt::lang_start_internal
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:171:5
+  24: main
+  25: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  26: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  27: <unknown>
+   0.086264707s  INFO prepare_target{force=false package_id=libc v0.2.178 target="libc"}: cargo::core::compiler::fingerprint: fingerprint error for libc v0.2.178/Check { test: false }/TargetInner { ..: lib_target("libc", ["lib"], "/home/shivam/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libc-0.2.178/src/lib.rs", Edition2021) }
+   0.086270229s  INFO prepare_target{force=false package_id=libc v0.2.178 target="libc"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/libc-e64a70f44eef1a8b/lib-libc`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: cargo_util::paths::read_bytes
+   1: cargo_util::paths::read
+   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   3: cargo::core::compiler::fingerprint::prepare_target
+   4: cargo::core::compiler::compile
+   5: cargo::core::compiler::compile
+   6: cargo::core::compiler::compile
+   7: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   8: cargo::ops::cargo_compile::compile_ws
+   9: cargo::ops::cargo_compile::compile_with_exec
+  10: cargo::ops::cargo_compile::compile
+  11: cargo::commands::check::exec
+  12: <cargo::cli::Exec>::exec
+  13: cargo::main
+  14: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  15: std::rt::lang_start::<()>::{closure#0}
+  16: core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &F>::call_once
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/core/src/ops/function.rs:290:21
+  17: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  18: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  19: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  20: std::rt::lang_start_internal::{{closure}}
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:175:24
+  21: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  22: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  23: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  24: std::rt::lang_start_internal
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:171:5
+  25: main
+  26: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  27: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  28: <unknown>
+   0.086474613s  INFO prepare_target{force=false package_id=numtoa v0.1.0 target="numtoa"}: cargo::core::compiler::fingerprint: fingerprint error for numtoa v0.1.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("numtoa", ["lib"], "/home/shivam/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/numtoa-0.1.0/src/lib.rs", Edition2015) }
+   0.086484351s  INFO prepare_target{force=false package_id=numtoa v0.1.0 target="numtoa"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/numtoa-e8c728c0e1d1e39f/lib-numtoa`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: cargo_util::paths::read_bytes
+   1: cargo_util::paths::read
+   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   3: cargo::core::compiler::fingerprint::prepare_target
+   4: cargo::core::compiler::compile
+   5: cargo::core::compiler::compile
+   6: cargo::core::compiler::compile
+   7: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   8: cargo::ops::cargo_compile::compile_ws
+   9: cargo::ops::cargo_compile::compile_with_exec
+  10: cargo::ops::cargo_compile::compile
+  11: cargo::commands::check::exec
+  12: <cargo::cli::Exec>::exec
+  13: cargo::main
+  14: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  15: std::rt::lang_start::<()>::{closure#0}
+  16: core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &F>::call_once
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/core/src/ops/function.rs:290:21
+  17: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  18: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  19: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  20: std::rt::lang_start_internal::{{closure}}
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:175:24
+  21: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  22: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  23: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  24: std::rt::lang_start_internal
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:171:5
+  25: main
+  26: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  27: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  28: <unknown>
+   0.086927511s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="nano_vault_db_networking"}: cargo::core::compiler::fingerprint: fingerprint error for nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking)/Check { test: true }/TargetInner { name: "nano_vault_db_networking", doc: true, ..: with_path("/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/src/main.rs", Edition2024) }
+   0.086934213s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="nano_vault_db_networking"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/nano_vault_db_networking-c61cfbd6e97a024f/test-bin-nano_vault_db_networking`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: cargo_util::paths::read_bytes
+   1: cargo_util::paths::read
+   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   3: cargo::core::compiler::fingerprint::prepare_target
+   4: cargo::core::compiler::compile
+   5: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   6: cargo::ops::cargo_compile::compile_ws
+   7: cargo::ops::cargo_compile::compile_with_exec
+   8: cargo::ops::cargo_compile::compile
+   9: cargo::commands::check::exec
+  10: <cargo::cli::Exec>::exec
+  11: cargo::main
+  12: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  13: std::rt::lang_start::<()>::{closure#0}
+  14: core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &F>::call_once
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/core/src/ops/function.rs:290:21
+  15: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  16: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  17: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  18: std::rt::lang_start_internal::{{closure}}
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:175:24
+  19: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  20: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  21: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  22: std::rt::lang_start_internal
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:171:5
+  23: main
+  24: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  25: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  26: <unknown>
+    Checking libc v0.2.178
+    Checking numtoa v0.1.0
+    Checking termion v1.5.6
+    Checking nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.75s
