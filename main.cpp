@@ -11,7 +11,7 @@ std::string typeToString(TokenType TYPE);
 
 int main(int argc, char const *argv[])
 {
-    initialDatabseLoad(); // Load DB metadata
+    initialDatabseLoad();
 
  std::vector<std::string> testSQLs = {
 
@@ -31,8 +31,6 @@ VALUES ("1ffgfggg01");
 )"
 
 };
-
-
 
     for (const auto &sql : testSQLs)
     {
@@ -60,7 +58,6 @@ VALUES ("1ffgfggg01");
         {
             cerr << "Error: " << e.what() << endl;
         }
-
         cout << "\n";
     }
 
