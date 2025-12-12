@@ -98,9 +98,21 @@ namespace CommandRunner
     {
         // Step 1: Convert column definitions to JSON
         JSONParser::JSONArray columnArray;
+        std::vector<std::shared_ptr<TableGlobalColumnNode>> newTableCache;
 
         for (const auto &col : stmt->columns)
         {
+            std::shared_ptr<TableGlobalColumnNode> node = std::make_shared<TableGlobalColumnNode>();
+            node->name = col.name;
+            node->type = col.type;
+
+            int length = INT_MAX;
+            bool isUnique = false;
+            bool isPrimary = false;
+            bool autoIncrement = false;
+            bool createIndex = false;
+            std::vector<std::string> ActualTableConstraint;
+            
             JSONParser::JSONObject colJson = {
                 {"name", JSONParser::JSONValue(col.name)},
                 {"type", JSONParser::JSONValue(col.type)}};
@@ -118,6 +130,7 @@ namespace CommandRunner
                     try
                     {
                         int length = std::stoi(lengthStr);
+                        node->length = length;
                         colJson["length"] = JSONParser::JSONValue(length);
                         colJson["type"] = JSONParser::JSONValue("varchar"); // strip size from type
                     }
@@ -136,15 +149,23 @@ namespace CommandRunner
                 {
                 case ColumnConstraint::NOT_NULL:
                     constraintArray.push_back(JSONParser::JSONValue("not_null"));
+                    ActualTableConstraint.push_back("not_null");
                     break;
                 case ColumnConstraint::PRIMARY_KEY:
                     constraintArray.push_back(JSONParser::JSONValue("primary_key"));
+                    isPrimary = true;
+                    ActualTableConstraint.push_back("primary_key");
                     break;
                 case ColumnConstraint::UNIQUE:
                     constraintArray.push_back(JSONParser::JSONValue("unique"));
+                    isUnique = true;
+                    ActualTableConstraint.push_back("unique");
                     break;
                 case ColumnConstraint::AUTO_INCREMENT:
+                    autoIncrement = true;
+                    ActualTableConstraint.push_back("auto_increment");
                     constraintArray.push_back(JSONParser::JSONValue("auto_increment"));
+                    
                     break;
                 default:
                     break;
@@ -153,6 +174,12 @@ namespace CommandRunner
 
             colJson["constraints"] = JSONParser::JSONValue(constraintArray);
             columnArray.push_back(JSONParser::JSONValue(colJson));
+            node->autoIncrement = autoIncrement;
+            node->isUnique = isUnique;
+            node->createIndex = createIndex;
+            node->isPrimary = isPrimary;
+            newTableCache.push_back(node);
+
         }
 
         // Step 0: Check if table already exists in globalTableCache
@@ -207,7 +234,8 @@ namespace CommandRunner
         }
 
         // Optional: Update in-memory cache too
-        globalTableCache[currentDatabase][stmt->name] = {}; // You can populate columns later
+        
+        globalTableCache[currentDatabase][stmt->name] = newTableCache; // You can populate columns later
                                             
         std::cout << " Table '" << stmt->name << "' added to DB '" << currentDatabase << "' successfully.\n";
         std::string tablename = stmt->name;

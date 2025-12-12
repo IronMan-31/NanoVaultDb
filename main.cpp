@@ -12,9 +12,18 @@ std::string typeToString(TokenType TYPE);
 int main(int argc, char const *argv[])
 {
     initialDatabseLoad(); // Load DB metadata
-//    initializePrimaryIndexBtrees();
-std::vector<std::string> testSQLs = {
 
+ std::vector<std::string> testSQLs = {
+
+R"(
+CREATE DATABASE  school;
+)",
+
+R"(
+CREATE TABLE students (
+    rollno VARCHAR(255)
+);
+)",
 
 R"(
 INSERT INTO students (rollno)
@@ -22,7 +31,6 @@ VALUES ("1ffgfggg01");
 )"
 
 };
-
 
 
 
