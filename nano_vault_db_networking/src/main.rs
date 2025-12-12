@@ -5,7 +5,6 @@ use termion::event::Key;
 use termion::input::TermRead;
 use termion::raw::IntoRawMode;
 
-// Link with your C++ static library
 #[link(name = "db_engine", kind = "static")]
 unsafe extern "C" {
     fn initialize_database();
@@ -13,7 +12,6 @@ unsafe extern "C" {
     fn get_last_error() -> *const c_char;
 }
 
-// Call C++ execute_sql safely from Rust
 fn call_cpp(sql: &str) -> Result<(), String> {
     unsafe {
         let c_sql = CString::new(sql).unwrap();
@@ -30,7 +28,6 @@ fn call_cpp(sql: &str) -> Result<(), String> {
     }
 }
 
-// Read one line with arrow-key history support
 fn read_line_with_history(history: &Vec<String>, history_index: &mut usize, prompt: &str) -> String {
     let stdin = io::stdin();
     let mut stdout = io::stdout().into_raw_mode().unwrap();
@@ -87,7 +84,6 @@ fn read_line_with_history(history: &Vec<String>, history_index: &mut usize, prom
 }
 
 fn main() {
-    // Initialize your C++ database engine
     unsafe { initialize_database(); }
     println!("nanoVaultDb initialized.");
 
@@ -116,7 +112,6 @@ fn main() {
             sql.push_str(&more);
         }
 
-        // Call your C++ DB engine
         let result = unsafe { call_cpp(&sql) };
         if let Err(e) = result {
             eprintln!("Error: {}", e);
