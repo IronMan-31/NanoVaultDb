@@ -7,7 +7,7 @@
 #include "SQL_LEXER.hpp"
 #include "SQL_PARSER.hpp"
 #include "initialLoad.hpp"
-
+#include "logging.hpp"
 using namespace std;
 
 string readLineWithHistory(vector<string>& history, int& historyIndex)
@@ -81,8 +81,16 @@ string readLineWithHistory(vector<string>& history, int& historyIndex)
 int main()
 {
     initialDatabseLoad();
-
     vector<string> history;
+    
+    vector<string>rem_sqls=exec_rem_sqls();
+    for (string s:rem_sqls){
+        Lexer lexer(s);
+        vector<Token*> tokens = lexer.tokenize();
+        Parser parser(tokens);
+        parser.parse();
+    }
+
     int historyIndex = 0;
 
     while (true)
@@ -115,10 +123,12 @@ int main()
 
         try
         {
+            logging(sql);
             Lexer lexer(sql);
             vector<Token*> tokens = lexer.tokenize();
             Parser parser(tokens);
             parser.parse();
+            clear_log();
         }
         catch (const std::exception& e)
         {

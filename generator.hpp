@@ -13,10 +13,103 @@
 #include "json.hpp"
 #include "utility.hpp"
 #include "global.hpp"
+namespace fs = std::filesystem;
 
 
 namespace CommandRunner
 {
+
+    void generateDropStatement(const std::unique_ptr<DropStatement> &stmt) {
+    using namespace std;
+
+    bool is_table = stmt->istable;
+    std::string name = stmt->name;
+
+    if (is_table) {
+
+        if (currentDatabase.empty()) {
+            throw std::runtime_error("No database selected");
+        }
+
+        auto it_db = globalTableCache.find(currentDatabase);
+        if (it_db == globalTableCache.end()) {
+            throw std::runtime_error("Database not found: " + currentDatabase);
+        }
+
+        auto it_table = it_db->second.find(name);
+        if (it_table == it_db->second.end()) {
+            throw std::runtime_error("Table '" + name + "' does not exist");
+        }
+
+        std::string base = tableDirectory + "/" + currentDatabase + "/";
+        std::string dataFile  = base + name + ".data";
+        std::string indexFile = base + name + ".index";
+
+        if (fs::exists(dataFile))  fs::remove(dataFile);
+        if (fs::exists(indexFile)) fs::remove(indexFile);
+
+        globalTableCache[currentDatabase].erase(name);
+
+        std::string filePath = "./db/" + currentDatabase + ".shivam.db";
+        JSONParser parser(filePath);
+
+        if (!parser.loadFromFile())
+            throw std::runtime_error("Failed to load DB file: " + filePath);
+
+        JSONParser::JSONValue root = parser.getObject(0);
+        auto &dbObj = std::get<JSONParser::JSONObject>(root.value);
+
+        if (dbObj.find("tables") != dbObj.end()) {
+            auto &tables = std::get<JSONParser::JSONArray>(dbObj["tables"].value);
+
+            for (size_t i = 0; i < tables.size(); i++) {
+                const auto &tblVal = tables[i];
+                const auto &tblObj = std::get<JSONParser::JSONObject>(tblVal.value);
+
+                std::string tblName = std::get<std::string>(tblObj.at("name").value);
+
+                if (tblName == name) {
+                    tables.erase(tables.begin() + i);
+                    break;
+                }
+            }
+        }
+
+        parser.clear();
+        parser.appendValue(JSONParser::JSONValue(dbObj));
+        if (!parser.saveToFile()) {
+            throw std::runtime_error("Failed to save updated DB metadata");
+        }
+
+        std::cout << "Table '" << name << "' dropped successfully.\n";
+    }
+    else {
+        std::string metaFile = "./db/" + name + ".shivam.db";
+
+        if (!fs::exists(metaFile)) {
+            throw std::runtime_error("Database '" + name + "' does not exist.");
+        }
+
+        std::string dbDir = tableDirectory + "/" + name;
+
+        if (fs::exists(dbDir)) {
+            fs::remove_all(dbDir);
+        }
+
+        fs::remove(metaFile);
+
+        if (globalTableCache.find(name) != globalTableCache.end()) {
+            globalTableCache.erase(name);
+        }
+
+        if (currentDatabase == name) {
+            currentDatabase.clear();
+        }
+
+        std::cout << "Database '" << name << "' dropped successfully.\n";
+    }
+}
+
 
     void generateInsertTableStatement(const std::unique_ptr<InsertStatement> &stmt)
     {

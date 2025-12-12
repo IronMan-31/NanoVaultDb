@@ -11,12 +11,12 @@ std::string typeToString(TokenType TYPE);
 
 int main(int argc, char const *argv[])
 {
-    initialDatabseLoad(); // Load DB metadata
+    initialDatabseLoad();
 
  std::vector<std::string> testSQLs = {
 
 R"(
-CREATE DATABASE  school;
+CREATE DATABASE  ;
 )",
 
 R"(
@@ -27,12 +27,14 @@ CREATE TABLE students (
 
 R"(
 INSERT INTO students (rollno)
-VALUES ("1ffgfggg01");
-)"
+VALUES ("23");
+)",
+
+// R"(
+// DROP TABLE students;
+// )"
 
 };
-
-
 
     for (const auto &sql : testSQLs)
     {
@@ -60,7 +62,6 @@ VALUES ("1ffgfggg01");
         {
             cerr << "Error: " << e.what() << endl;
         }
-
         cout << "\n";
     }
 

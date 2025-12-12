@@ -328,6 +328,8 @@ public:
             Token *identifier = expect(TokenType::IDENTIFIER, "not a identifier\n");
             stmt->name = identifier->VALUE;
             stmt->istable = true;
+            CommandRunner:: generateDropStatement(stmt);
+            break;
         }
 
         break;
@@ -336,10 +338,12 @@ public:
             Token *identifier = expect(TokenType::IDENTIFIER, "not a identifier\n");
             stmt->name = identifier->VALUE;
             stmt->istable = false;
+            CommandRunner:: generateDropStatement(stmt);
+            break;
         }
 
         default:
-            std::runtime_error("error in drop ");
+            throw std::runtime_error("error in drop ");
         }
         return stmt;
     }
@@ -578,9 +582,14 @@ public:
             auto stmt = parseSelectStatement();
             // printSelectStatement(*stmt);
         }
+        else if (match(TokenType::DROP))
+        {
+            rewind();
+            auto stmt=parseDropStatement();
+        }
         else
         {
-            throw std::runtime_error("Unsupported SQL statement or missing statement type (CREATE, INSERT, SELECT)");
+            throw std::runtime_error("Unsupported SQL statement or missing statement type (CREATE, INSERT, SELECT, DROP)");
         }
     }
 
