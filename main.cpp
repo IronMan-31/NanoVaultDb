@@ -15,24 +15,24 @@ int main(int argc, char const *argv[])
 
  std::vector<std::string> testSQLs = {
 
-R"(
-CREATE DATABASE  ;
-)",
-
-R"(
-CREATE TABLE students (
-    rollno VARCHAR(255)
-);
-)",
-
-R"(
-INSERT INTO students (rollno)
-VALUES ("23");
-)",
+// R"(
+// CREATE DATABASE  ;
+// )",
 
 // R"(
-// DROP TABLE students;
-// )"
+// CREATE TABLE students (
+//     rollno VARCHAR(255)
+// );
+// )",
+
+// R"(
+// INSERT INTO students (rollno)
+// VALUES ("23");
+// )",
+
+R"(
+DROP TABLE test;
+)"
 
 };
 
