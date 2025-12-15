@@ -233,3 +233,6 @@ Stack backtrace:
   26: <unknown>
     Checking libc v0.2.178
     Checking numtoa v0.1.0
+   Compiling nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking)
+    Checking termion v1.5.6
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.79s
