@@ -1,6 +1,6 @@
 warning: unused manifest key: target.x86_64-unknown-linux-gnu.linker
-   0.015049245s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="nano_vault_db_networking"}: cargo::core::compiler::fingerprint: fingerprint error for nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking)/Check { test: false }/TargetInner { name: "nano_vault_db_networking", doc: true, ..: with_path("/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/src/main.rs", Edition2024) }
-   0.015067689s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="nano_vault_db_networking"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/nano_vault_db_networking-72f1137577674e75/bin-nano_vault_db_networking`
+   0.013030486s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="nano_vault_db_networking"}: cargo::core::compiler::fingerprint: fingerprint error for nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking)/Check { test: false }/TargetInner { name: "nano_vault_db_networking", doc: true, ..: with_path("/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/src/main.rs", Edition2024) }
+   0.013048505s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="nano_vault_db_networking"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/nano_vault_db_networking-72f1137577674e75/bin-nano_vault_db_networking`
 
 Caused by:
     No such file or directory (os error 2)
@@ -44,8 +44,10 @@ Stack backtrace:
   25: __libc_start_main_impl
              at ./csu/../csu/libc-start.c:360:3
   26: <unknown>
-   0.086085140s  INFO prepare_target{force=false package_id=termion v1.5.6 target="termion"}: cargo::core::compiler::fingerprint: fingerprint error for termion v1.5.6/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("termion", ["lib"], "/home/shivam/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/termion-1.5.6/src/lib.rs", Edition2015) }
-   0.086099290s  INFO prepare_target{force=false package_id=termion v1.5.6 target="termion"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/termion-664acd67177cf129/lib-termion`
+   0.077375160s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint dirty for nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking)/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/build.rs", Edition2024) }
+   0.077386232s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="build-script-build"}: cargo::core::compiler::fingerprint:     dirty: PrecalculatedComponentsChanged { old: "1765791809.217439104s (target/CACHEDIR.TAG)", new: "1765791809.845451163s (target/flycheck0/stderr)" }
+   0.077493348s  INFO prepare_target{force=false package_id=termion v1.5.6 target="termion"}: cargo::core::compiler::fingerprint: fingerprint error for termion v1.5.6/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("termion", ["lib"], "/home/shivam/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/termion-1.5.6/src/lib.rs", Edition2015) }
+   0.077498715s  INFO prepare_target{force=false package_id=termion v1.5.6 target="termion"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/termion-664acd67177cf129/lib-termion`
 
 Caused by:
     No such file or directory (os error 2)
@@ -90,8 +92,8 @@ Stack backtrace:
   26: __libc_start_main_impl
              at ./csu/../csu/libc-start.c:360:3
   27: <unknown>
-   0.086264707s  INFO prepare_target{force=false package_id=libc v0.2.178 target="libc"}: cargo::core::compiler::fingerprint: fingerprint error for libc v0.2.178/Check { test: false }/TargetInner { ..: lib_target("libc", ["lib"], "/home/shivam/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libc-0.2.178/src/lib.rs", Edition2021) }
-   0.086270229s  INFO prepare_target{force=false package_id=libc v0.2.178 target="libc"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/libc-e64a70f44eef1a8b/lib-libc`
+   0.077622677s  INFO prepare_target{force=false package_id=libc v0.2.178 target="libc"}: cargo::core::compiler::fingerprint: fingerprint error for libc v0.2.178/Check { test: false }/TargetInner { ..: lib_target("libc", ["lib"], "/home/shivam/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libc-0.2.178/src/lib.rs", Edition2021) }
+   0.077626203s  INFO prepare_target{force=false package_id=libc v0.2.178 target="libc"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/libc-e64a70f44eef1a8b/lib-libc`
 
 Caused by:
     No such file or directory (os error 2)
@@ -137,8 +139,8 @@ Stack backtrace:
   27: __libc_start_main_impl
              at ./csu/../csu/libc-start.c:360:3
   28: <unknown>
-   0.086474613s  INFO prepare_target{force=false package_id=numtoa v0.1.0 target="numtoa"}: cargo::core::compiler::fingerprint: fingerprint error for numtoa v0.1.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("numtoa", ["lib"], "/home/shivam/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/numtoa-0.1.0/src/lib.rs", Edition2015) }
-   0.086484351s  INFO prepare_target{force=false package_id=numtoa v0.1.0 target="numtoa"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/numtoa-e8c728c0e1d1e39f/lib-numtoa`
+   0.077773929s  INFO prepare_target{force=false package_id=numtoa v0.1.0 target="numtoa"}: cargo::core::compiler::fingerprint: fingerprint error for numtoa v0.1.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("numtoa", ["lib"], "/home/shivam/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/numtoa-0.1.0/src/lib.rs", Edition2015) }
+   0.077777688s  INFO prepare_target{force=false package_id=numtoa v0.1.0 target="numtoa"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/numtoa-e8c728c0e1d1e39f/lib-numtoa`
 
 Caused by:
     No such file or directory (os error 2)
@@ -184,8 +186,8 @@ Stack backtrace:
   27: __libc_start_main_impl
              at ./csu/../csu/libc-start.c:360:3
   28: <unknown>
-   0.086927511s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="nano_vault_db_networking"}: cargo::core::compiler::fingerprint: fingerprint error for nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking)/Check { test: true }/TargetInner { name: "nano_vault_db_networking", doc: true, ..: with_path("/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/src/main.rs", Edition2024) }
-   0.086934213s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="nano_vault_db_networking"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/nano_vault_db_networking-c61cfbd6e97a024f/test-bin-nano_vault_db_networking`
+   0.077870936s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="nano_vault_db_networking"}: cargo::core::compiler::fingerprint: fingerprint error for nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking)/Check { test: true }/TargetInner { name: "nano_vault_db_networking", doc: true, ..: with_path("/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/src/main.rs", Edition2024) }
+   0.077875231s  INFO prepare_target{force=false package_id=nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking) target="nano_vault_db_networking"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking/target/debug/.fingerprint/nano_vault_db_networking-c61cfbd6e97a024f/test-bin-nano_vault_db_networking`
 
 Caused by:
     No such file or directory (os error 2)
@@ -231,6 +233,3 @@ Stack backtrace:
   26: <unknown>
     Checking libc v0.2.178
     Checking numtoa v0.1.0
-    Checking termion v1.5.6
-    Checking nano_vault_db_networking v0.1.0 (/home/shivam/Desktop/learning/advanceCpp/distributed_Database/nano_vault_db_networking)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.75s

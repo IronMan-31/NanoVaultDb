@@ -57,14 +57,14 @@ using TreeVariant = std::variant<
     std::shared_ptr<BPlusTree<std::string, IndexNode>>>;
 
 // --- B+ Tree Cache ---
-// db_name -> table_name -> column_name -> B+ Tree
+// db_name -> table_name -> column_name -> (B+ Tree, no of columns)
  std::unordered_map<
     std::string,
     std::unordered_map<
         std::string,
         std::unordered_map<
             std::string,
-            TreeVariant>>>
+            std::pair<TreeVariant,int64_t>>>>
     dbBtrees;
 
 

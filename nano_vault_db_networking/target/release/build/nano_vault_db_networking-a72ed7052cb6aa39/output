@@ -1,3 +1,0 @@
-cargo:rustc-link-search=native=..
-cargo:rustc-link-lib=static=db_engine
-cargo:rustc-link-lib=dylib=stdc++

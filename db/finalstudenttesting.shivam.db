@@ -1,0 +1,31 @@
+[
+  {
+    "name": "finalstudenttesting",
+    "tables": [
+      {
+        "columns": [
+          {
+            "constraints": [
+              "primary_key"
+            ],
+            "name": "id",
+            "type": "int"
+          },
+          {
+            "constraints": [],
+            "length": 255,
+            "name": "rollno",
+            "type": "varchar"
+          },
+          {
+            "constraints": [],
+            "length": 100,
+            "name": "name",
+            "type": "varchar"
+          }
+        ],
+        "name": "students"
+      }
+    ]
+  }
+]

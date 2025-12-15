@@ -12,29 +12,44 @@ std::string typeToString(TokenType TYPE);
 int main(int argc, char const *argv[])
 {
     initialDatabseLoad();
+    initializePrimaryIndexBtrees();
 
- std::vector<std::string> testSQLs = {
 
-// R"(
-// CREATE DATABASE  ;
-// )",
 
-// R"(
-// CREATE TABLE students (
-//     rollno VARCHAR(255)
-// );
-// )",
-
-// R"(
-// INSERT INTO students (rollno)
-// VALUES ("23");
-// )",
+    std::vector<std::string> testSQLs = {
 
 R"(
-DROP TABLE test;
-)"
+CREATE DATABASE  ;
+)",
+
+R"(
+CREATE TABLE students (
+    rollno VARCHAR(255)
+);
+)",
+
+R"(
+INSERT INTO students (rollno)
+VALUES ("23");
+)",
+
+// R"(
+// DROP TABLE students;
+// )"
 
 };
+
+
+// for (int i = 1; i <= 1000; i++)
+// {
+//     std::string insertSQL =
+//         "INSERT INTO students (rollno, name) VALUES (\"" +
+//         std::to_string(i) + "\", \"Student" +
+//         std::to_string(i) + "\");";
+
+//     testSQLs.push_back(insertSQL);
+// }
+
 
     for (const auto &sql : testSQLs)
     {

@@ -10,8 +10,36 @@
 #include <climits>
 #include "global.hpp"
 #include "utility.hpp"
-
 namespace fs = std::filesystem;
+
+std::string getCurrentDatabase(std::string &metaFile)
+{
+    std::ifstream file(metaFile);
+    if (!file.is_open())
+        throw std::runtime_error("Unable to open meta file");
+
+    std::string line;
+    std::getline(file, line);  
+
+    size_t keyPos = line.find("\"current_db\"");
+    if (keyPos == std::string::npos)
+        throw std::runtime_error("Key 'current_db' not found");
+
+    size_t colonPos = line.find(":", keyPos);
+    if (colonPos == std::string::npos)
+        throw std::runtime_error("Invalid format in meta file");
+
+    size_t firstQuote = line.find("\"", colonPos);
+    if (firstQuote == std::string::npos)
+        throw std::runtime_error("Invalid format in meta file");
+
+    size_t secondQuote = line.find("\"", firstQuote + 1);
+    if (secondQuote == std::string::npos)
+        throw std::runtime_error("Invalid format in meta file");
+
+    return line.substr(firstQuote + 1, secondQuote - firstQuote - 1);
+}
+
 
 bool checkDBexist(const std::string &name)
 {
@@ -24,6 +52,9 @@ bool checkDBexist(const std::string &name)
 
 void initialDatabseLoad()
 {
+        std::string currentDbMeta = "./db/current_db.meta";
+        std::string dbName= getCurrentDatabase(currentDbMeta);
+        currentDatabase = dbName;
     for (const auto &entry : fs::directory_iterator(dbDirectoryPath))
     {
         if (fs::is_regular_file(entry.status()))
@@ -33,19 +64,19 @@ void initialDatabseLoad()
             if (filename.find(".db") != std::string::npos)
             {
                 std::string dbname = MyUtility::extractBaseName(filename);
-                std::cout<<"dbname "<<dbname<<"\n";
+                std::cout << "dbname " << dbname << "\n";
                 std::shared_ptr<PythonLikeJSONParser> parser = std::make_shared<PythonLikeJSONParser>();
 
                 // Store parser in global cache
                 globalJsonCache[dbname] = parser;
 
                 std::string fullPath = dbDirectoryPath + "/" + filename;
-                std::cout<<"FULL PATH "<<fullPath<<"\n";
+                std::cout << "FULL PATH " << fullPath << "\n";
                 if (!parser->loadFromFile(fullPath))
                 {
                     std::cerr << "Failed to load file: " << fullPath << std::endl;
                     std::stringstream err;
-                    err << "Failed to load file: " << fullPath ;
+                    err << "Failed to load file: " << fullPath;
                     throw std::runtime_error(err.str());
                 }
 
@@ -106,7 +137,7 @@ void initialDatabseLoad()
                             {
 
                                 TreeVariant tree = std::make_shared<BPlusTree<int64_t, IndexNode>>();
-                                dbBtrees[currentDatabase][tableName][columnDataName] = tree;
+                                dbBtrees[currentDatabase][tableName][columnDataName] = std::make_pair(tree,0);
                             }
                         }
 
@@ -125,6 +156,77 @@ void initialDatabseLoad()
     }
 }
 
+void loadAllNodesOfBtreeForPrimaryKey(TreeVariant &tree, int64_t size, std::string columnName)
+{
+    std::stringstream indexFileName;
+    indexFileName << tableDirectory << "/" << currentDatabase << columnName << ".index";
+    std::cout<<"INDEX FILE NAME "<<indexFileName.str()<<"\n";
+    if (MyUtility::checkIfFileExist(indexFileName.str()))
+    {
+        
+
+        std::fstream indexFile(indexFileName.str(), std::ios::in | std::ios::out | std::ios::binary);
+        if (indexFile.fail())
+        {
+            throw std::runtime_error("Failed to read primary key  from index file");
+        }
+
+        int64_t indexFileSize = PagerHandler::getFileSize(indexFileName.str());
+        int64_t divider = 8 * (2 * size - 1);
+        int64_t getTotalNoOfRows = (int64_t)(indexFileSize / divider);
+
+        while (getTotalNoOfRows)
+        {
+            int64_t id, start, end;
+            std::streampos pos = indexFile.tellg();
+
+            if (pos != std::streampos(-1))
+            {
+                int64_t offset = static_cast<int64_t>(pos);
+                start = offset;
+            }
+            else
+            {
+                break;
+            }
+
+            indexFile.read(reinterpret_cast<char *>(&id), sizeof(int64_t));
+
+            indexFile.seekg(sizeof(int64_t));
+            // indexFile.read(reinterpret_cast<char *>(&start), sizeof(int64_t));
+
+            indexFile.seekg((2 * size - 1) * sizeof(int64_t));
+
+            std::streampos endpos = indexFile.tellg();
+
+            if (endpos != std::streampos(-1))
+            {
+                int64_t offset = static_cast<int64_t>(endpos);
+                end = offset;
+            }
+            else
+            {
+                break;
+            }
+
+            IndexNode node{start, end};
+
+            std::visit([id, node](auto &treePtr)
+                       {
+            using TreeType = std::decay_t<decltype(*treePtr)>;
+            if constexpr (std::is_same_v<TreeType, BPlusTree<int64_t, IndexNode>>) {
+                treePtr->insert(id, node);
+            } else if constexpr (std::is_same_v<TreeType, BPlusTree<std::string, IndexNode>>) {
+                treePtr->insert(std::to_string(id), node);
+            } }, tree);
+        }
+    }else{
+        throw std::runtime_error("the table does not exist");
+    }
+}
+
+
+
 void initializePrimaryIndexBtrees()
 {
     for (const auto &dbPair : globalTableCache)
@@ -136,9 +238,11 @@ void initializePrimaryIndexBtrees()
         {
             const std::string &tableName = tablePair.first;
             const auto &columns = tablePair.second;
+            int64_t noOfColumns = columns.size();
 
             for (const auto &columnPtr : columns)
             {
+                std::cout<<columnPtr->name <<" "<<columnPtr->isPrimary<<"\n";
                 if (columnPtr->isPrimary)
                 {
                     const std::string &columnName = columnPtr->name;
@@ -161,48 +265,13 @@ void initializePrimaryIndexBtrees()
                         continue;
                     }
 
-                    dbBtrees[dbName][tableName][columnName] = std::move(tree);
-
+                    dbBtrees[dbName][tableName][columnName] = std::make_pair(std::move(tree),noOfColumns);
+                    loadAllNodesOfBtreeForPrimaryKey(dbBtrees[dbName][tableName][columnName].first,noOfColumns,tableName);
                     std::cout << "Initialized B+ Tree for " << dbName
                               << "." << tableName << "." << columnName << std::endl;
                 }
             }
         }
-    }
-}
-
-void loadAllNodesOfBtree(TreeVariant &tree, int64_t size, std::string columnName)
-{
-    std::stringstream indexFileName;
-    indexFileName << tableDirectory << "/" << currentDatabase << columnName << ".index";
-    if (!MyUtility::checkIfFileExist(indexFileName.str()))
-    {
-        throw std::runtime_error("the table does not exist");
-
-        std::fstream indexFile(indexFileName.str(), std::ios::in | std::ios::out | std::ios::binary);
-        int64_t id,start,end;
-        indexFile.read(reinterpret_cast<char *>(&id), sizeof(int64_t));
-        if (indexFile.fail())
-        {
-            throw std::runtime_error("Failed to read primary key  from index file");
-        }
-
-        indexFile.seekp(sizeof(int64_t));
-        indexFile.read(reinterpret_cast<char *>(&start), sizeof(int64_t));
-        indexFile.seekp((2*size -1 )*sizeof(int64_t));
-        indexFile.read(reinterpret_cast<char *>(&end), sizeof(int64_t));
-        indexFile.seekp(sizeof(int64_t));
-
-        IndexNode node{start,end};
-
-        std::visit([id, node](auto &treePtr) {
-            using TreeType = std::decay_t<decltype(*treePtr)>;
-            if constexpr (std::is_same_v<TreeType, BPlusTree<int64_t, IndexNode>>) {
-                treePtr->insert(id, node);
-            } else if constexpr (std::is_same_v<TreeType, BPlusTree<std::string, IndexNode>>) {
-                treePtr->insert(std::to_string(id), node);
-            }
-        }, tree);
     }
 }
 
