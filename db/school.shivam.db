@@ -27,6 +27,37 @@
           }
         ],
         "name": "students"
+      },
+      {
+        "columns": [
+          {
+            "constraints": [
+              "primary_key"
+            ],
+            "name": "id",
+            "type": "int"
+          },
+          {
+            "constraints": [
+              "unique"
+            ],
+            "length": 100,
+            "name": "rollno",
+            "type": "varchar"
+          },
+          {
+            "constraints": [],
+            "length": 100,
+            "name": "name",
+            "type": "varchar"
+          },
+          {
+            "constraints": [],
+            "name": "age",
+            "type": "int"
+          }
+        ],
+        "name": "testing"
       }
     ]
   }

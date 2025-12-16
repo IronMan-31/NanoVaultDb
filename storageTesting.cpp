@@ -3,7 +3,7 @@
 #include <cstdint>
 
 int main() {
-    std::ifstream in("/home/shivam/Desktop/learning/advanceCpp/distributed_Database/db/tables/school/students.index", std::ios::binary);
+    std::ifstream in("/home/shivam/Desktop/learning/advanceCpp/distributed_Database/db/tables/school/testing.index", std::ios::binary);
     std::ofstream out("output.txt");
 
     if (!in || !out) {
@@ -18,7 +18,7 @@ int main() {
         out << value;
         count++;
 
-        if (count % 5 == 0)
+        if (count % 7 == 0)
             out << '\n';   
         else
             out << ' ';   

@@ -14,6 +14,7 @@ int main(int argc, char const *argv[])
     initialDatabseLoad();
     initializePrimaryIndexBtrees();
 
+    std::cout<<"#### \n\n\n finished b+ \n\n\n\n ###";
 
 
     std::vector<std::string> testSQLs = {
@@ -23,17 +24,40 @@ int main(int argc, char const *argv[])
 // )",
 
 // R"(
-// CREATE TABLE students (
-//     id INT PRIMARY KEY,
-//     rollno VARCHAR(255) UNIQUE,
-//     name VARCHAR(100),
+// SELECT id, rollno, name
+// FROM students
+// WHERE rollno = 'CS101';
 
-// );
 // )"
+
+
+R"(
+SELECT * FROM testing
+WHERE rollno = "5";
+
+)"
+
+,
+R"(
+SELECT rollno, name, age FROM testing
+WHERE name = "Student3";
+
+)"
+,
+R"(
+SELECT * FROM testing
+WHERE age > 1;
+
+)"
 
 // R"(
 // INSERT INTO students (rollno)
 // VALUES ("23");
+// )",
+
+
+// R"(
+// CREATE DATABASE  school;
 // )",
 
 // R"(
@@ -46,12 +70,14 @@ int main(int argc, char const *argv[])
 // for (int i = 1; i <= 10; i++)
 // {
 //     std::string insertSQL =
-//         "INSERT INTO students (rollno, name) VALUES (\"" +
-//         std::to_string(i) + "\", \"Student" +
-//         std::to_string(i) + "\");";
+//         "INSERT INTO testing (rollno, name, age) VALUES (" +
+//         std::to_string(i) + ", \"Student" +
+//         std::to_string(i) + "\", " +
+//         std::to_string(18 + i) + ");";
 
 //     testSQLs.push_back(insertSQL);
 // }
+
 
 
     for (const auto &sql : testSQLs)

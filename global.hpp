@@ -11,15 +11,15 @@
 #include "databaseSchemaReader.hpp"
 #include "storageTree.hpp"
 
-
 // --- File Paths ---
 inline std::string currentDbPath = "./db/current_db.meta";
 inline std::string dbDirectoryPath = "./db";
-//inline std::string allTableDataDirectory = "./db/data";
+// inline std::string allTableDataDirectory = "./db/data";
 inline std::string currentDatabase = "";
 inline std::string tableDirectory = "./db/tables";
 // --- Schema Node Structure ---
-struct TableGlobalColumnNode {
+struct TableGlobalColumnNode
+{
     std::string type;
     std::string name;
     std::vector<std::string> constraint;
@@ -32,20 +32,20 @@ struct TableGlobalColumnNode {
 
 // --- JSON Parser Cache ---
 // db_name -> JSON parser
- std::unordered_map<std::string, std::shared_ptr<PythonLikeJSONParser>> globalJsonCache;
+std::unordered_map<std::string, std::shared_ptr<PythonLikeJSONParser>> globalJsonCache;
 
 // --- Table Metadata Cache ---
 // db_name -> table_name -> vector of column definitions
- std::unordered_map<
+std::unordered_map<
     std::string,
     std::unordered_map<
         std::string,
         std::vector<std::shared_ptr<TableGlobalColumnNode>>>>
     globalTableCache;
 
-
 // --- Index Node Representation ---
-struct IndexNode {
+struct IndexNode
+{
     int64_t start;
     int16_t end;
 };
@@ -58,16 +58,14 @@ using TreeVariant = std::variant<
 
 // --- B+ Tree Cache ---
 // db_name -> table_name -> column_name -> (B+ Tree, no of columns)
- std::unordered_map<
+std::unordered_map<
     std::string,
     std::unordered_map<
         std::string,
         std::unordered_map<
             std::string,
-            std::pair<TreeVariant,int64_t>>>>
+            std::pair<TreeVariant, int64_t>>>>
     dbBtrees;
-
-
 
 enum class ASTNodeType
 {
@@ -125,6 +123,12 @@ struct ASTNode
 struct Expression : public ASTNode
 {
     virtual ~Expression() = default;
+};
+
+using Value = std::variant<int64_t, std::string, bool>;
+struct Row
+{
+    std::unordered_map<std::string, Value> columns;
 };
 
 struct Identifier : public Expression

@@ -323,7 +323,7 @@ void loadAllNodesOfBtreeForUniqueKey(TreeVariant &tree, int64_t size, std::strin
             else
             {
                 // read string: assume fixed length or length-prefixed
-                uint32_t strSize = uniqueReadEndIndex - uniqueReadStartIndex + 1;
+                uint64_t strSize = uniqueReadEndIndex - uniqueReadStartIndex + 1;
                 std::cout<<"start "<<uniqueReadStartIndex<<" and end "<<uniqueReadEndIndex<<"\n";
                 std::string value(strSize, '\0');
                 dataFile.read(value.data(), strSize);
@@ -371,7 +371,7 @@ void loadAllNodesOfBtreeForUniqueKey(TreeVariant &tree, int64_t size, std::strin
                                if constexpr (std::is_same_v<ValType, int64_t>) {
                                    treePtr->insert(val, node);
                                } else {
-                                   // convert string to int64_t (may throw if invalid)
+                                   // convert string to int64_t 
                                    int64_t parsed = std::stoll(val);
                                    treePtr->insert(parsed, node);
                                }
