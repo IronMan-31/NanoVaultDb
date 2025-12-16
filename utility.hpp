@@ -100,8 +100,9 @@ namespace MyUtility
             }
             
         }
-
-        return std::make_pair(false, "the database not exist");
+        std::stringstream err;
+        err << "the table name "<<table <<" not exist";
+        return std::make_pair(false, err.str());
     }
 
 } // namespace MyUtility

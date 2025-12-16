@@ -159,7 +159,7 @@ void initialDatabseLoad()
 void loadAllNodesOfBtreeForPrimaryKey(TreeVariant &tree, int64_t size, std::string columnName)
 {
     std::stringstream indexFileName;
-    indexFileName << tableDirectory << "/" << currentDatabase << columnName << ".index";
+    indexFileName << tableDirectory << "/" << currentDatabase <<"/" << columnName << ".index";
     std::cout<<"INDEX FILE NAME "<<indexFileName.str()<<"\n";
     if (MyUtility::checkIfFileExist(indexFileName.str()))
     {
@@ -172,10 +172,11 @@ void loadAllNodesOfBtreeForPrimaryKey(TreeVariant &tree, int64_t size, std::stri
         }
 
         int64_t indexFileSize = PagerHandler::getFileSize(indexFileName.str());
+        std::cout<<"index file size is "<<indexFileSize<<"\n";
         int64_t divider = 8 * (2 * size - 1);
         int64_t getTotalNoOfRows = (int64_t)(indexFileSize / divider);
-
-        while (getTotalNoOfRows)
+        std::cout<<"Total No Of rows "<<getTotalNoOfRows<<"\n";
+        while (getTotalNoOfRows--)
         {
             int64_t id, start, end;
             std::streampos pos = indexFile.tellg();
@@ -192,10 +193,11 @@ void loadAllNodesOfBtreeForPrimaryKey(TreeVariant &tree, int64_t size, std::stri
 
             indexFile.read(reinterpret_cast<char *>(&id), sizeof(int64_t));
 
-            indexFile.seekg(sizeof(int64_t));
+            // indexFile.seekg(sizeof(int64_t),std::ios::cur);
+            
             // indexFile.read(reinterpret_cast<char *>(&start), sizeof(int64_t));
 
-            indexFile.seekg((2 * size - 1) * sizeof(int64_t));
+            indexFile.seekg((2 * (size - 1)) * sizeof(int64_t),std::ios::cur);
 
             std::streampos endpos = indexFile.tellg();
 
@@ -210,7 +212,7 @@ void loadAllNodesOfBtreeForPrimaryKey(TreeVariant &tree, int64_t size, std::stri
             }
 
             IndexNode node{start, end};
-
+            std::cout<<"id "<<id<<" start "<<start<<"end "<<end<<"\n";
             std::visit([id, node](auto &treePtr)
                        {
             using TreeType = std::decay_t<decltype(*treePtr)>;
@@ -267,8 +269,9 @@ void initializePrimaryIndexBtrees()
 
                     dbBtrees[dbName][tableName][columnName] = std::make_pair(std::move(tree),noOfColumns);
                     loadAllNodesOfBtreeForPrimaryKey(dbBtrees[dbName][tableName][columnName].first,noOfColumns,tableName);
+
                     std::cout << "Initialized B+ Tree for " << dbName
-                              << "." << tableName << "." << columnName << std::endl;
+                              << "." << tableName << "." << columnName << " " << "and size is " << noOfColumns <<std::endl;
                 }
             }
         }

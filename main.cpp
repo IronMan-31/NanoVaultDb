@@ -18,20 +18,23 @@ int main(int argc, char const *argv[])
 
     std::vector<std::string> testSQLs = {
 
-R"(
-CREATE DATABASE  ;
-)",
+// R"(
+// CREATE DATABASE  school;
+// )",
 
-R"(
-CREATE TABLE students (
-    rollno VARCHAR(255)
-);
-)",
+// R"(
+// CREATE TABLE students (
+//     id INT PRIMARY KEY,
+//     rollno VARCHAR(255),
+//     name VARCHAR(100),
 
-R"(
-INSERT INTO students (rollno)
-VALUES ("23");
-)",
+// );
+// )"
+
+// R"(
+// INSERT INTO students (rollno)
+// VALUES ("23");
+// )",
 
 // R"(
 // DROP TABLE students;
@@ -40,7 +43,7 @@ VALUES ("23");
 };
 
 
-// for (int i = 1; i <= 1000; i++)
+// for (int i = 1; i <= 10; i++)
 // {
 //     std::string insertSQL =
 //         "INSERT INTO students (rollno, name) VALUES (\"" +
