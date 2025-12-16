@@ -14,6 +14,7 @@ enum class TokenType
     // Keywords
     SELECT,
     FROM,
+    USE,
     WHERE,
     INSERT,
     INTO,
@@ -70,6 +71,7 @@ enum class TokenType
 // Make these static const to avoid multiple definition errors
 static const std::unordered_map<std::string, TokenType> keywords = {
     {"select", TokenType::SELECT},
+    {"use",TokenType::USE},
     {"from", TokenType::FROM},
     {"where", TokenType::WHERE},
     {"insert", TokenType::INSERT},
@@ -117,6 +119,7 @@ std::string typeToString(TokenType TYPE)
     // Keywords
     case TokenType::SELECT: return "SELECT";
     case TokenType::FROM: return "FROM";
+    case TokenType::USE: return "USE";
     case TokenType::WHERE: return "WHERE";
     case TokenType::INSERT: return "INSERT";
     case TokenType::INTO: return "INTO";
