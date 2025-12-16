@@ -1,36 +1,50 @@
-use std::ffi::CString;
+use std::ffi::{CString, CStr};
 use std::os::raw::c_char;
 use std::io::{self, Write};
+use std::env;
+use std::path::PathBuf;
+
 use termion::event::Key;
 use termion::input::TermRead;
 use termion::raw::IntoRawMode;
 
 #[link(name = "db_engine", kind = "static")]
 unsafe extern "C" {
-    fn initialize_database();
-    fn execute_sql(sql: *const c_char) -> i32;
+    fn initialize_database(base_path: *const c_char);
+    fn execute_sql(sql: *const c_char) -> *const c_char;
+    fn free_string(s: *const c_char);
     fn get_last_error() -> *const c_char;
 }
 
-fn call_cpp(sql: &str) -> Result<(), String> {
+fn call_cpp(sql: &str) -> Result<String, String> {
     unsafe {
         let c_sql = CString::new(sql).unwrap();
-        let res = execute_sql(c_sql.as_ptr());
-        if res == 0 {
-            Ok(())
-        } else {
+        let result_ptr = execute_sql(c_sql.as_ptr());
+
+        if result_ptr.is_null() {
             let err_ptr = get_last_error();
-            let err_msg = std::ffi::CStr::from_ptr(err_ptr)
-                .to_string_lossy()
-                .into_owned();
-            Err(err_msg)
+            if err_ptr.is_null() {
+                Err("Unknown database error".to_string())
+            } else {
+                Err(CStr::from_ptr(err_ptr).to_string_lossy().into_owned())
+            }
+        } else {
+            let result =
+                CStr::from_ptr(result_ptr).to_string_lossy().into_owned();
+            free_string(result_ptr);
+            Ok(result)
         }
     }
 }
 
-fn read_line_with_history(history: &Vec<String>, history_index: &mut usize, prompt: &str) -> String {
+fn read_line_with_history(
+    history: &Vec<String>,
+    history_index: &mut usize,
+    prompt: &str,
+) -> String {
     let stdin = io::stdin();
     let mut stdout = io::stdout().into_raw_mode().unwrap();
+
     write!(stdout, "{}", prompt).unwrap();
     stdout.flush().unwrap();
 
@@ -40,13 +54,27 @@ fn read_line_with_history(history: &Vec<String>, history_index: &mut usize, prom
 
     for key in stdin.keys() {
         match key.unwrap() {
-            Key::Char('\n') => { println!(); break; }
-            Key::Char(c) => { input.insert(cursor, c); cursor += 1; write!(stdout, "{}", c).unwrap(); stdout.flush().unwrap(); }
-            Key::Backspace => { 
+            Key::Char('\n') => {
+                println!();
+                break;
+            }
+            Key::Char(c) => {
+                input.insert(cursor, c);
+                cursor += 1;
+                write!(stdout, "{}", c).unwrap();
+                stdout.flush().unwrap();
+            }
+            Key::Backspace => {
                 if cursor > 0 {
                     cursor -= 1;
                     input.remove(cursor);
-                    write!(stdout, "{} {}", termion::cursor::Left(1), termion::cursor::Left(1)).unwrap();
+                    write!(
+                        stdout,
+                        "{} {}",
+                        termion::cursor::Left(1),
+                        termion::cursor::Left(1)
+                    )
+                    .unwrap();
                     stdout.flush().unwrap();
                 }
             }
@@ -61,7 +89,9 @@ fn read_line_with_history(history: &Vec<String>, history_index: &mut usize, prom
                 }
             }
             Key::Down => {
-                if !history.is_empty() && local_history_index < history.len() - 1 {
+                if !history.is_empty()
+                    && local_history_index < history.len() - 1
+                {
                     local_history_index += 1;
                     input = history[local_history_index].clone();
                     cursor = input.len();
@@ -84,14 +114,29 @@ fn read_line_with_history(history: &Vec<String>, history_index: &mut usize, prom
 }
 
 fn main() {
-    unsafe { initialize_database(); }
+    let exe_path = env::current_exe().expect("Failed to get exe path");
+
+    let base_dir: PathBuf = exe_path
+        .parent().unwrap() 
+        .parent().unwrap() 
+        .parent().unwrap() 
+        .parent().unwrap() 
+        .to_path_buf();
+
+    let base_c = CString::new(base_dir.to_str().unwrap()).unwrap();
+
+    unsafe {
+        initialize_database(base_c.as_ptr());
+    }
+
     println!("nanoVaultDb initialized.");
 
     let mut history: Vec<String> = Vec::new();
     let mut history_index = 0;
 
     loop {
-        let mut sql = read_line_with_history(&history, &mut history_index, "nanoVaultDb> ");
+        let mut sql =
+            read_line_with_history(&history, &mut history_index, "nanoVaultDb> ");
 
         if sql.trim() == "exit" || sql.trim() == "quit" {
             break;
@@ -103,7 +148,8 @@ fn main() {
         }
 
         while !sql.contains(';') {
-            let more = read_line_with_history(&history, &mut history_index, " ...> ");
+            let more =
+                read_line_with_history(&history, &mut history_index, " ...> ");
             if !more.trim().is_empty() {
                 history.push(more.clone());
                 history_index = history.len();
@@ -112,9 +158,9 @@ fn main() {
             sql.push_str(&more);
         }
 
-        let result = unsafe { call_cpp(&sql) };
-        if let Err(e) = result {
-            eprintln!("Error: {}", e);
+        match call_cpp(&sql) {
+            Ok(output) => println!("{}", output),
+            Err(e) => eprintln!("Error: {}", e),
         }
     }
 

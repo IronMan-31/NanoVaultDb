@@ -32,23 +32,22 @@ int main(int argc, char const *argv[])
 
 
 R"(
-SELECT * FROM testing
-WHERE rollno = "5";
+use testing;
 
 )"
 
-,
-R"(
-SELECT rollno, name, age FROM testing
-WHERE name = "Student3";
+// ,
+// R"(
+// SELECT rollno, name, age FROM testing
+// WHERE name = "Student3";
 
-)"
-,
-R"(
-SELECT * FROM testing
-WHERE age > 1;
+// )"
+// ,
+// R"(
+// SELECT * FROM testing
+// WHERE age > 1;
 
-)"
+// )"
 
 // R"(
 // INSERT INTO students (rollno)
