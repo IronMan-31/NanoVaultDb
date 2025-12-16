@@ -25,7 +25,7 @@ int main(int argc, char const *argv[])
 // R"(
 // CREATE TABLE students (
 //     id INT PRIMARY KEY,
-//     rollno VARCHAR(255),
+//     rollno VARCHAR(255) UNIQUE,
 //     name VARCHAR(100),
 
 // );

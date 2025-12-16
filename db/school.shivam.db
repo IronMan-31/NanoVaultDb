@@ -12,7 +12,9 @@
             "type": "int"
           },
           {
-            "constraints": [],
+            "constraints": [
+              "unique"
+            ],
             "length": 255,
             "name": "rollno",
             "type": "varchar"
