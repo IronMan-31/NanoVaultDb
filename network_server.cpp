@@ -112,7 +112,14 @@ void handleClient(int client_fd) {
 int main() {
     signal(SIGINT, handleSignal);
     initialDatabseLoad();
-    initializePrimaryIndexBtrees();
+    try
+    {
+       initializePrimaryIndexBtrees();
+    }
+    catch(const std::exception& e)
+    {
+        
+    }
     int server_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (server_fd < 0) {
         perror("socket");
