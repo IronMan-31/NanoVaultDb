@@ -23,9 +23,9 @@ int main(int argc, char const *argv[])
 
     std::vector<std::string> testSQLs = {
 
-// R"(
-// CREATE DATABASE  school;
-// )",
+R"(
+CREATE DATABASE demo;
+)",
 
 // R"(
 // SELECT id, rollno, name
@@ -35,6 +35,10 @@ int main(int argc, char const *argv[])
 // )"
 
 
+R"(
+use testing;
+
+// )"
 
 // ,
 // R"(
@@ -62,12 +66,15 @@ use testing;
 
 
 // R"(
-// CREATE DATABASE  school;
+// USE demo;
 // )",
 
+R"(
+DROP DATABASE demo;
+)"
 // R"(
-// DROP TABLE students;
-// )"
+// USE school;
+// )",
 
 };
 

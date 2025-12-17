@@ -15,6 +15,7 @@
 #include "utility.hpp"
 #include "generator.hpp"
 #include "selectAstEvaluator.hpp"
+#include "initialLoad.hpp"
 
 namespace fs = std::filesystem; // Shorthand for std::filesystem
 
@@ -149,6 +150,11 @@ public:
     std::unique_ptr<InsertStatement> parseInsertStatement()
     {
         expect(TokenType::INSERT, "Expected 'INSERT'");
+
+        if (currentDb.empty()){
+            throw std::runtime_error("No database selected. Use USE <db_name>;");
+        }
+
         expect(TokenType::INTO, "Expected 'INTO'");
 
         Token *tableToken = expect(TokenType::IDENTIFIER, "Expected table name");
@@ -197,6 +203,31 @@ public:
         return stmt;
     }
 
+    std::string parseUseStatement(){
+        expect(TokenType::USE, "Expected USE keyword");
+
+        Token* dbName = expect(TokenType::IDENTIFIER, "Expected database name after USE");
+        expect(TokenType::SEMICOLON, "Expected ';' after USE statement");
+
+        std::string newDb = dbName->VALUE;
+        std::stringstream filename;
+        filename << "./db/" << newDb << ".shivam.db";
+
+        if (!MyUtility::checkIfFileExist(filename.str()))
+        {
+            throw std::runtime_error("Database does not exist: " + newDb);
+        }
+        globalJsonCache.clear();
+        globalTableCache.clear();
+        dbBtrees.clear();
+        currentDatabase = newDb;
+        this->currentDb=newDb;
+        MyUtility::changeCurrentDb(newDb);
+        initialDatabseLoad();
+        return newDb;
+    }
+
+
     std::unique_ptr<CreateStatement> parseCreateStatement()
     {
         expect(TokenType::CREATE, "Expected CREATE keyword");
@@ -204,6 +235,9 @@ public:
 
         if (match(TokenType::TABLE))
         {
+            if (currentDb.empty()){
+                throw std::runtime_error("No database selected. Use USE <db_name>;");
+            }
             Token *tableName = expect(TokenType::IDENTIFIER, "Expected table name");
             stmt->name = tableName->VALUE;
 
@@ -320,6 +354,9 @@ public:
     std::unique_ptr<DropStatement> parseDropStatement()
     {
         expect(TokenType::DROP, "Expected drop keyword");
+        if (currentDb.empty()){
+                throw std::runtime_error("No database selected. Use USE <db_name>;");
+        }
         auto stmt = std::make_unique<DropStatement>();
         Token *token = advance();
         switch (token->TYPE)
@@ -327,6 +364,7 @@ public:
         case TokenType::TABLE:
         {
             Token *identifier = expect(TokenType::IDENTIFIER, "not a identifier\n");
+
             stmt->name = identifier->VALUE;
             stmt->istable = true;
             CommandRunner::generateDropStatement(stmt);
@@ -340,6 +378,12 @@ public:
             stmt->name = identifier->VALUE;
             stmt->istable = false;
             CommandRunner::generateDropStatement(stmt);
+            globalJsonCache.clear();
+            globalTableCache.clear();
+            dbBtrees.clear();
+            MyUtility::changeCurrentDb("");
+            currentDatabase="";
+            currentDb="";
             break;
         }
 
@@ -357,7 +401,12 @@ public:
     {
         expect(TokenType::SELECT, "Expected SELECT keyword");
 
-        auto stmt = std::make_unique<SelectStatement>();
+    if (currentDb.empty()){
+            throw std::runtime_error("No database selected. Use USE <db_name>;");
+        }
+
+
+    auto stmt = std::make_unique<SelectStatement>();
 
         // Handle SELECT *
         if (match(TokenType::MULTIPLY))
@@ -660,26 +709,34 @@ public:
         }
         else if (match(TokenType::DROP))
         {
-            try
-            {
-
-                rewind();
-                auto stmt = parseDropStatement();
-            }
-            catch (const std::exception &err)
-            {
-                std::stringstream e;
-                e << "{"
-                  << "\"success\": false, "
-                  << "\"error\": \"\033[31m" << err.what() << "\033[0m\""
-                  << "}";
-
-                return e.str();
-            }
+            rewind();
+            auto stmt = parseDropStatement();
+            printDropStatement(*stmt);
+        }
+        else if (match(TokenType::USE))
+        {
+            rewind();
+            std::string dbname=parseUseStatement();
+            printUseStatement(dbname);
         }
         else
         {
-            throw std::runtime_error("Unsupported SQL statement or missing statement type (CREATE, INSERT, SELECT, DROP)");
+            throw std::runtime_error("Unsupported SQL statement or missing statement type (CREATE, INSERT, SELECT, DROP, USE)");
+        }
+    }
+
+    void printUseStatement(std::string &dbname){
+        std::cout<<"USE"<<" ";
+        std::cout<<dbname<<";"<<"\n";
+    }
+
+    void printDropStatement(const DropStatement &stmt){
+        bool table=stmt.istable;
+        std::cout<<"DROP"<<" ";
+        if (table){
+            std::cout<<"TABLE"<<" "<<stmt.name<<";";
+        }else{
+            std::cout<<"DATABASE"<<" "<<stmt.name<<";"<<"\n";
         }
     }
 
