@@ -31,9 +31,8 @@ CREATE DATABASE demo;
 // )"
 
 
-// R"(
-// SELECT * FROM testing
-// WHERE rollno = "5";
+R"(
+use testing;
 
 // )"
 

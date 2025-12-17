@@ -393,13 +393,13 @@ public:
         return stmt;
     }
 
-// =====================
-// AST Parser (SELECT)
-// =====================
+    // =====================
+    // AST Parser (SELECT)
+    // =====================
 
-std::unique_ptr<SelectStatement> parseSelectStatement()
-{
-    expect(TokenType::SELECT, "Expected SELECT keyword");
+    std::unique_ptr<SelectStatement> parseSelectStatement()
+    {
+        expect(TokenType::SELECT, "Expected SELECT keyword");
 
     if (currentDb.empty()){
             throw std::runtime_error("No database selected. Use USE <db_name>;");
@@ -408,179 +408,211 @@ std::unique_ptr<SelectStatement> parseSelectStatement()
 
     auto stmt = std::make_unique<SelectStatement>();
 
-    // Handle SELECT *
-    if (match(TokenType::MULTIPLY))
-    {
-        stmt->columns.push_back("*");
-    }
-    else
-    {
-        // SELECT col1, col2, ...
-        while (true)
+        // Handle SELECT *
+        if (match(TokenType::MULTIPLY))
         {
-            Token* column = expect(TokenType::IDENTIFIER, "Expected column name");
-            stmt->columns.push_back(column->VALUE);
+            stmt->columns.push_back("*");
+        }
+        else
+        {
+            // SELECT col1, col2, ...
+            while (true)
+            {
+                Token *column = expect(TokenType::IDENTIFIER, "Expected column name");
+                stmt->columns.push_back(column->VALUE);
 
-            if (!match(TokenType::COMMA))
+                if (!match(TokenType::COMMA))
+                    break;
+            }
+        }
+
+        expect(TokenType::FROM, "Expected FROM keyword");
+        Token *table = expect(TokenType::IDENTIFIER, "Expected table name");
+        stmt->table = table->VALUE;
+
+        // Optional WHERE clause
+        if (match(TokenType::WHERE))
+        {
+            auto condition = parseExpression();
+            stmt->whereClause = std::make_unique<WhereClause>(std::move(condition));
+        }
+
+        // Optional LIMIT clause
+        if (match(TokenType::IDENTIFIER) && previous()->VALUE == "limit")
+        {
+            Token *limitValue = expect(TokenType::NUMBER, "Expected number after LIMIT");
+            stmt->limitClause = std::make_unique<LimitClause>(std::stoi(limitValue->VALUE));
+        }
+
+        return stmt;
+    }
+
+    // =====================
+    // Expression Parsing
+    // =====================
+
+    std::unique_ptr<Expression> parseExpression()
+    {
+        return parseLogical();
+    }
+
+    std::unique_ptr<Expression> parseLogical()
+    {
+        auto left = parseComparison();
+
+        while (match(TokenType::AND) || match(TokenType::OR))
+        {
+            LogicalOperator op = (previous()->TYPE == TokenType::AND)
+                                     ? LogicalOperator::AND
+                                     : LogicalOperator::OR;
+
+            auto right = parseComparison();
+            left = std::make_unique<LogicalExpression>(std::move(left), op, std::move(right));
+        }
+
+        return left;
+    }
+
+    std::unique_ptr<Expression> parseComparison()
+    {
+        auto left = parsePrimary();
+
+        if (match(TokenType::EQUAL) || match(TokenType::NOT_EQUAL) ||
+            match(TokenType::GREATER) || match(TokenType::LESS) ||
+            match(TokenType::GREATER_EQUAL) || match(TokenType::LESS_EQUAL))
+        {
+            TokenType opToken = previous()->TYPE;
+            ComparisonOperator op;
+
+            switch (opToken)
+            {
+            case TokenType::EQUAL:
+                op = ComparisonOperator::EQUAL;
                 break;
+            case TokenType::NOT_EQUAL:
+                op = ComparisonOperator::NOT_EQUAL;
+                break;
+            case TokenType::GREATER:
+                op = ComparisonOperator::GREATER;
+                break;
+            case TokenType::LESS:
+                op = ComparisonOperator::LESS;
+                break;
+            case TokenType::GREATER_EQUAL:
+                op = ComparisonOperator::GREATER_EQUAL;
+                break;
+            case TokenType::LESS_EQUAL:
+                op = ComparisonOperator::LESS_EQUAL;
+                break;
+            default:
+                throw std::runtime_error("Invalid comparison operator");
+            }
+
+            auto right = parsePrimary();
+            return std::make_unique<ComparisonExpression>(std::move(left), op, std::move(right));
         }
+
+        return left;
     }
 
-    expect(TokenType::FROM, "Expected FROM keyword");
-    Token* table = expect(TokenType::IDENTIFIER, "Expected table name");
-    stmt->table = table->VALUE;
-
-    // Optional WHERE clause
-    if (match(TokenType::WHERE))
+    std::unique_ptr<Expression> parsePrimary()
     {
-        auto condition = parseExpression();
-        stmt->whereClause = std::make_unique<WhereClause>(std::move(condition));
-    }
-
-    // Optional LIMIT clause
-    if (match(TokenType::IDENTIFIER) && previous()->VALUE == "limit")
-    {
-        Token* limitValue = expect(TokenType::NUMBER, "Expected number after LIMIT");
-        stmt->limitClause = std::make_unique<LimitClause>(std::stoi(limitValue->VALUE));
-    }
-
-   
-    return stmt;
-}
-
-// =====================
-// Expression Parsing
-// =====================
-
-std::unique_ptr<Expression> parseExpression()
-{
-    return parseLogical();
-}
-
-std::unique_ptr<Expression> parseLogical()
-{
-    auto left = parseComparison();
-
-    while (match(TokenType::AND) || match(TokenType::OR))
-    {
-        LogicalOperator op = (previous()->TYPE == TokenType::AND)
-                             ? LogicalOperator::AND
-                             : LogicalOperator::OR;
-
-        auto right = parseComparison();
-        left = std::make_unique<LogicalExpression>(std::move(left), op, std::move(right));
-    }
-
-    return left;
-}
-
-std::unique_ptr<Expression> parseComparison()
-{
-    auto left = parsePrimary();
-
-    if (match(TokenType::EQUAL) || match(TokenType::NOT_EQUAL) ||
-        match(TokenType::GREATER) || match(TokenType::LESS) ||
-        match(TokenType::GREATER_EQUAL) || match(TokenType::LESS_EQUAL))
-    {
-        TokenType opToken = previous()->TYPE;
-        ComparisonOperator op;
-
-        switch (opToken)
+        if (match(TokenType::OPEN_PAREN))
         {
-            case TokenType::EQUAL:         op = ComparisonOperator::EQUAL; break;
-            case TokenType::NOT_EQUAL:     op = ComparisonOperator::NOT_EQUAL; break;
-            case TokenType::GREATER:       op = ComparisonOperator::GREATER; break;
-            case TokenType::LESS:          op = ComparisonOperator::LESS; break;
-            case TokenType::GREATER_EQUAL: op = ComparisonOperator::GREATER_EQUAL; break;
-            case TokenType::LESS_EQUAL:    op = ComparisonOperator::LESS_EQUAL; break;
-            default: throw std::runtime_error("Invalid comparison operator");
+            auto expr = parseExpression();
+            expect(TokenType::CLOSE_PAREN, "Expected ')'");
+            return std::make_unique<ParenthesizedExpression>(std::move(expr));
         }
 
-        auto right = parsePrimary();
-        return std::make_unique<ComparisonExpression>(std::move(left), op, std::move(right));
+        if (match(TokenType::IDENTIFIER))
+        {
+            std::string val = previous()->VALUE;
+            if (val == "true" || val == "false")
+                return std::make_unique<BoolLiteral>(val == "true");
+            return std::make_unique<Identifier>(val);
+        }
+
+        if (match(TokenType::NUMBER))
+        {
+            return std::make_unique<IntLiteral>(std::stoi(previous()->VALUE));
+        }
+
+        if (match(TokenType::STRING))
+        {
+            return std::make_unique<StringLiteral>(previous()->VALUE);
+        }
+
+        throw std::runtime_error("Unexpected token in expression");
     }
 
-    return left;
-}
+    // =====================
+    // AST Printing Utility
+    // =====================
 
-std::unique_ptr<Expression> parsePrimary()
-{
-    if (match(TokenType::OPEN_PAREN))
+    void printExpression(const Expression *expr, int indent = 0)
     {
-        auto expr = parseExpression();
-        expect(TokenType::CLOSE_PAREN, "Expected ')'");
-        return std::make_unique<ParenthesizedExpression>(std::move(expr));
-    }
+        auto pad = [indent]()
+        { for (int i = 0; i < indent; ++i) std::cout << "  "; };
 
-    if (match(TokenType::IDENTIFIER))
-    {
-        std::string val = previous()->VALUE;
-        if (val == "true" || val == "false")
-            return std::make_unique<BoolLiteral>(val == "true");
-        return std::make_unique<Identifier>(val);
-    }
+        if (!expr)
+            return;
 
-    if (match(TokenType::NUMBER))
-    {
-        return std::make_unique<IntLiteral>(std::stoi(previous()->VALUE));
-    }
-
-    if (match(TokenType::STRING))
-    {
-        return std::make_unique<StringLiteral>(previous()->VALUE);
-    }
-
-    throw std::runtime_error("Unexpected token in expression");
-}
-
-// =====================
-// AST Printing Utility
-// =====================
-
-void printExpression(const Expression* expr, int indent = 0)
-{
-    auto pad = [indent]() { for (int i = 0; i < indent; ++i) std::cout << "  "; };
-
-    if (!expr) return;
-
-    switch (expr->getType())
-    {
+        switch (expr->getType())
+        {
         case ASTNodeType::IDENTIFIER:
         {
-            const auto* id = static_cast<const Identifier*>(expr);
-            pad(); std::cout << "Identifier: " << id->name << "\n";
+            const auto *id = static_cast<const Identifier *>(expr);
+            pad();
+            std::cout << "Identifier: " << id->name << "\n";
             break;
         }
         case ASTNodeType::INT_LITERAL:
         {
-            const auto* num = static_cast<const IntLiteral*>(expr);
-            pad(); std::cout << "IntLiteral: " << num->value << "\n";
+            const auto *num = static_cast<const IntLiteral *>(expr);
+            pad();
+            std::cout << "IntLiteral: " << num->value << "\n";
             break;
         }
         case ASTNodeType::STRING_LITERAL:
         {
-            const auto* str = static_cast<const StringLiteral*>(expr);
-            pad(); std::cout << "StringLiteral: \"" << str->value << "\"\n";
+            const auto *str = static_cast<const StringLiteral *>(expr);
+            pad();
+            std::cout << "StringLiteral: \"" << str->value << "\"\n";
             break;
         }
         case ASTNodeType::BOOLEAN_LITERAL:
         {
-            const auto* b = static_cast<const BoolLiteral*>(expr);
-            pad(); std::cout << "BoolLiteral: " << (b->value ? "true" : "false") << "\n";
+            const auto *b = static_cast<const BoolLiteral *>(expr);
+            pad();
+            std::cout << "BoolLiteral: " << (b->value ? "true" : "false") << "\n";
             break;
         }
         case ASTNodeType::COMPARISON_EXPRESSION:
         {
-            const auto* comp = static_cast<const ComparisonExpression*>(expr);
-            pad(); std::cout << "ComparisonExpression: ";
+            const auto *comp = static_cast<const ComparisonExpression *>(expr);
+            pad();
+            std::cout << "ComparisonExpression: ";
             switch (comp->op)
             {
-                case ComparisonOperator::EQUAL: pad(); std::cout << "==\n"; break;
-                case ComparisonOperator::NOT_EQUAL: std::cout << "!=\n"; break;
-                case ComparisonOperator::GREATER: std::cout << ">\n"; break;
-                case ComparisonOperator::LESS: std::cout << "<\n"; break;
-                case ComparisonOperator::GREATER_EQUAL: std::cout << ">=\n"; break;
-                case ComparisonOperator::LESS_EQUAL: std::cout << "<=\n"; break;
+            case ComparisonOperator::EQUAL:
+                pad();
+                std::cout << "==\n";
+                break;
+            case ComparisonOperator::NOT_EQUAL:
+                std::cout << "!=\n";
+                break;
+            case ComparisonOperator::GREATER:
+                std::cout << ">\n";
+                break;
+            case ComparisonOperator::LESS:
+                std::cout << "<\n";
+                break;
+            case ComparisonOperator::GREATER_EQUAL:
+                std::cout << ">=\n";
+                break;
+            case ComparisonOperator::LESS_EQUAL:
+                std::cout << "<=\n";
+                break;
             }
             printExpression(comp->left.get(), indent + 1);
             printExpression(comp->right.get(), indent + 1);
@@ -588,46 +620,92 @@ void printExpression(const Expression* expr, int indent = 0)
         }
         case ASTNodeType::LOGICAL_EXPRESSION:
         {
-            const auto* log = static_cast<const LogicalExpression*>(expr);
-            pad(); std::cout << "LogicalExpression: " << (log->op == LogicalOperator::AND ? "AND" : "OR") << "\n";
+            const auto *log = static_cast<const LogicalExpression *>(expr);
+            pad();
+            std::cout << "LogicalExpression: " << (log->op == LogicalOperator::AND ? "AND" : "OR") << "\n";
             printExpression(log->left.get(), indent + 1);
             printExpression(log->right.get(), indent + 1);
             break;
         }
         case ASTNodeType::PARENTHESIZED_EXPRESSION:
         {
-            const auto* paren = static_cast<const ParenthesizedExpression*>(expr);
-            pad(); std::cout << "ParenthesizedExpression:\n";
+            const auto *paren = static_cast<const ParenthesizedExpression *>(expr);
+            pad();
+            std::cout << "ParenthesizedExpression:\n";
             printExpression(paren->expression.get(), indent + 1);
             break;
         }
         default:
-            pad(); std::cout << "Unknown Expression Type\n";
+            pad();
+            std::cout << "Unknown Expression Type\n";
+        }
     }
-}
 
-    void parse()
+    std::string parse()
     {
+        std::string r = "{\"suceess\" : true}";
         if (match(TokenType::CREATE))
         {
             rewind(); // Go back one token to reprocess CREATE in parseCreateStatement
-            auto stmt = parseCreateStatement();
-            printCreateStatement(*stmt);
+            try
+            {
+                auto stmt = parseCreateStatement();
+                printCreateStatement(*stmt);
+                return r;
+            }
+            catch (const std::exception &err)
+            {
+                std::stringstream e;
+                e << "{"
+                  << "\"success\": false, "
+                  << "\"error\": \"\033[31m" << err.what() << "\033[0m\""
+                  << "}";
+
+                return e.str();
+            }
         }
         else if (match(TokenType::INSERT))
         {
             rewind();
-            auto stmt = parseInsertStatement();
-            // printInsertStatement(*stmt);
+            try
+            {
+
+                auto stmt = parseInsertStatement();
+                // printInsertStatement(*stmt);
+            }
+            catch (const std::exception &err)
+            {
+                std::stringstream e;
+                e << "{"
+                  << "\"success\": false, "
+                  << "\"error\": \"\033[31m" << err.what() << "\033[0m\""
+                  << "}";
+
+                return e.str();
+            }
         }
         else if (match(TokenType::SELECT))
         {
-            rewind();
-            auto stmt = parseSelectStatement();
-             std::string json = SelectQueryHandler::handle(stmt);
-            std::cout<<"SELECT STATEMENT JSON \n";
-            std::cout<<json<<"\n";
-            printSelectStatement(*stmt);
+            try
+            {
+                rewind();
+                auto stmt = parseSelectStatement();
+                std::string json = SelectQueryHandler::handle(stmt);
+                std::cout << "SELECT STATEMENT JSON \n";
+                std::cout << json << "\n";
+                printSelectStatement(*stmt);
+                return json;
+            }
+            catch (const std::exception &err)
+            {
+                std::stringstream e;
+                e << "{"
+                  << "\"success\": false, "
+                  << "\"error\": \"\033[31m" << err.what() << "\033[0m\""
+                  << "}";
+
+                return e.str();
+            }
         }
         else if (match(TokenType::DROP))
         {

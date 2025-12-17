@@ -88,7 +88,7 @@ int main()
         Lexer lexer(s);
         vector<Token*> tokens = lexer.tokenize();
         Parser parser(tokens);
-        parser.parse();
+        std::string output =  parser.parse();
     }
 
     int historyIndex = 0;
@@ -127,7 +127,8 @@ int main()
             Lexer lexer(sql);
             vector<Token*> tokens = lexer.tokenize();
             Parser parser(tokens);
-            parser.parse();
+            std::string output = parser.parse();
+            std::cout<<output<<"\n";
             clear_log();
         }
         catch (const std::exception& e)
