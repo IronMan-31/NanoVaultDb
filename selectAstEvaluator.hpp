@@ -281,6 +281,6 @@ namespace SelectQueryHandler
 
         return std::move(json.str());
     }
-} // namespace SelectHandler
+}
 
 #endif

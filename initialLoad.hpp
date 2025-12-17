@@ -10,7 +10,6 @@
 #include <climits>
 #include "global.hpp"
 #include "utility.hpp"
-#include <format>
 #include <string>
 namespace fs = std::filesystem;
 
@@ -55,6 +54,7 @@ void initialDatabseLoad()
 {
     std::string currentDbMeta = "./db/current_db.meta";
     std::string dbName = getCurrentDatabase(currentDbMeta);
+    if (dbName=="") return;
     currentDatabase = dbName;
     for (const auto &entry : fs::directory_iterator(dbDirectoryPath))
     {
