@@ -29,82 +29,91 @@ fn call_cpp(sql: &str) -> Result<String, String> {
                 Err(CStr::from_ptr(err_ptr).to_string_lossy().into_owned())
             }
         } else {
-            let result =
-                CStr::from_ptr(result_ptr).to_string_lossy().into_owned();
+            let result = CStr::from_ptr(result_ptr)
+                .to_string_lossy()
+                .into_owned();
             free_string(result_ptr);
             Ok(result)
         }
     }
 }
 
+fn redraw_line(
+    stdout: &mut impl Write,
+    prompt: &str,
+    input: &str,
+    cursor: usize,
+) {
+    write!(
+        stdout,
+        "\r{}{}{}",
+        termion::clear::CurrentLine,
+        prompt,
+        input
+    )
+    .unwrap();
+
+    let pos = prompt.len() + cursor;
+    write!(stdout, "\r{}", termion::cursor::Right(pos as u16)).unwrap();
+    stdout.flush().unwrap();
+}
+
 fn read_line_with_history(
-    history: &Vec<String>,
+    history: &[String],
     history_index: &mut usize,
     prompt: &str,
 ) -> String {
     let stdin = io::stdin();
     let mut stdout = io::stdout().into_raw_mode().unwrap();
 
-    write!(stdout, "{}", prompt).unwrap();
-    stdout.flush().unwrap();
-
     let mut input = String::new();
     let mut cursor = 0;
     let mut local_history_index = *history_index;
 
+    redraw_line(&mut stdout, prompt, &input, cursor);
+
     for key in stdin.keys() {
         match key.unwrap() {
             Key::Char('\n') => {
-                println!();
+                write!(stdout, "\r\n").unwrap();
                 break;
             }
+
             Key::Char(c) => {
                 input.insert(cursor, c);
                 cursor += 1;
-                write!(stdout, "{}", c).unwrap();
-                stdout.flush().unwrap();
+                redraw_line(&mut stdout, prompt, &input, cursor);
             }
+
             Key::Backspace => {
                 if cursor > 0 {
                     cursor -= 1;
                     input.remove(cursor);
-                    write!(
-                        stdout,
-                        "{} {}",
-                        termion::cursor::Left(1),
-                        termion::cursor::Left(1)
-                    )
-                    .unwrap();
-                    stdout.flush().unwrap();
+                    redraw_line(&mut stdout, prompt, &input, cursor);
                 }
             }
+
             Key::Up => {
                 if !history.is_empty() && local_history_index > 0 {
                     local_history_index -= 1;
                     input = history[local_history_index].clone();
                     cursor = input.len();
-                    write!(stdout, "\r\x1B[2K{}", prompt).unwrap();
-                    write!(stdout, "{}", input).unwrap();
-                    stdout.flush().unwrap();
+                    redraw_line(&mut stdout, prompt, &input, cursor);
                 }
             }
+
             Key::Down => {
-                if !history.is_empty()
-                    && local_history_index < history.len() - 1
-                {
+                if local_history_index + 1 < history.len() {
                     local_history_index += 1;
                     input = history[local_history_index].clone();
-                    cursor = input.len();
-                    write!(stdout, "\r\x1B[2K{}", prompt).unwrap();
-                    write!(stdout, "{}", input).unwrap();
-                    stdout.flush().unwrap();
                 } else {
+                    local_history_index = history.len();
                     input.clear();
-                    cursor = 0;
-                    write!(stdout, "\r\x1B[2K{}", prompt).unwrap();
-                    stdout.flush().unwrap();
                 }
+                cursor = input.len();
+                redraw_line(&mut stdout, prompt, &input, cursor);
             }
+
             _ => {}
         }
     }
@@ -117,10 +126,10 @@ fn main() {
     let exe_path = env::current_exe().expect("Failed to get exe path");
 
     let base_dir: PathBuf = exe_path
-        .parent().unwrap() 
-        .parent().unwrap() 
-        .parent().unwrap() 
-        .parent().unwrap() 
+        .parent().unwrap()
+        .parent().unwrap()
+        .parent().unwrap()
+        .parent().unwrap()
         .to_path_buf();
 
     let base_c = CString::new(base_dir.to_str().unwrap()).unwrap();
@@ -132,13 +141,13 @@ fn main() {
     println!("nanoVaultDb initialized.");
 
     let mut history: Vec<String> = Vec::new();
-    let mut history_index = 0;
+    let mut history_index: usize = 0;
 
     loop {
         let mut sql =
             read_line_with_history(&history, &mut history_index, "nanoVaultDb> ");
 
-        if sql.trim() == "exit" || sql.trim() == "quit" {
+        if matches!(sql.trim(), "exit" | "quit") {
             break;
         }
 
@@ -150,10 +159,12 @@ fn main() {
         while !sql.contains(';') {
             let more =
                 read_line_with_history(&history, &mut history_index, " ...> ");
+
             if !more.trim().is_empty() {
                 history.push(more.clone());
                 history_index = history.len();
             }
+
             sql.push('\n');
             sql.push_str(&more);
         }

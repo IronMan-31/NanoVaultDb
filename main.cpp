@@ -1,3 +1,7 @@
+// g++ -c db_engine.cpp -o db_engine.o
+// ar rcs libdb_engine.a db_engine.o
+
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -31,10 +35,6 @@ int main(int argc, char const *argv[])
 // )"
 
 
-R"(
-use testing;
-
-)"
 
 // ,
 // R"(
@@ -43,11 +43,17 @@ use testing;
 
 // )"
 // ,
-// R"(
-// SELECT * FROM testing
-// WHERE age > 1;
+R"(
+SELECT * FROM testing
+WHERE age > 1;
 
-// )"
+)",
+
+R"(
+use testing;
+
+)"
+
 
 // R"(
 // INSERT INTO students (rollno)
