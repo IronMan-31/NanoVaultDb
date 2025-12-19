@@ -29,15 +29,41 @@ int main(int argc, char const *argv[])
 
     std::vector<std::string> testSQLs = {
 R"(
+    USE school;
+)",
+R"(
+    CREATE DATABASE test;
+)",
+R"(
+CREATE TABLE StudentRolls (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    roll_no INT NOT NULL
+);
+)",
+R"(
+INSERT INTO StudentRolls (roll_no)
+VALUES (101);
+)",
+R"(
+DROP TABLE StudentRolls;
+)",
+R"(
+DROP DATABASE test;
+)",
+R"(
 USE school;
 )",
 R"(
-MEMORY KEY=a VALUES=123 TTL=10;
+MEMORY KEY=a VALUES=123 TTL=5;
 )",
-
 R"(
 MEMORY GET KEY=a;
 )",
+
+// R"(
+// INSERT INTO StudentRolls (roll_no)
+// VALUES (101);
+// )",
 };
 
 
@@ -51,7 +77,6 @@ MEMORY GET KEY=a;
 
 //     testSQLs.push_back(insertSQL);
 // }
-
 
 
     for (const auto &sql : testSQLs)
