@@ -45,6 +45,9 @@ INSERT INTO StudentRolls (roll_no)
 VALUES (101);
 )",
 R"(
+SELECT * FROM StudentRolls;
+)",
+R"(
 DROP TABLE StudentRolls;
 )",
 R"(
@@ -59,11 +62,6 @@ MEMORY KEY=a VALUES=123 TTL=5;
 R"(
 MEMORY GET KEY=a;
 )",
-
-// R"(
-// INSERT INTO StudentRolls (roll_no)
-// VALUES (101);
-// )",
 };
 
 

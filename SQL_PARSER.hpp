@@ -400,25 +400,13 @@ public:
         if (value.empty())
             throw std::runtime_error("MEMORY command missing VALUE");
 
-        MemoryEntry entry;
-        entry.value = value;
-
-        if (ttl < 0)
-        {
-            entry.expiry = std::chrono::steady_clock::time_point::max();
-        }
-        else
-        {
-            entry.expiry =
-                std::chrono::steady_clock::now() + std::chrono::seconds(ttl);
-        }
-
-        memoryStore[key] = entry;
+        CommandRunner::memorySet(key, value, ttl);
 
         std::cout << "MEMORY SET: " << key << " = " << value;
         if (ttl >= 0)
             std::cout << " (TTL=" << ttl << "s)";
         std::cout << "\n";
+
     }
 
     void parseGetMemoryStatement()
@@ -439,22 +427,12 @@ public:
             expect(TokenType::SEMICOLON, "Expected ';'");
 
             const std::string& key = keyTok->VALUE;
-            auto it = memoryStore.find(key);
-            if (it == memoryStore.end())
-            {
-                std::cout << "MEMORY GET: key '" << key << "' not found\n";
-                return;
+            std::string value;
+            if (CommandRunner::memoryGet(key, value)) {
+                std::cout << "MEMORY GET: " << key << " = " << value << "\n";
+            } else {
+                std::cout << "MEMORY GET: key '" << key << "' not found or expired\n";
             }
-            if (isExpired(it->second))
-            {
-                memoryStore.erase(it);
-                std::cout << "MEMORY GET: key '" << key << "' expired\n";
-                return;
-            }
-
-            std::cout << "MEMORY GET: " << key << " = "
-                    << it->second.value << "\n";
-            return;
         }
 
     }
