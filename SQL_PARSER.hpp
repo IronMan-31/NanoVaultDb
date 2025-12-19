@@ -351,6 +351,123 @@ public:
         return stmt;
     }
 
+    void parseMemoryStatement()
+    {
+        expect(TokenType::MEMORY, "Expected MEMORY keyword");
+
+        std::string key;
+        std::string value;
+        int ttl = -1; // -1 means no expiry
+
+        while (!match(TokenType::SEMICOLON))
+        {
+            if (match(TokenType::KEY))
+            {
+                expect(TokenType::EQUAL, "Expected '=' after KEY");
+
+                if (match(TokenType::IDENTIFIER) || match(TokenType::STRING) || match(TokenType::NUMBER))
+                {
+                    key = previous()->VALUE;
+                }
+                else
+                {
+                    throw std::runtime_error("Expected identifier or string after KEY=");
+                }
+            }
+            else if (match(TokenType::VALUES))
+            {
+                expect(TokenType::EQUAL, "Expected '=' after VALUE");
+
+                if (match(TokenType::IDENTIFIER) || match(TokenType::STRING) || match(TokenType::NUMBER))
+                {
+                    value = previous()->VALUE;
+                }
+                else
+                {
+                    throw std::runtime_error("Expected identifier or string after VALUE=");
+                }
+            }
+            else if (match(TokenType::TTL))
+            {
+                expect(TokenType::EQUAL, "Expected '=' after TTL");
+
+                Token *num = expect(TokenType::NUMBER, "Expected number after TTL=");
+                ttl = std::stoi(num->VALUE);
+            }
+            else
+            {
+                throw std::runtime_error(
+                    "Unexpected token in MEMORY statement: " +
+                    typeToString(current()->TYPE));
+            }
+        }
+
+        if (key.empty())
+            throw std::runtime_error("MEMORY command missing KEY");
+
+        if (value.empty())
+            throw std::runtime_error("MEMORY command missing VALUE");
+
+        MemoryEntry entry;
+        entry.value = value;
+
+        if (ttl < 0)
+        {
+            entry.expiry = std::chrono::steady_clock::time_point::max();
+        }
+        else
+        {
+            entry.expiry =
+                std::chrono::steady_clock::now() + std::chrono::seconds(ttl);
+        }
+
+        memoryStore[key] = entry;
+
+        std::cout << "MEMORY SET: " << key << " = " << value;
+        if (ttl >= 0)
+            std::cout << " (TTL=" << ttl << "s)";
+        std::cout << "\n";
+    }
+
+    void parseGetMemoryStatement()
+    {
+        expect(TokenType::MEMORY, "Expected MEMORY keyword");
+        if (match(TokenType::GET))
+        {
+            expect(TokenType::KEY, "Expected KEY after MEMORY GET");
+            expect(TokenType::EQUAL, "Expected '=' after KEY");
+
+            Token* keyTok;
+            if (match(TokenType::IDENTIFIER) || match(TokenType::STRING) || match(TokenType::NUMBER)) {
+                keyTok = previous();
+            } else {
+                throw std::runtime_error("Expected identifier/string/number after KEY=");
+            }
+            
+            expect(TokenType::SEMICOLON, "Expected ';'");
+
+            const std::string& key = keyTok->VALUE;
+            auto it = memoryStore.find(key);
+            if (it == memoryStore.end())
+            {
+                std::cout << "MEMORY GET: key '" << key << "' not found\n";
+                return;
+            }
+            if (isExpired(it->second))
+            {
+                memoryStore.erase(it);
+                std::cout << "MEMORY GET: key '" << key << "' expired\n";
+                return;
+            }
+
+            std::cout << "MEMORY GET: " << key << " = "
+                    << it->second.value << "\n";
+            return;
+        }
+
+    }
+
+
     std::unique_ptr<DropStatement> parseDropStatement()
     {
         expect(TokenType::DROP, "Expected drop keyword");
@@ -712,16 +829,29 @@ public:
             rewind();
             auto stmt = parseDropStatement();
             printDropStatement(*stmt);
+            return "OK";
         }
         else if (match(TokenType::USE))
         {
             rewind();
             std::string dbname=parseUseStatement();
             printUseStatement(dbname);
+            return "OK";
+        }
+        else if (match(TokenType::MEMORY))
+        {
+            rewind();
+            if (peek(1) && peek(1)->TYPE == TokenType::GET) {
+                parseGetMemoryStatement();
+            } else {
+                parseMemoryStatement();
+            }
+
+            return "OK";
         }
         else
         {
-            throw std::runtime_error("Unsupported SQL statement or missing statement type (CREATE, INSERT, SELECT, DROP, USE)");
+            throw std::runtime_error("Unsupported SQL statement or missing statement type (CREATE, INSERT, SELECT, DROP, USE, MEMORY)");
         }
     }
 

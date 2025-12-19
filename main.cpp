@@ -16,66 +16,28 @@ std::string typeToString(TokenType TYPE);
 int main(int argc, char const *argv[])
 {
     initialDatabseLoad();
-    initializePrimaryIndexBtrees();
+    try
+    {
+        initializePrimaryIndexBtrees();
+    }
+    catch(const std::exception& e)
+    {}
+    
 
     std::cout<<"#### \n\n\n finished b+ \n\n\n\n ###";
 
 
     std::vector<std::string> testSQLs = {
-
 R"(
-CREATE DATABASE demo;
+USE school;
 )",
-
-// R"(
-// SELECT id, rollno, name
-// FROM students
-// WHERE rollno = 'CS101';
-
-// )"
-
-
 R"(
-use testing;
-
-// )"
-
-// ,
-// R"(
-// SELECT rollno, name, age FROM testing
-// WHERE name = "Student3";
-
-// )"
-// ,
-R"(
-SELECT * FROM testing
-WHERE age > 1;
-
+MEMORY KEY=a VALUES=123 TTL=10;
 )",
 
 R"(
-use testing;
-
-)"
-
-
-// R"(
-// INSERT INTO students (rollno)
-// VALUES ("23");
-// )",
-
-
-// R"(
-// USE demo;
-// )",
-
-R"(
-DROP DATABASE demo;
-)"
-// R"(
-// USE school;
-// )",
-
+MEMORY GET KEY=a;
+)",
 };
 
 

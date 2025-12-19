@@ -13,12 +13,15 @@ enum class TokenType
 {
     // Keywords
     SELECT,
+    MEMORY,
+    TTL,
     FROM,
     USE,
     WHERE,
     INSERT,
     INTO,
     VALUES,
+    GET,
     CREATE,
     TABLE,
     DELETE,
@@ -77,6 +80,9 @@ static const std::unordered_map<std::string, TokenType> keywords = {
     {"insert", TokenType::INSERT},
     {"into", TokenType::INTO},
     {"values", TokenType::VALUES},
+    {"get", TokenType::GET},
+    {"memory", TokenType::MEMORY},
+    {"ttl", TokenType::TTL},
     {"create", TokenType::CREATE},
     {"table", TokenType::TABLE},
     {"delete", TokenType::DELETE},
@@ -123,7 +129,10 @@ std::string typeToString(TokenType TYPE)
     case TokenType::WHERE: return "WHERE";
     case TokenType::INSERT: return "INSERT";
     case TokenType::INTO: return "INTO";
+    case TokenType::GET: return "GET";
     case TokenType::VALUES: return "VALUES";
+    case TokenType::MEMORY: return "MEMORY";
+    case TokenType::TTL: return "TTL";
     case TokenType::CREATE: return "CREATE";
     case TokenType::TABLE: return "TABLE";
     case TokenType::DELETE: return "DELETE";

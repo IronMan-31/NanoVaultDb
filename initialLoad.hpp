@@ -435,8 +435,8 @@ void initializePrimaryIndexBtrees()
                                   << " for column: " << columnName << std::endl;
                         continue;
                     }
-
                     dbBtrees[dbName][tableName][columnName] = std::make_pair(std::move(tree), noOfColumns);
+                    std::cout<<"btreecalled"<<"\n";
                     loadAllNodesOfBtreeForPrimaryKey(dbBtrees[dbName][tableName][columnName].first, noOfColumns, tableName);
 
                     std::cout << "Initialized B+ Tree for " << dbName

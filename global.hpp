@@ -7,11 +7,23 @@
 #include <variant>
 #include <vector>
 #include <climits>
+#include <chrono>
 
 #include "databaseSchemaReader.hpp"
 #include "storageTree.hpp"
 
 // --- File Paths ---
+
+struct MemoryEntry {
+    std::string value;
+    std::chrono::steady_clock::time_point expiry; 
+};
+
+inline bool isExpired(const MemoryEntry& entry) {
+    return entry.expiry != std::chrono::steady_clock::time_point::max() &&
+           std::chrono::steady_clock::now() > entry.expiry;
+}
+
 inline std::string currentDbPath = "./db/current_db.meta";
 inline std::string dbDirectoryPath = "./db";
 // inline std::string allTableDataDirectory = "./db/data";
@@ -33,7 +45,7 @@ struct TableGlobalColumnNode
 // --- JSON Parser Cache ---
 // db_name -> JSON parser
 std::unordered_map<std::string, std::shared_ptr<PythonLikeJSONParser>> globalJsonCache;
-
+std::unordered_map<std::string, MemoryEntry> memoryStore;
 // --- Table Metadata Cache ---
 // db_name -> table_name -> vector of column definitions
 std::unordered_map<
