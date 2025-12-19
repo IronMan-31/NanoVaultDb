@@ -147,14 +147,8 @@ public:
         }
     }
 
-    std::unique_ptr<InsertStatement> parseInsertStatement()
-    {
+    std::unique_ptr<InsertStatement> parseInsertStatement() {
         expect(TokenType::INSERT, "Expected 'INSERT'");
-
-        if (currentDb.empty()){
-            throw std::runtime_error("No database selected. Use USE <db_name>;");
-        }
-
         expect(TokenType::INTO, "Expected 'INTO'");
 
         Token *tableToken = expect(TokenType::IDENTIFIER, "Expected table name");
@@ -164,10 +158,9 @@ public:
         expect(TokenType::OPEN_PAREN, "Expected '(' before column list");
 
         // Parse columns
-        do
-        {
-            Token *col = expect(TokenType::IDENTIFIER, "Expected column name");
-            stmt->columns.push_back(col->VALUE);
+        do {
+        Token *col = expect(TokenType::IDENTIFIER, "Expected column name");
+        stmt->columns.push_back(col->VALUE);
         } while (match(TokenType::COMMA));
 
         expect(TokenType::CLOSE_PAREN, "Expected ')' after column list");
@@ -176,30 +169,29 @@ public:
         expect(TokenType::OPEN_PAREN, "Expected '(' before values");
 
         // Parse values
-        do
-        {
-            if (match(TokenType::STRING) || match(TokenType::NUMBER))
-            {
-                stmt->values.push_back(previous()->VALUE);
-            }
-            else
-            {
-                throw std::runtime_error("Expected a STRING in quotes or a NUMBER");
-            }
+        do {
+        if (match(TokenType::STRING) || match(TokenType::NUMBER)) {
+            stmt->values.push_back(previous()->VALUE);
+        } else {
+            throw std::runtime_error("Expected a STRING in quotes or a NUMBER");
+        }
         } while (match(TokenType::COMMA));
 
         expect(TokenType::CLOSE_PAREN, "Expected ')' after values");
         expect(TokenType::SEMICOLON, "Expected ';' at end");
-        if (stmt->columns.size() != stmt->values.size())
-        {
-            throw std::runtime_error("Number of columns and values do not match make sure you does not pass the primary key column");
+        if (stmt->columns.size() != stmt->values.size()) {
+        throw std::runtime_error("Number of columns and values do not match make "
+                                "sure you does not pass the primary key column");
         }
-        std::pair<bool, std::string> check = MyUtility::checkIfTableExist(stmt->tableName);
+        std::pair<bool, std::string> check =
+            MyUtility::checkIfTableExist(stmt->tableName);
         if (!check.first)
-            throw std::runtime_error(check.second);
-        else
-            CommandRunner::generateInsertTableStatement(stmt);
-
+        throw std::runtime_error(check.second);
+        else {
+        std::cout << "#### BEFORE COMMAND RUNNER #### \n";
+        CommandRunner::generateInsertTableStatement(stmt);
+        std::cout << "#### AFTER COMMAND RUNNER #### \n";
+        }
         return stmt;
     }
 
@@ -758,100 +750,97 @@ public:
         }
     }
 
-    std::string parse()
-    {
+    std::string parse() {
         std::string r = "{\"suceess\" : true}";
-        if (match(TokenType::CREATE))
-        {
-            rewind(); // Go back one token to reprocess CREATE in parseCreateStatement
-            try
-            {
-                auto stmt = parseCreateStatement();
-                printCreateStatement(*stmt);
-                return r;
-            }
-            catch (const std::exception &err)
-            {
-                std::stringstream e;
-                e << "{"
-                  << "\"success\": false, "
-                  << "\"error\": \"\033[31m" << err.what() << "\033[0m\""
-                  << "}";
+        if (match(TokenType::CREATE)) {
+        rewind(); // Go back one token to reprocess CREATE in parseCreateStatement
+        try {
+            auto stmt = parseCreateStatement();
+            printCreateStatement(*stmt);
+            return r;
+        } catch (const std::exception &err) {
+            std::stringstream e;
+            e << "{" << "\"success\": false, " << "\"error\": \"\033[31m"
+            << err.what() << "\033[0m\"" << "}";
 
-                return e.str();
-            }
+            return e.str();
         }
-        else if (match(TokenType::INSERT))
-        {
+        } else if (match(TokenType::INSERT)) {
+        rewind();
+        try {
+
+            auto stmt = parseInsertStatement();
+            printInsertStatement(*stmt);
+            return r;
+        } catch (const std::exception &err) {
+            std::stringstream e;
+            e << "{" << "\"success\": false, " << "\"error\": \"\033[31m"
+            << err.what() << "\033[0m\"" << "}";
+
+            return e.str();
+        }
+        } else if (match(TokenType::SELECT)) {
+        try {
             rewind();
-            try
-            {
+            auto stmt = parseSelectStatement();
+            std::string json = SelectQueryHandler::handle(stmt);
+            std::cout << "SELECT STATEMENT JSON \n";
+            std::cout << json << "\n";
+            printSelectStatement(*stmt);
+            return json;
+        } catch (const std::exception &err) {
+            std::stringstream e;
+            e << "{" << "\"success\": false, " << "\"error\": \"\033[31m"
+            << err.what() << "\033[0m\"" << "}";
 
-                auto stmt = parseInsertStatement();
-                // printInsertStatement(*stmt);
-            }
-            catch (const std::exception &err)
-            {
-                std::stringstream e;
-                e << "{"
-                  << "\"success\": false, "
-                  << "\"error\": \"\033[31m" << err.what() << "\033[0m\""
-                  << "}";
-
-                return e.str();
-            }
+            return e.str();
         }
-        else if (match(TokenType::SELECT))
-        {
-            try
-            {
-                rewind();
-                auto stmt = parseSelectStatement();
-                std::string json = SelectQueryHandler::handle(stmt);
-                std::cout << "SELECT STATEMENT JSON \n";
-                std::cout << json << "\n";
-                printSelectStatement(*stmt);
-                return json;
-            }
-            catch (const std::exception &err)
-            {
-                std::stringstream e;
-                e << "{"
-                  << "\"success\": false, "
-                  << "\"error\": \"\033[31m" << err.what() << "\033[0m\""
-                  << "}";
+        } else if (match(TokenType::DROP)) {
+        try {
 
-                return e.str();
-            }
-        }
-        else if (match(TokenType::DROP))
-        {
             rewind();
             auto stmt = parseDropStatement();
-            printDropStatement(*stmt);
-            return "OK";
+            return r;
+        } catch (const std::exception &err) {
+            std::stringstream e;
+            e << "{" << "\"success\": false, " << "\"error\": \"\033[31m"
+            << err.what() << "\033[0m\"" << "}";
+
+            return e.str();
         }
-        else if (match(TokenType::USE))
-        {
+        } else if (match(TokenType::USE)) {
+        try {
+
             rewind();
-            std::string dbname=parseUseStatement();
-            printUseStatement(dbname);
-            return "OK";
+            auto stmt = parseUseStatement();
+            return r;
+        } catch (const std::exception &err) {
+            std::stringstream e;
+            e << "{" << "\"success\": false, " << "\"error\": \"\033[31m"
+            << err.what() << "\033[0m\"" << "}";
+
+            return e.str();
         }
-        else if (match(TokenType::MEMORY))
-        {
+        } else if (match(TokenType::MEMORY)) {
+        try {
+
             rewind();
             if (peek(1) && peek(1)->TYPE == TokenType::GET) {
                 parseGetMemoryStatement();
             } else {
                 parseMemoryStatement();
             }
+            return r;
+        } catch (const std::exception &err) {
+            std::stringstream e;
+            e << "{" << "\"success\": false, " << "\"error\": \"\033[31m"
+            << err.what() << "\033[0m\"" << "}";
 
-            return "OK";
+            return e.str();
         }
-        else
-        {
-            throw std::runtime_error("Unsupported SQL statement or missing statement type (CREATE, INSERT, SELECT, DROP, USE, MEMORY)");
+        } else {
+        throw std::runtime_error("Unsupported SQL statement or missing statement "
+                                "type (CREATE, INSERT, SELECT, DROP, USE, MEMORY)");
         }
     }
 
