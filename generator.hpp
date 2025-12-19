@@ -10,6 +10,7 @@
 
 #include <filesystem> // Include for std::filesystem
 #include <fstream>
+#include <thread>
 #include "json.hpp"
 #include "utility.hpp"
 #include "global.hpp"
@@ -167,8 +168,6 @@ namespace CommandRunner
                             column[i].second.second = true;
                         }
                     }
-
-
                 }
 
                 PagerHandler::insertRow(std::move(primaryColName),std::move(column),std::move(tableName));
@@ -340,6 +339,92 @@ namespace CommandRunner
         MyUtility::createFile(indexFile.str(), "");
         MyUtility::createFile(dataFile.str(), "");
     }
+    void memorySet(const std::string& key,
+               const std::string& value,
+               int ttlSeconds)
+        {
+            auto expiry = (ttlSeconds < 0)
+                ? std::chrono::steady_clock::time_point::max()
+                : std::chrono::steady_clock::now() + std::chrono::seconds(ttlSeconds);
+
+            {
+                std::unique_lock<std::shared_mutex> lock(memoryMutex);
+                memoryStore[key] = {value, expiry};
+            }
+
+            if (ttlSeconds >= 0) {
+                {
+                    std::lock_guard<std::mutex> lock(expiryMutex);
+                    expiryHeap.push({expiry, key});
+                }
+                expiryCV.notify_one();
+            }
+        }
+
+
+        bool memoryGet(const std::string& key,
+                    std::string& outValue)
+        {
+            {
+                std::shared_lock<std::shared_mutex> lock(memoryMutex);
+                auto it = memoryStore.find(key);
+                if (it == memoryStore.end())
+                    return false;
+
+                if (it->second.expiry > std::chrono::steady_clock::now()) {
+                    outValue = it->second.value;
+                    return true;
+                }
+            }
+
+            {
+                std::unique_lock<std::shared_mutex> lock(memoryMutex);
+                memoryStore.erase(key);
+            }
+            return false;
+        }
+
+        static void memoryScheduler()
+        {
+            while (memorySchedulerRunning) {
+                std::unique_lock<std::mutex> lock(expiryMutex);
+
+                if (expiryHeap.empty()) {
+                    expiryCV.wait(lock);
+                    continue;
+                }
+
+                auto nextExpiry = expiryHeap.top().expiry;
+                expiryCV.wait_until(lock, nextExpiry);
+
+                auto now = std::chrono::steady_clock::now();
+
+                while (!expiryHeap.empty() &&
+                    expiryHeap.top().expiry <= now) {
+
+                    auto node = expiryHeap.top();
+                    expiryHeap.pop();
+
+                    std::unique_lock<std::shared_mutex> memLock(memoryMutex);
+                    auto it = memoryStore.find(node.key);
+                    if (it != memoryStore.end() &&
+                        it->second.expiry == node.expiry) {
+                        memoryStore.erase(it);
+                    }
+                }
+            }
+        }
+
+        void startMemoryScheduler()
+        {
+            std::thread(memoryScheduler).detach();
+        }
+
+        void stopMemoryScheduler()
+        {
+            memorySchedulerRunning = false;
+            expiryCV.notify_all();
+        }
 
     void generateInsertStatement()
     {

@@ -8,21 +8,48 @@
 #include <vector>
 #include <climits>
 #include <chrono>
+#include <queue>
+#include <shared_mutex>
+#include <atomic>
+#include <condition_variable>
 
 #include "databaseSchemaReader.hpp"
 #include "storageTree.hpp"
 
-// --- File Paths ---
+// Memory structures
 
 struct MemoryEntry {
     std::string value;
-    std::chrono::steady_clock::time_point expiry; 
+    std::chrono::steady_clock::time_point expiry;
 };
 
-inline bool isExpired(const MemoryEntry& entry) {
-    return entry.expiry != std::chrono::steady_clock::time_point::max() &&
-           std::chrono::steady_clock::now() > entry.expiry;
-}
+// Main store
+extern std::unordered_map<std::string, MemoryEntry> memoryStore;
+
+// Reader-writer lock
+extern std::shared_mutex memoryMutex;
+
+// TTL scheduler heap
+struct ExpiryNode {
+    std::chrono::steady_clock::time_point expiry;
+    std::string key;
+
+    bool operator>(const ExpiryNode& other) const {
+        return expiry > other.expiry;
+    }
+};
+
+extern std::priority_queue<
+    ExpiryNode,
+    std::vector<ExpiryNode>,
+    std::greater<>
+> expiryHeap;
+
+extern std::mutex expiryMutex;
+extern std::condition_variable expiryCV;
+extern std::atomic<bool> memorySchedulerRunning;
+
+// --- File Paths ---
 
 inline std::string currentDbPath = "./db/current_db.meta";
 inline std::string dbDirectoryPath = "./db";
@@ -46,6 +73,18 @@ struct TableGlobalColumnNode
 // db_name -> JSON parser
 std::unordered_map<std::string, std::shared_ptr<PythonLikeJSONParser>> globalJsonCache;
 std::unordered_map<std::string, MemoryEntry> memoryStore;
+std::shared_mutex memoryMutex;
+
+std::priority_queue<
+    ExpiryNode,
+    std::vector<ExpiryNode>,
+    std::greater<>
+> expiryHeap;
+
+std::mutex expiryMutex;
+std::condition_variable expiryCV;
+std::atomic<bool> memorySchedulerRunning{true};
+
 // --- Table Metadata Cache ---
 // db_name -> table_name -> vector of column definitions
 std::unordered_map<
@@ -55,7 +94,6 @@ std::unordered_map<
         std::vector<std::shared_ptr<TableGlobalColumnNode>>>>
     globalTableCache;
 
-// --- Index Node Representation ---
 struct IndexNode
 {
     int64_t start;
