@@ -17,7 +17,6 @@
 #include "logging.hpp"
 #include "global.hpp"
 
-std::mutex dbMutex;
 std::atomic<bool> serverRunning(true);
 
 void handleSignal(int) {
@@ -112,6 +111,12 @@ void handleClient(int client_fd) {
 int main() {
     signal(SIGINT, handleSignal);
     initialDatabseLoad();
+    try{
+        startVacuumThread();
+        std::cout<<"Vaccuming table successful\n";
+    }catch(const std::exception& e){
+        std::cout<<"Vaccuming table failed\n";
+    }
     try
     {
        initializePrimaryIndexBtrees();

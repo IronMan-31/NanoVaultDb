@@ -8,9 +8,13 @@
 #include <memory>
 #include <stdexcept>
 #include <climits>
+#include <string>
+#include <thread>
+#include <chrono>
+
 #include "global.hpp"
 #include "utility.hpp"
-#include <string>
+
 namespace fs = std::filesystem;
 
 std::string getCurrentDatabase(std::string &metaFile)
@@ -39,6 +43,27 @@ std::string getCurrentDatabase(std::string &metaFile)
         throw std::runtime_error("Invalid format in meta file");
 
     return line.substr(firstQuote + 1, secondQuote - firstQuote - 1);
+}
+
+void runVacuum() {
+    std::lock_guard<std::mutex> dbLock(dbMutex);
+    for (auto& [dbName, tables] : globalTableCache) {
+        for (auto& [tableName, _] : tables) {
+            PagerHandler::vacuumTable(dbName, tableName);
+        }
+    }
+}
+
+void vacuumScheduler() {
+    runVacuum();
+    while (true) {
+        std::this_thread::sleep_for(std::chrono::hours(6));
+        runVacuum();
+    }
+}
+
+void startVacuumThread() {
+    std::thread(vacuumScheduler).detach();
 }
 
 bool checkDBexist(const std::string &name)

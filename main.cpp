@@ -16,13 +16,18 @@ std::string typeToString(TokenType TYPE);
 int main(int argc, char const *argv[])
 {
     initialDatabseLoad();
+    try{
+        startVacuumThread();
+        std::cout<<"Vaccuming table successful\n";
+    }catch(const std::exception& e){
+        std::cout<<"Vaccuming table failed\n";
+    }
     try
     {
         initializePrimaryIndexBtrees();
     }
     catch(const std::exception& e)
     {}
-    
 
     std::cout<<"#### \n\n\n finished b+ \n\n\n\n ###";
 
@@ -42,7 +47,25 @@ CREATE TABLE StudentRolls (
 )",
 R"(
 INSERT INTO StudentRolls (roll_no)
-VALUES (101);
+VALUES (2);
+)",
+R"(
+INSERT INTO StudentRolls (roll_no)
+VALUES (5);
+)",
+R"(
+INSERT INTO StudentRolls (roll_no)
+VALUES (11);
+)",
+R"(
+INSERT INTO StudentRolls (roll_no)
+VALUES (20);
+)",
+R"(
+SELECT * FROM StudentRolls;
+)",
+R"(
+DELETE FROM studentrolls WHERE roll_no < "12";
 )",
 R"(
 SELECT * FROM StudentRolls;

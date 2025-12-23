@@ -50,8 +50,49 @@ namespace AstParser
         }
     }
 
-    bool compareValues(const Value &lhs, const Value &rhs, ComparisonOperator op)
+    bool compareValues(Value lhs, Value rhs, ComparisonOperator op)
     {
+    // ---- numeric coercion ----
+        auto isNumericString = [](const std::string& s) {
+            if (s.empty()) return false;
+            for (char c : s)
+                if (!isdigit(c) && c != '-') return false;
+            return true;
+        };
+
+        // string vs int → convert string to int
+        if (std::holds_alternative<std::string>(lhs) &&
+            std::holds_alternative<int64_t>(rhs))
+        {
+            const auto& s = std::get<std::string>(lhs);
+            if (!isNumericString(s))
+                throw std::runtime_error("Invalid numeric comparison");
+
+            lhs = int64_t(std::stoll(s));
+        }
+
+        if (std::holds_alternative<int64_t>(lhs) &&
+            std::holds_alternative<std::string>(rhs))
+        {
+            const auto& s = std::get<std::string>(rhs);
+            if (!isNumericString(s))
+                throw std::runtime_error("Invalid numeric comparison");
+
+            rhs = int64_t(std::stoll(s));
+        }
+
+        if (std::holds_alternative<std::string>(lhs) &&
+            std::holds_alternative<std::string>(rhs))
+        {
+            const auto& l = std::get<std::string>(lhs);
+            const auto& r = std::get<std::string>(rhs);
+
+            if (isNumericString(l) && isNumericString(r)) {
+                lhs = int64_t(std::stoll(l));
+                rhs = int64_t(std::stoll(r));
+            }
+        }
+
         if (lhs.index() != rhs.index())
             throw std::runtime_error("Type mismatch in comparison");
 
@@ -143,7 +184,12 @@ namespace AstParser
         case ASTNodeType::INT_LITERAL:
         case ASTNodeType::STRING_LITERAL:
         case ASTNodeType::BOOLEAN_LITERAL:
-            return std::get<bool>(getValueFromRow(expr, row));
+        {
+            Value v = getValueFromRow(expr, row);
+            if (!std::holds_alternative<bool>(v))
+                throw std::runtime_error("Non-boolean expression in WHERE clause");
+            return std::get<bool>(v);
+        }
         default:
             throw std::runtime_error("Unsupported expression type in evaluateExpression");
         }
@@ -179,6 +225,7 @@ namespace SelectQueryHandler
     std::string handle(const std::unique_ptr<SelectStatement> &stmt)
     {
         const std::string tableName = stmt->table;
+        std::lock_guard<std::mutex> lock(tableLocks[tableName]);
         std::stringstream indexfilename;
         std::stringstream datafilename;
 
@@ -209,12 +256,15 @@ namespace SelectQueryHandler
         }
 
         sort(columns.begin(), columns.end());
+        std::stringstream deletefilename;
 
         indexfilename << tableDirectory << "/" << currentDatabase << "/" << tableName << ".index";
         datafilename << tableDirectory << "/" << currentDatabase << "/" << tableName << ".data";
+        deletefilename << tableDirectory << "/" << currentDatabase << "/" << tableName << ".delete";
 
         std::fstream indexFile(indexfilename.str(), std::ios::in | std::ios::out | std::ios::binary);
         std::fstream dataFile(datafilename.str(), std::ios::in | std::ios::out | std::ios::binary);
+        std::fstream deleteFile(deletefilename.str(),std::ios::in | std::ios::binary);
         if (indexFile.fail())
         {
             throw std::runtime_error("Failed to read primary key  from index file");
@@ -222,7 +272,10 @@ namespace SelectQueryHandler
 
         if (dataFile.fail())
         {
-            throw std::runtime_error("Failed to read data   from dataFile file");
+            throw std::runtime_error("Failed to read data from dataFile file");
+        }
+        if (deleteFile.fail()) {
+            throw std::runtime_error("Failed to open delete file");
         }
 
         int64_t indexFileSize = PagerHandler::getFileSize(indexfilename.str());
@@ -238,10 +291,19 @@ namespace SelectQueryHandler
 
         while (getTotalNoOfRows--)
         {
-            Row row;
+            uint8_t alive;
+            deleteFile.read(reinterpret_cast<char*>(&alive), 1);
             int64_t id;
             indexFile.read(reinterpret_cast<char *>(&id), sizeof(int64_t));
-            row.columns[std::string(allColumnName[0])] = id;
+            if (alive == 1) {
+                indexFile.seekg(
+                    (allColumnName.size() - 1) * sizeof(PagerHandler::RowIndex),
+                    std::ios::cur
+                );
+                continue;
+            }
+            Row row;
+            row.columns[std::string(allColumnName[0])] = std::to_string(id);
 
             for (int i = 1; i < allColumnName.size(); i++)
             {

@@ -196,6 +196,7 @@ public:
     }
 
     std::string parseUseStatement(){
+        std::lock_guard<std::mutex> dbLock(dbMutex);
         expect(TokenType::USE, "Expected USE keyword");
 
         Token* dbName = expect(TokenType::IDENTIFIER, "Expected database name after USE");
@@ -217,6 +218,29 @@ public:
         MyUtility::changeCurrentDb(newDb);
         initialDatabseLoad();
         return newDb;
+    }
+    void parseDeleteStatement()
+    {
+        expect(TokenType::DELETE, "Expected DELETE keyword");
+        expect(TokenType::FROM, "Expected FROM keyword");
+
+        Token *table = expect(TokenType::IDENTIFIER, "Expected table name");
+        std::string tableName = table->VALUE;
+
+        // Create DELETE statement AST
+        auto stmt = std::make_unique<DeleteStatement>();
+        stmt->table = tableName;
+
+        // Optional WHERE clause
+        if (match(TokenType::WHERE))
+        {
+            auto condition = parseExpression();
+            stmt->whereClause = std::make_unique<WhereClause>(std::move(condition));
+        }
+
+        expect(TokenType::SEMICOLON, "Expected ';' after DELETE statement");
+
+        CommandRunner::handleDelete(stmt);
     }
 
 
@@ -791,6 +815,19 @@ public:
 
             rewind();
             auto stmt = parseUseStatement();
+            return r;
+        } catch (const std::exception &err) {
+            std::stringstream e;
+            e << "{" << "\"success\": false, " << "\"error\": \"\033[31m"
+            << err.what() << "\033[0m\"" << "}";
+
+            return e.str();
+        }
+        }else if (match(TokenType::DELETE)) {
+        try {
+
+            rewind();
+            parseDeleteStatement();
             return r;
         } catch (const std::exception &err) {
             std::stringstream e;
