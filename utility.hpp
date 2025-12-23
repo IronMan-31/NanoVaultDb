@@ -127,6 +127,87 @@ namespace PagerHandler
         return st.st_size;
     }
 
+    
+    void vacuumTable(const std::string& db, const std::string& table)
+    {
+        std::lock_guard<std::mutex> lock(tableLocks[table]);
+
+        std::string base = tableDirectory + "/" + db + "/" + table;
+
+        std::fstream oldIndex(base + ".index", std::ios::in | std::ios::binary);
+        std::fstream oldData (base + ".data",  std::ios::in | std::ios::binary);
+        std::fstream oldDel  (base + ".delete",std::ios::in | std::ios::binary);
+
+        if (oldIndex.fail() || oldData.fail() || oldDel.fail())
+            return; // table deleted / corrupted → skip safely
+
+        std::fstream newIndex(base + ".index.new", std::ios::out | std::ios::binary);
+        std::fstream newData (base + ".data.new",  std::ios::out | std::ios::binary);
+        std::fstream newDel  (base + ".delete.new",std::ios::out | std::ios::binary);
+
+        auto& cols = globalTableCache[db][table];
+        size_t colCount = cols.size();
+
+        int64_t rowSize =
+            sizeof(int64_t) + (colCount - 1) * sizeof(PagerHandler::RowIndex);
+
+        int64_t indexSize = PagerHandler::getFileSize(base + ".index");
+        int64_t rowCount  = indexSize / rowSize;
+
+        int64_t newDataOffset = 0;
+
+        for (int64_t row = 0; row < rowCount; row++) {
+            uint8_t deleted;
+            oldDel.seekg(row);
+            oldDel.read(reinterpret_cast<char*>(&deleted), 1);
+
+            oldIndex.seekg(row * rowSize);
+
+            if (deleted == 1) {
+                continue;
+            }
+
+            // ---- copy ID ----
+            int64_t id;
+            oldIndex.read(reinterpret_cast<char*>(&id), sizeof(int64_t));
+            newIndex.write(reinterpret_cast<char*>(&id), sizeof(int64_t));
+
+            // ---- copy columns ----
+            for (size_t c = 1; c < colCount; c++) {
+                int64_t start, end;
+                oldIndex.read(reinterpret_cast<char*>(&start), sizeof(int64_t));
+                oldIndex.read(reinterpret_cast<char*>(&end), sizeof(int64_t));
+
+                int64_t len = end - start;
+                std::string buf(len, '\0');
+
+                oldData.seekg(start);
+                oldData.read(buf.data(), len);
+
+                int64_t newStart = newDataOffset;
+                int64_t newEnd   = newStart + len;
+
+                newData.write(buf.data(), len);
+                newIndex.write(reinterpret_cast<char*>(&newStart), sizeof(int64_t));
+                newIndex.write(reinterpret_cast<char*>(&newEnd),   sizeof(int64_t));
+
+                newDataOffset = newEnd;
+            }
+
+            uint8_t alive = 0;
+            newDel.write(reinterpret_cast<char*>(&alive), 1);
+        }
+
+        oldIndex.close(); oldData.close(); oldDel.close();
+        newIndex.close(); newData.close(); newDel.close();
+
+        // ---- atomic replace ----
+        std::filesystem::rename(base + ".index.new",  base + ".index");
+        std::filesystem::rename(base + ".data.new",   base + ".data");
+        std::filesystem::rename(base + ".delete.new", base + ".delete");
+    }
+
+
     void insertRow(std::string primaryName, std::vector<std::pair<std::string, std::pair<std::string, bool>>> data, std::string tableName)
     {
         if (data.empty())
@@ -195,7 +276,28 @@ namespace PagerHandler
 
         indexFile.seekp(0, std::ios::end);
         dataFile.seekp(0, std::ios::end);
+        std::stringstream deleteFileName;
+        deleteFileName << tableDirectory << "/" << currentDatabase << "/" << tableName << ".delete";
 
+        std::fstream deleteFile(
+            deleteFileName.str(),
+            std::ios::in | std::ios::out | std::ios::binary
+        );
+
+        // if file doesn't exist yet, create it
+        if (!deleteFile.is_open()) {
+            deleteFile.open(deleteFileName.str(),
+                std::ios::out | std::ios::binary);
+            deleteFile.close();
+            deleteFile.open(deleteFileName.str(),
+                std::ios::in | std::ios::out | std::ios::binary);
+        }
+        uint8_t alive = 0;
+
+        deleteFile.seekp(newRowId - 1, std::ios::beg);
+        deleteFile.write(reinterpret_cast<char*>(&alive), 1);
+
+        deleteFile.flush();
         indexFile.write(reinterpret_cast<const char *>(&newRowId), sizeof(int64_t));
         if (indexFile.fail())
         {

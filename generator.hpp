@@ -14,6 +14,7 @@
 #include "json.hpp"
 #include "utility.hpp"
 #include "global.hpp"
+#include "selectAstEvaluator.hpp"
 namespace fs = std::filesystem;
 
 
@@ -21,101 +22,109 @@ namespace CommandRunner
 {
 
     void generateDropStatement(const std::unique_ptr<DropStatement> &stmt) {
-    using namespace std;
+        using namespace std;
+        std::lock_guard<std::mutex> dbLock(dbMutex);
 
-    bool is_table = stmt->istable;
-    std::string name = stmt->name;
+        bool is_table = stmt->istable;
+        std::string name = stmt->name;
 
-    if (is_table) {
-
-        if (currentDatabase.empty()) {
-            throw std::runtime_error("No database selected");
+        std::unique_ptr<std::lock_guard<std::mutex>> tableLock;
+        if (is_table) {
+            tableLock = std::make_unique<std::lock_guard<std::mutex>>(tableLocks[name]);
         }
 
-        auto it_db = globalTableCache.find(currentDatabase);
-        if (it_db == globalTableCache.end()) {
-            throw std::runtime_error("Database not found: " + currentDatabase);
-        }
+        if (is_table) {
 
-        auto it_table = it_db->second.find(name);
-        if (it_table == it_db->second.end()) {
-            throw std::runtime_error("Table '" + name + "' does not exist");
-        }
+            if (currentDatabase.empty()) {
+                throw std::runtime_error("No database selected");
+            }
 
-        std::string base = tableDirectory + "/" + currentDatabase + "/";
-        std::string dataFile  = base + name + ".data";
-        std::string indexFile = base + name + ".index";
+            auto it_db = globalTableCache.find(currentDatabase);
+            if (it_db == globalTableCache.end()) {
+                throw std::runtime_error("Database not found: " + currentDatabase);
+            }
 
-        if (fs::exists(dataFile))  fs::remove(dataFile);
-        if (fs::exists(indexFile)) fs::remove(indexFile);
+            auto it_table = it_db->second.find(name);
+            if (it_table == it_db->second.end()) {
+                throw std::runtime_error("Table '" + name + "' does not exist");
+            }
 
-        globalTableCache[currentDatabase].erase(name);
+            std::string base = tableDirectory + "/" + currentDatabase + "/";
+            std::string dataFile  = base + name + ".data";
+            std::string indexFile = base + name + ".index";
+            std::string deleteFile = base + name + ".delete";
+            
+            if (fs::exists(deleteFile)) fs::remove(deleteFile);
+            if (fs::exists(dataFile))  fs::remove(dataFile);
+            if (fs::exists(indexFile)) fs::remove(indexFile);
 
-        std::string filePath = "./db/" + currentDatabase + ".shivam.db";
-        JSONParser parser(filePath);
+            globalTableCache[currentDatabase].erase(name);
 
-        if (!parser.loadFromFile())
-            throw std::runtime_error("Failed to load DB file: " + filePath);
+            std::string filePath = "./db/" + currentDatabase + ".shivam.db";
+            JSONParser parser(filePath);
 
-        JSONParser::JSONValue root = parser.getObject(0);
-        auto &dbObj = std::get<JSONParser::JSONObject>(root.value);
+            if (!parser.loadFromFile())
+                throw std::runtime_error("Failed to load DB file: " + filePath);
 
-        if (dbObj.find("tables") != dbObj.end()) {
-            auto &tables = std::get<JSONParser::JSONArray>(dbObj["tables"].value);
+            JSONParser::JSONValue root = parser.getObject(0);
+            auto &dbObj = std::get<JSONParser::JSONObject>(root.value);
 
-            for (size_t i = 0; i < tables.size(); i++) {
-                const auto &tblVal = tables[i];
-                const auto &tblObj = std::get<JSONParser::JSONObject>(tblVal.value);
+            if (dbObj.find("tables") != dbObj.end()) {
+                auto &tables = std::get<JSONParser::JSONArray>(dbObj["tables"].value);
 
-                std::string tblName = std::get<std::string>(tblObj.at("name").value);
+                for (size_t i = 0; i < tables.size(); i++) {
+                    const auto &tblVal = tables[i];
+                    const auto &tblObj = std::get<JSONParser::JSONObject>(tblVal.value);
 
-                if (tblName == name) {
-                    tables.erase(tables.begin() + i);
-                    break;
+                    std::string tblName = std::get<std::string>(tblObj.at("name").value);
+
+                    if (tblName == name) {
+                        tables.erase(tables.begin() + i);
+                        break;
+                    }
                 }
             }
-        }
 
-        parser.clear();
-        parser.appendValue(JSONParser::JSONValue(dbObj));
-        if (!parser.saveToFile()) {
-            throw std::runtime_error("Failed to save updated DB metadata");
-        }
+            parser.clear();
+            parser.appendValue(JSONParser::JSONValue(dbObj));
+            if (!parser.saveToFile()) {
+                throw std::runtime_error("Failed to save updated DB metadata");
+            }
 
-        std::cout << "Table '" << name << "' dropped successfully.\n";
+            std::cout << "Table '" << name << "' dropped successfully.\n";
+        }
+        else {
+            std::string metaFile = "./db/" + name + ".shivam.db";
+
+            if (!fs::exists(metaFile)) {
+                throw std::runtime_error("Database '" + name + "' does not exist.");
+            }
+
+            std::string dbDir = tableDirectory + "/" + name;
+
+            if (fs::exists(dbDir)) {
+                fs::remove_all(dbDir);
+            }
+
+            fs::remove(metaFile);
+
+            if (globalTableCache.find(name) != globalTableCache.end()) {
+                globalTableCache.erase(name);
+            }
+
+            if (currentDatabase == name) {
+                currentDatabase.clear();
+            }
+
+            std::cout << "Database '" << name << "' dropped successfully.\n";
+        }
     }
-    else {
-        std::string metaFile = "./db/" + name + ".shivam.db";
-
-        if (!fs::exists(metaFile)) {
-            throw std::runtime_error("Database '" + name + "' does not exist.");
-        }
-
-        std::string dbDir = tableDirectory + "/" + name;
-
-        if (fs::exists(dbDir)) {
-            fs::remove_all(dbDir);
-        }
-
-        fs::remove(metaFile);
-
-        if (globalTableCache.find(name) != globalTableCache.end()) {
-            globalTableCache.erase(name);
-        }
-
-        if (currentDatabase == name) {
-            currentDatabase.clear();
-        }
-
-        std::cout << "Database '" << name << "' dropped successfully.\n";
-    }
-}
 
 
     void generateInsertTableStatement(const std::unique_ptr<InsertStatement> &stmt)
     {
-
         std::string tableName = stmt->tableName;
+        std::lock_guard<std::mutex> lock(tableLocks[tableName]);
         // column , <value isUnique>
         std::vector<std::pair<std::string, std::pair<std::string,bool>>> column;
         std::vector<std::pair<std::string,bool>>actualColumn ;
@@ -186,9 +195,89 @@ namespace CommandRunner
             throw std::runtime_error(s.str());
         }
     }
+
+    void handleDelete(const std::unique_ptr<DeleteStatement>& stmt)
+    {
+        const std::string& tableName = stmt->table;
+        std::lock_guard<std::mutex> lock(tableLocks[tableName]);
+
+        std::stringstream indexfilename, deletefilename, datafilename;
+        indexfilename  << tableDirectory << "/" << currentDatabase << "/" << tableName << ".index";
+        deletefilename << tableDirectory << "/" << currentDatabase << "/" << tableName << ".delete";
+        datafilename << tableDirectory << "/" << currentDatabase << "/" << tableName << ".data";
+
+        std::fstream indexFile(indexfilename.str(), std::ios::in | std::ios::binary);
+        std::fstream deleteFile(deletefilename.str(), std::ios::in | std::ios::out | std::ios::binary);
+        std::fstream dataFile(datafilename.str(), std::ios::in | std::ios::binary);
+        if (dataFile.fail())
+            throw std::runtime_error("Failed to open data file");
+        if (indexFile.fail())
+            throw std::runtime_error("Failed to open index file");
+        if (deleteFile.fail())
+            throw std::runtime_error("Failed to open delete file");
+        std::vector<std::string> allColumnNames;
+        for (auto& col : globalTableCache[currentDatabase][tableName])
+            allColumnNames.push_back(col->name);
+
+        sort(allColumnNames.begin(), allColumnNames.end());
+        int64_t rowSize;
+        int64_t rowCount;
+        {
+            int64_t indexSize = PagerHandler::getFileSize(indexfilename.str());
+            int64_t cols = allColumnNames.size();
+            rowSize = sizeof(int64_t) + (allColumnNames.size() - 1) * sizeof(PagerHandler::RowIndex);
+            rowCount = indexSize / rowSize;
+        }
+        int count=0;
+        for (int64_t row = 0; row < rowCount; row++)
+        {
+            // --- sync delete file ---
+            uint8_t alive;
+            deleteFile.seekg(row * sizeof(uint8_t), std::ios::beg);
+            deleteFile.read(reinterpret_cast<char*>(&alive), 1);
+
+            // --- sync index file ---
+            indexFile.seekg(row * rowSize, std::ios::beg);
+
+            if (alive == 1)
+                continue;
+
+            Row r;
+            int64_t id;
+            indexFile.read(reinterpret_cast<char*>(&id), sizeof(int64_t));
+            r.columns[allColumnNames[0]] = std::to_string(id);
+
+            for (size_t i = 1; i < allColumnNames.size(); i++)
+            {
+                int64_t start, end;
+                indexFile.read(reinterpret_cast<char*>(&start), sizeof(int64_t));
+                indexFile.read(reinterpret_cast<char*>(&end), sizeof(int64_t));
+                int64_t len = end - start;
+
+                std::string value(len, '\0');
+                dataFile.seekg(start, std::ios::beg);
+                dataFile.read(&value[0], len);
+
+                r.columns[allColumnNames[i]] = value;
+            }
+
+            if (!stmt->whereClause || AstParser::evaluateWhere(stmt->whereClause.get(), r))
+            {
+                uint8_t dead = 1;
+                deleteFile.seekp(row * sizeof(uint8_t), std::ios::beg);
+                deleteFile.write(reinterpret_cast<char*>(&dead), 1);
+                count++;
+            }
+        }
+
+        std::cout<<"Delete affected rows "<<count<<"\n";
+        deleteFile.flush();
+    }
+
     void generateCreateTableStatement(const std::unique_ptr<CreateStatement> &stmt)
     {
         // Step 1: Convert column definitions to JSON
+        std::lock_guard<std::mutex> dbLock(dbMutex);
         JSONParser::JSONArray columnArray;
         std::vector<std::shared_ptr<TableGlobalColumnNode>> newTableCache;
 
@@ -328,16 +417,18 @@ namespace CommandRunner
         // Optional: Update in-memory cache too
         
         globalTableCache[currentDatabase][stmt->name] = newTableCache; // You can populate columns later
-                                            
+        tableLocks[stmt->name];  // initialize mutex for this table
+                      
         std::cout << " Table '" << stmt->name << "' added to DB '" << currentDatabase << "' successfully.\n";
         std::string tablename = stmt->name;
-        std::stringstream indexFile, dataFile;
+        std::stringstream indexFile, dataFile, delFile;
 
         indexFile << tableDirectory << "/" << currentDatabase << "/" << tablename << ".index";
         dataFile << tableDirectory << "/" << currentDatabase << "/" << tablename << ".data";
-
+        delFile << tableDirectory << "/" << currentDatabase << "/" << tablename << ".delete";
         MyUtility::createFile(indexFile.str(), "");
         MyUtility::createFile(dataFile.str(), "");
+        MyUtility::createFile(delFile.str(), "");
     }
     void memorySet(const std::string& key,
                const std::string& value,

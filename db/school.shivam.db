@@ -6,58 +6,21 @@
         "columns": [
           {
             "constraints": [
-              "primary_key"
+              "primary_key",
+              "auto_increment"
             ],
             "name": "id",
             "type": "int"
           },
           {
             "constraints": [
-              "unique"
+              "not_null"
             ],
-            "length": 255,
-            "name": "rollno",
-            "type": "varchar"
-          },
-          {
-            "constraints": [],
-            "length": 100,
-            "name": "name",
-            "type": "varchar"
-          }
-        ],
-        "name": "students"
-      },
-      {
-        "columns": [
-          {
-            "constraints": [
-              "primary_key"
-            ],
-            "name": "id",
-            "type": "int"
-          },
-          {
-            "constraints": [
-              "unique"
-            ],
-            "length": 100,
-            "name": "rollno",
-            "type": "varchar"
-          },
-          {
-            "constraints": [],
-            "length": 100,
-            "name": "name",
-            "type": "varchar"
-          },
-          {
-            "constraints": [],
-            "name": "age",
+            "name": "roll_no",
             "type": "int"
           }
         ],
-        "name": "testing"
+        "name": "studentrolls"
       }
     ]
   }

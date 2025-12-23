@@ -10,6 +10,7 @@
 #include <chrono>
 #include <queue>
 #include <shared_mutex>
+#include <mutex>
 #include <atomic>
 #include <condition_variable>
 
@@ -28,7 +29,8 @@ extern std::unordered_map<std::string, MemoryEntry> memoryStore;
 
 // Reader-writer lock
 extern std::shared_mutex memoryMutex;
-
+extern std::unordered_map<std::string, std::mutex> tableLocks;
+extern std::mutex dbMutex;
 // TTL scheduler heap
 struct ExpiryNode {
     std::chrono::steady_clock::time_point expiry;
@@ -74,6 +76,8 @@ struct TableGlobalColumnNode
 std::unordered_map<std::string, std::shared_ptr<PythonLikeJSONParser>> globalJsonCache;
 std::unordered_map<std::string, MemoryEntry> memoryStore;
 std::shared_mutex memoryMutex;
+std::unordered_map<std::string, std::mutex> tableLocks;
+std::mutex dbMutex;
 
 std::priority_queue<
     ExpiryNode,
@@ -278,6 +282,18 @@ struct ColumnDefinition
     ColumnDefinition(const std::string &name, const std::string &type)
         : name(name), type(type) {}
 };
+
+struct DeleteStatement : public ASTNode
+{
+    std::string table;
+    std::unique_ptr<WhereClause> whereClause = nullptr;
+
+    ASTNodeType getType() const override
+    {
+        return ASTNodeType::DELETE_STATEMENT;
+    }
+};
+
 
 struct CreateStatement : public ASTNode
 {
