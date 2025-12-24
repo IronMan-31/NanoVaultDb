@@ -138,14 +138,18 @@ namespace PagerHandler
         std::fstream oldData (base + ".data",  std::ios::in | std::ios::binary);
         std::fstream oldDel  (base + ".delete",std::ios::in | std::ios::binary);
 
+        std::cout<<"old files opened"<<"\n";
+
         if (oldIndex.fail() || oldData.fail() || oldDel.fail())
             return; // table deleted / corrupted → skip safely
 
         std::fstream newIndex(base + ".index.new", std::ios::out | std::ios::binary);
         std::fstream newData (base + ".data.new",  std::ios::out | std::ios::binary);
         std::fstream newDel  (base + ".delete.new",std::ios::out | std::ios::binary);
+        std::cout<<"new file created"<<"\n";
 
         auto& cols = globalTableCache[db][table];
+        std::cout<<"globaltable cache"<<"\n";
         size_t colCount = cols.size();
 
         int64_t rowSize =
@@ -166,7 +170,7 @@ namespace PagerHandler
             if (deleted == 1) {
                 continue;
             }
-
+            std::cout<<"deleted skippped"<<"\n";
             // ---- copy ID ----
             int64_t id;
             oldIndex.read(reinterpret_cast<char*>(&id), sizeof(int64_t));
@@ -178,19 +182,24 @@ namespace PagerHandler
                 oldIndex.read(reinterpret_cast<char*>(&start), sizeof(int64_t));
                 oldIndex.read(reinterpret_cast<char*>(&end), sizeof(int64_t));
 
+                std::cout<<"old index read"<<"\n";
+
                 int64_t len = end - start;
                 std::string buf(len, '\0');
 
                 oldData.seekg(start);
                 oldData.read(buf.data(), len);
 
+                std::cout<<"old data read"<<"\n";
+
                 int64_t newStart = newDataOffset;
                 int64_t newEnd   = newStart + len;
 
                 newData.write(buf.data(), len);
+                std::cout<<"new data written"<<"\n";
                 newIndex.write(reinterpret_cast<char*>(&newStart), sizeof(int64_t));
                 newIndex.write(reinterpret_cast<char*>(&newEnd),   sizeof(int64_t));
-
+                std::cout<<"new index written"<<"\n";
                 newDataOffset = newEnd;
             }
 
@@ -200,11 +209,19 @@ namespace PagerHandler
 
         oldIndex.close(); oldData.close(); oldDel.close();
         newIndex.close(); newData.close(); newDel.close();
+        std::cout<<"old files closed"<<"\n";
+        auto replaceFile = [](const std::string& newF, const std::string& oldF) {
+            if (std::filesystem::exists(oldF))
+                std::filesystem::remove(oldF);
+            std::filesystem::rename(newF, oldF);
+        };
 
-        // ---- atomic replace ----
-        std::filesystem::rename(base + ".index.new",  base + ".index");
-        std::filesystem::rename(base + ".data.new",   base + ".data");
-        std::filesystem::rename(base + ".delete.new", base + ".delete");
+        replaceFile(base + ".index.new",  base + ".index");
+        std::cout<<"base index replace"<<"\n";
+        replaceFile(base + ".data.new",   base + ".data");
+        std::cout<<"base data replace"<<"\n";
+        replaceFile(base + ".delete.new", base + ".delete");
+        std::cout<<"base delete replace"<<"\n";
     }
 
 
