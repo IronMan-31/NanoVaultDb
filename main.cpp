@@ -37,10 +37,10 @@ int main(int argc, char const *argv[])
 //     roll_no INT NOT NULL
 // );
 // )",
-// R"(
-// INSERT INTO StudentRolls (roll_no)
-// VALUES (2);
-// )",
+R"(
+INSERT INTO StudentRolls (roll_no)
+VALUES (2);
+)",
 // R"(
 // INSERT INTO StudentRolls (roll_no)
 // VALUES (5);
@@ -48,29 +48,9 @@ int main(int argc, char const *argv[])
 // R"(
 // DELETE FROM studentrolls WHERE roll_no < "4";
 // )",
-// R"(
-//     CREATE DATABASE test1;
-// )",
-// R"(
-// CREATE TABLE testing (
-//     id INT PRIMARY KEY AUTO_INCREMENT,
-//     roll_no INT NOT NULL
-// );
-// )",
-// R"(
-// INSERT INTO testing (roll_no)
-// VALUES (15);
-// )",
-// R"(
-// INSERT INTO testing (roll_no)
-// VALUES (20);
-// )",
-// R"(
-// DELETE FROM testing WHERE roll_no < "16";
-// )",
-// R"(
-// SELECT * FROM StudentRolls;
-// )",
+R"(
+SELECT * FROM StudentRolls;
+)",
 // R"(
 // SELECT * FROM testing;
 // )",
