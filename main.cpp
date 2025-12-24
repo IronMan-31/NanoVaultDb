@@ -16,12 +16,7 @@ std::string typeToString(TokenType TYPE);
 int main(int argc, char const *argv[])
 {
     initialDatabseLoad();
-    try{
-        startVacuumThread();
-        std::cout<<"Vaccuming table successful\n";
-    }catch(const std::exception& e){
-        std::cout<<"Vaccuming table failed\n";
-    }
+    runVacuum();
     try
     {
         initializePrimaryIndexBtrees();
@@ -33,58 +28,67 @@ int main(int argc, char const *argv[])
 
 
     std::vector<std::string> testSQLs = {
-R"(
-    USE school;
-)",
-R"(
-    CREATE DATABASE test;
-)",
-R"(
-CREATE TABLE StudentRolls (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    roll_no INT NOT NULL
-);
-)",
-R"(
-INSERT INTO StudentRolls (roll_no)
-VALUES (2);
-)",
-R"(
-INSERT INTO StudentRolls (roll_no)
-VALUES (5);
-)",
-R"(
-INSERT INTO StudentRolls (roll_no)
-VALUES (11);
-)",
-R"(
-INSERT INTO StudentRolls (roll_no)
-VALUES (20);
-)",
-R"(
-SELECT * FROM StudentRolls;
-)",
-R"(
-DELETE FROM studentrolls WHERE roll_no < "12";
-)",
-R"(
-SELECT * FROM StudentRolls;
-)",
-R"(
-DROP TABLE StudentRolls;
-)",
-R"(
-DROP DATABASE test;
-)",
-R"(
-USE school;
-)",
-R"(
-MEMORY KEY=a VALUES=123 TTL=5;
-)",
-R"(
-MEMORY GET KEY=a;
-)",
+// R"(
+//     CREATE DATABASE test;
+// )",
+// R"(
+// CREATE TABLE StudentRolls (
+//     id INT PRIMARY KEY AUTO_INCREMENT,
+//     roll_no INT NOT NULL
+// );
+// )",
+// R"(
+// INSERT INTO StudentRolls (roll_no)
+// VALUES (2);
+// )",
+// R"(
+// INSERT INTO StudentRolls (roll_no)
+// VALUES (5);
+// )",
+// R"(
+// DELETE FROM studentrolls WHERE roll_no < "4";
+// )",
+// R"(
+//     CREATE DATABASE test1;
+// )",
+// R"(
+// CREATE TABLE testing (
+//     id INT PRIMARY KEY AUTO_INCREMENT,
+//     roll_no INT NOT NULL
+// );
+// )",
+// R"(
+// INSERT INTO testing (roll_no)
+// VALUES (15);
+// )",
+// R"(
+// INSERT INTO testing (roll_no)
+// VALUES (20);
+// )",
+// R"(
+// DELETE FROM testing WHERE roll_no < "16";
+// )",
+// R"(
+// SELECT * FROM StudentRolls;
+// )",
+// R"(
+// SELECT * FROM testing;
+// )",
+// R"(
+// DROP TABLE StudentRolls;
+// )",
+// R"(
+// DROP DATABASE test;
+// )",
+// R"(
+// USE school;
+// )",
+// R"(
+// MEMORY KEY=a VALUES=123 TTL=5;
+// )",
+// R"(
+// MEMORY GET KEY=a;
+// )",
 };
 
 

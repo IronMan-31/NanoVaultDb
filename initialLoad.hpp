@@ -11,6 +11,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include <atomic>
 
 #include "global.hpp"
 #include "utility.hpp"
@@ -47,23 +48,35 @@ std::string getCurrentDatabase(std::string &metaFile)
 
 void runVacuum() {
     std::lock_guard<std::mutex> dbLock(dbMutex);
+
+    std::vector<std::pair<std::string, std::string>> tablesToVacuum;
+
     for (auto& [dbName, tables] : globalTableCache) {
         for (auto& [tableName, _] : tables) {
-            PagerHandler::vacuumTable(dbName, tableName);
+            tablesToVacuum.emplace_back(dbName, tableName);
+        }
+    }
+
+    for (auto& [db, table] : tablesToVacuum) {
+        std::cout<<table<<"\n";
+        PagerHandler::vacuumTable(db, table);
+    }
+}
+
+
+void vacuumScheduler() {
+    while (!shuttingDown.load()) {
+        runVacuum();
+
+        for (int i = 0; i < 360; i++) { 
+            if (shuttingDown.load()) return;
+            std::this_thread::sleep_for(std::chrono::seconds(60));
         }
     }
 }
 
-void vacuumScheduler() {
-    runVacuum();
-    while (true) {
-        std::this_thread::sleep_for(std::chrono::hours(6));
-        runVacuum();
-    }
-}
-
 void startVacuumThread() {
-    std::thread(vacuumScheduler).detach();
+    vacuumThread = std::thread(vacuumScheduler);
 }
 
 bool checkDBexist(const std::string &name)

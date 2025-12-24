@@ -12,10 +12,14 @@
 #include <shared_mutex>
 #include <mutex>
 #include <atomic>
+#include <thread>
 #include <condition_variable>
 
 #include "databaseSchemaReader.hpp"
 #include "storageTree.hpp"
+
+extern std::thread vacuumThread;
+
 
 // Memory structures
 
@@ -78,6 +82,9 @@ std::unordered_map<std::string, MemoryEntry> memoryStore;
 std::shared_mutex memoryMutex;
 std::unordered_map<std::string, std::mutex> tableLocks;
 std::mutex dbMutex;
+
+std::atomic<bool> shuttingDown{false};
+std::thread vacuumThread;
 
 std::priority_queue<
     ExpiryNode,
