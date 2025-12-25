@@ -119,8 +119,7 @@ namespace CommandRunner
             std::cout << "Database '" << name << "' dropped successfully.\n";
         }
     }
-
-
+    
     void generateInsertTableStatement(const std::unique_ptr<InsertStatement> &stmt)
     {
         std::string tableName = stmt->tableName;
@@ -195,6 +194,147 @@ namespace CommandRunner
             throw std::runtime_error(s.str());
         }
     }
+    static std::string valueToStorageString(const Value& v)
+    {
+        if (std::holds_alternative<long int>(v))
+            return std::to_string(std::get<long int>(v));
+
+        if (std::holds_alternative<std::string>(v))
+            return std::get<std::string>(v);
+
+        if (std::holds_alternative<bool>(v))
+            return std::get<bool>(v) ? "1" : "0";
+
+        throw std::runtime_error("Unsupported Value type");
+    }
+
+
+    void handleUpdate(const std::unique_ptr<UpdateStatement>& stmt)
+    {
+        const std::string& tableName = stmt->tableName;
+
+        // 1️⃣ Table-level lock
+        std::lock_guard<std::mutex> lock(tableLocks[tableName]);
+
+        if (currentDatabase.empty())
+            throw std::runtime_error("No database selected");
+
+        auto& tableCols = globalTableCache[currentDatabase][tableName];
+
+        // 2️⃣ Identify primary key column
+        std::string primaryKey;
+        for (auto& col : tableCols) {
+            if (col->isPrimary) {
+                primaryKey = col->name;
+                break;
+            }
+        }
+
+        // 3️⃣ Reject primary key update
+        for (auto& [col, _] : stmt->assignments) {
+            if (col == primaryKey)
+                throw std::runtime_error("UPDATE of PRIMARY KEY is not allowed");
+        }
+
+        // 4️⃣ File paths
+        std::string base = tableDirectory + "/" + currentDatabase + "/" + tableName;
+
+        std::fstream indexFile(base + ".index", std::ios::in | std::ios::binary);
+        std::fstream dataFile (base + ".data",  std::ios::in | std::ios::binary);
+        std::fstream delFile  (base + ".delete",std::ios::in | std::ios::out | std::ios::binary);
+
+        if (indexFile.fail() || dataFile.fail() || delFile.fail())
+            throw std::runtime_error("Failed to open table files");
+
+        // 5️⃣ Prepare column order
+        std::vector<std::string> columnNames;
+        for (auto& col : tableCols)
+            columnNames.push_back(col->name);
+
+        std::sort(columnNames.begin(), columnNames.end());
+
+        int64_t rowSize =
+            sizeof(int64_t) + (columnNames.size() - 1) * sizeof(PagerHandler::RowIndex);
+
+        int64_t rowCount =
+            PagerHandler::getFileSize(base + ".index") / rowSize;
+
+        int updatedCount = 0;
+
+        // 6️⃣ Scan rows
+        for (int64_t row = 0; row < rowCount; row++)
+        {
+            uint8_t deleted;
+            delFile.seekg(row);
+            delFile.read(reinterpret_cast<char*>(&deleted), 1);
+            if (deleted == 1) continue;
+
+            indexFile.seekg(row * rowSize);
+
+            Row oldRow;
+            int64_t id;
+            indexFile.read(reinterpret_cast<char*>(&id), sizeof(int64_t));
+            oldRow.columns[columnNames[0]] = std::to_string(id);
+
+            for (size_t i = 1; i < columnNames.size(); i++) {
+                int64_t start, end;
+                indexFile.read(reinterpret_cast<char*>(&start), sizeof(int64_t));
+                indexFile.read(reinterpret_cast<char*>(&end), sizeof(int64_t));
+
+                std::string val(end - start, '\0');
+                dataFile.seekg(start);
+                dataFile.read(val.data(), val.size());
+
+                oldRow.columns[columnNames[i]] = val;
+            }
+
+            // 7️⃣ WHERE evaluation
+            if (!AstParser::evaluateWhere(stmt->where.get(), oldRow))
+                continue;
+
+            // 8️⃣ Build new row
+            Row newRow = oldRow;
+            for (auto& [col, val] : stmt->assignments) {
+                newRow.columns[col] = val;
+            }
+
+            // 9️⃣ Mark old row deleted
+            uint8_t dead = 1;
+            delFile.seekp(row);
+            delFile.write(reinterpret_cast<char*>(&dead), 1);
+
+            // 🔟 INSERT new row
+            std::vector<std::pair<std::string,
+                std::pair<std::string, bool>>> insertCols;
+
+
+            for (auto& col : tableCols) {
+                if (col->isPrimary) continue;
+
+                insertCols.push_back({
+                    col->name,
+                    {
+                        valueToStorageString(newRow.columns[col->name]),
+                        col->isUnique
+                    }
+                });
+            }
+
+
+            PagerHandler::insertRow(
+                primaryKey,
+                std::move(insertCols),
+                tableName
+            );
+
+            updatedCount++;
+        }
+
+        delFile.flush();
+
+        std::cout << "UPDATE affected rows: " << updatedCount << "\n";
+    }
+
 
     void handleDelete(const std::unique_ptr<DeleteStatement>& stmt)
     {

@@ -195,6 +195,61 @@ public:
         return stmt;
     }
 
+    std::unique_ptr<UpdateStatement> parseUpdateStatement() {
+        std::lock_guard<std::mutex> dbLock(dbMutex);
+
+        auto stmt = std::make_unique<UpdateStatement>();
+
+        // UPDATE
+        expect(TokenType::UPDATE, "Expected UPDATE keyword");
+
+        // table name
+        Token* tableToken = expect(TokenType::IDENTIFIER, "Expected table name");
+        stmt->tableName = tableToken->VALUE;
+
+        // SET
+        expect(TokenType::SET, "Expected SET keyword");
+
+        // Parse assignments: col = value [, col = value]*
+        while (true) {
+            // column name
+            Token* column = expect(TokenType::IDENTIFIER, "Expected column name");
+
+            // =
+            expect(TokenType::EQUAL, "Expected '=' in SET clause");
+
+            // value
+            Token* value;
+            if (match(TokenType::STRING) || match(TokenType::NUMBER) || match(TokenType::IDENTIFIER)) {
+                value = previous();
+            } else {
+                throw std::runtime_error("Invalid value in UPDATE SET clause");
+            }
+
+            stmt->assignments.push_back({
+                column->VALUE,
+                value->VALUE
+            });
+
+            if (!match(TokenType::COMMA))
+                break;
+        }
+
+        // WHERE (mandatory)
+        if (!match(TokenType::WHERE)) {
+            throw std::runtime_error("UPDATE without WHERE is not allowed");
+        }
+
+        auto condition = parseExpression();
+        stmt->where = std::make_unique<WhereClause>(std::move(condition));
+
+        expect(TokenType::SEMICOLON, "Expected ';' after UPDATE statement");
+
+        return stmt;
+    }
+
+
+
     std::string parseUseStatement(){
         std::lock_guard<std::mutex> dbLock(dbMutex);
         expect(TokenType::USE, "Expected USE keyword");
@@ -834,6 +889,23 @@ public:
             e << "{" << "\"success\": false, " << "\"error\": \"\033[31m"
             << err.what() << "\033[0m\"" << "}";
 
+            return e.str();
+        }
+        } else if (match(TokenType::UPDATE)) {
+
+        try {
+            rewind();
+            auto stmt = parseUpdateStatement();
+            CommandRunner::handleUpdate(stmt);
+            return r;
+        } catch (const std::exception &err) {
+            std::stringstream e;
+            e << "{"
+            << "\"success\": false, "
+            << "\"error\": \"\033[31m"
+            << err.what()
+            << "\033[0m\""
+            << "}";
             return e.str();
         }
         } else if (match(TokenType::MEMORY)) {
