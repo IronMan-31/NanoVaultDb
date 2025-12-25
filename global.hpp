@@ -272,6 +272,12 @@ struct SelectStatement : public ASTNode
     ASTNodeType getType() const override { return ASTNodeType::SELECT_STATEMENT; }
 };
 
+struct UpdateStatement {
+    std::string tableName;
+    std::vector<std::pair<std::string, std::string>> assignments;
+    std::unique_ptr<WhereClause> where;
+};
+
 struct DropStatement : public ASTNode
 {
     bool istable;

@@ -29,7 +29,7 @@ int main(int argc, char const *argv[])
 
     std::vector<std::string> testSQLs = {
 // R"(
-//     CREATE DATABASE test;
+//     CREATE DATABASE school;
 // )",
 // R"(
 // CREATE TABLE StudentRolls (
@@ -37,16 +37,19 @@ int main(int argc, char const *argv[])
 //     roll_no INT NOT NULL
 // );
 // )",
-R"(
-INSERT INTO StudentRolls (roll_no)
-VALUES (2);
-)",
+// R"(
+// INSERT INTO StudentRolls (roll_no)
+// VALUES (2);
+// )",
 // R"(
 // INSERT INTO StudentRolls (roll_no)
 // VALUES (5);
 // )",
 // R"(
-// DELETE FROM studentrolls WHERE roll_no < "4";
+// UPDATE StudentRolls SET roll_no=12 WHERE roll_no<5;
+// )",
+// R"(
+// DELETE FROM StudentRolls WHERE roll_no=12;
 // )",
 R"(
 SELECT * FROM StudentRolls;
