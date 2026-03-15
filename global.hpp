@@ -1,6 +1,7 @@
 #ifndef GLOBALS_HPP
 #define GLOBALS_HPP
 
+#include <cstdint>
 #include <string>
 #include <unordered_map>
 #include <memory>
@@ -68,6 +69,7 @@ struct TableGlobalColumnNode
     std::string type;
     std::string name;
     std::vector<std::string> constraint;
+    int8_t bit = 0;
     bool autoIncrement = false;
     bool isUnique = false;
     bool isPrimary = false;
@@ -290,10 +292,14 @@ struct ColumnDefinition
 {
     std::string name;
     std::string type;
+    int16_t bit = 0;
     std::vector<ColumnConstraint> constraints;
 
-    ColumnDefinition(const std::string &name, const std::string &type)
-        : name(name), type(type) {}
+    ColumnDefinition(const std::string &name, const std::string &type,int16_t bit = 0)
+        : name(name), type(type),bit(bit) {}
+    void print(){
+        std::cout<<name<<" "<<type<<" "<<bit<<"\n";
+    }
 };
 
 struct DeleteStatement : public ASTNode
@@ -315,7 +321,14 @@ struct CreateStatement : public ASTNode
     std::vector<ColumnDefinition> columns;
 
     ASTNodeType getType() const override { return ASTNodeType::CREATE_STATEMENT; }
+    void print(){
+        for(auto e:columns){
+            e.print();
+        }
+    }
 };
+
+
 
 struct InsertStatement
 {

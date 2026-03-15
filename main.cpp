@@ -52,7 +52,12 @@ int main(int argc, char const *argv[])
 // DELETE FROM StudentRolls WHERE roll_no=12;
 // )",
 R"(
-SELECT * FROM StudentRolls;
+CREATE HFT TABLE btc_ticks (
+    timestamp  DOUBLE PRECISION 0,          
+    price      DOUBLE PRECISION 10,           
+    volume     DOUBLE PRECISION 2,            
+    side       DOUBLE PRECISION 0              
+)
 )",
 // R"(
 // SELECT * FROM testing;
@@ -118,3 +123,4 @@ SELECT * FROM StudentRolls;
 
     return 0;
 }
+

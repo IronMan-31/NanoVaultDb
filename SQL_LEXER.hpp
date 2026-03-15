@@ -68,11 +68,27 @@ enum class TokenType
     CLOSE_PAREN,
 
     // End of file
-    END_OF_FILE
+    END_OF_FILE,
+
+
+    // HFT SPECIFIC
+    DOUBLE,
+    PRECISION,
+    TICKS,
+    HFT,
+    TICK_SIDE // 0 for buy 1 for sell 2 for unknow
 };
 
 // Make these static const to avoid multiple definition errors
 static const std::unordered_map<std::string, TokenType> keywords = {
+    // HFT SPECIFIC
+    {"double",TokenType::DOUBLE},
+    {"tick_side",TokenType::TICK_SIDE},
+    {"precision",TokenType::PRECISION},
+    {"ticks",TokenType::TICKS},
+    {"hft",TokenType::HFT},
+
+
     {"select", TokenType::SELECT},
     {"use",TokenType::USE},
     {"from", TokenType::FROM},
@@ -122,7 +138,14 @@ std::string typeToString(TokenType TYPE)
 {
     switch (TYPE)
     {
-    // Keywords
+    // HFT SPECIFIC
+    case TokenType::DOUBLE: return "DOUBLE";
+    case TokenType::TICKS: return "TICKS";
+    case TokenType::PRECISION: return "PRECISION";
+    case TokenType::TICK_SIDE: return "TICK_SIDE";
+    case TokenType::HFT: return "HFT";
+        // Keywords
+    
     case TokenType::SELECT: return "SELECT";
     case TokenType::FROM: return "FROM";
     case TokenType::USE: return "USE";

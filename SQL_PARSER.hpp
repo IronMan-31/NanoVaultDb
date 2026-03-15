@@ -2,6 +2,7 @@
 #ifndef __PARSER_AST_HPP
 #define __PARSER_AST_HPP
 
+#include <cstdint>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -299,6 +300,58 @@ public:
     }
 
 
+    std::unique_ptr<CreateStatement> parseHFTCreateStatement(){
+        if(currentDb.empty()){
+             throw std::runtime_error("No database selected. Use USE <db_name>;");
+        }
+        
+        std::unique_ptr<CreateStatement> stmt = std::make_unique<CreateStatement>();
+
+        expect(TokenType::HFT, "Expected HFT KEYWORD");
+        expect(TokenType::TABLE, "Expected TABLE KEYWORD");
+
+        Token * tableName = expect(TokenType::IDENTIFIER, "Expected table name");
+        stmt->name = tableName->VALUE;
+         expect(TokenType::OPEN_PAREN, "Expected '(' after table name");
+
+        while (!match(TokenType::CLOSE_PAREN)) {
+            Token * colName = expect(TokenType::IDENTIFIER,"Expected column name");
+            
+            expect(TokenType::DOUBLE, "ONLY SUPPORT DOUBLE");
+            Token * typeToken = previous(); // DOUBLE
+           
+            expect(TokenType::PRECISION, "use keyword precision after double");
+            expect(TokenType::NUMBER, "expected bit precision to be a number");
+            Token * bitToken = previous(); // BIT VALUE
+            // std::cout<<"BIT TOKEN VALUE "<<bitToken->VALUE<<"\n";
+            ColumnDefinition column(colName->VALUE,typeToken->VALUE,static_cast<int16_t>(std::stoi(bitToken->VALUE)));
+            
+            // column.print();
+
+            stmt->columns.push_back(column);
+
+
+                if (match(TokenType::COMMA))
+                {
+                    continue;
+                }
+                else if (peek()->TYPE == TokenType::CLOSE_PAREN)
+                {
+                    continue;
+                }
+                else
+                {
+                    throw std::runtime_error("Expected ',' or ')' in column list");
+                }
+            
+        }
+
+        stmt->print();
+        
+
+
+        return stmt;
+    }
     std::unique_ptr<CreateStatement> parseCreateStatement()
     {
         expect(TokenType::CREATE, "Expected CREATE keyword");
@@ -809,7 +862,13 @@ public:
 
     std::string parse() {
         std::string r = "{\"suceess\" : true}";
-        if (match(TokenType::CREATE)) {
+        if (match(TokenType::CREATE) ) {
+            if(match(TokenType::HFT)){
+                // rewind();
+                rewind();
+                auto stmt = parseHFTCreateStatement();
+                return r;
+            }
         rewind(); // Go back one token to reprocess CREATE in parseCreateStatement
         try {
             auto stmt = parseCreateStatement();

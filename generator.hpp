@@ -221,7 +221,7 @@ namespace CommandRunner
 
         auto& tableCols = globalTableCache[currentDatabase][tableName];
 
-        // 2️⃣ Identify primary key column
+        //  Identify primary key column
         std::string primaryKey;
         for (auto& col : tableCols) {
             if (col->isPrimary) {
@@ -230,13 +230,13 @@ namespace CommandRunner
             }
         }
 
-        // 3️⃣ Reject primary key update
+        //  Reject primary key update
         for (auto& [col, _] : stmt->assignments) {
             if (col == primaryKey)
                 throw std::runtime_error("UPDATE of PRIMARY KEY is not allowed");
         }
 
-        // 4️⃣ File paths
+        //  File paths
         std::string base = tableDirectory + "/" + currentDatabase + "/" + tableName;
 
         std::fstream indexFile(base + ".index", std::ios::in | std::ios::binary);
@@ -246,7 +246,7 @@ namespace CommandRunner
         if (indexFile.fail() || dataFile.fail() || delFile.fail())
             throw std::runtime_error("Failed to open table files");
 
-        // 5️⃣ Prepare column order
+        //  Prepare column order
         std::vector<std::string> columnNames;
         for (auto& col : tableCols)
             columnNames.push_back(col->name);
@@ -261,7 +261,7 @@ namespace CommandRunner
 
         int updatedCount = 0;
 
-        // 6️⃣ Scan rows
+        //  Scan rows
         for (int64_t row = 0; row < rowCount; row++)
         {
             uint8_t deleted;
@@ -569,6 +569,7 @@ namespace CommandRunner
         MyUtility::createFile(indexFile.str(), "");
         MyUtility::createFile(dataFile.str(), "");
         MyUtility::createFile(delFile.str(), "");
+        tableLocks[stmt->name].unlock();
     }
     void memorySet(const std::string& key,
                const std::string& value,
