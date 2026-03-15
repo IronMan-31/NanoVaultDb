@@ -16,6 +16,7 @@ std::string typeToString(TokenType TYPE);
 int main(int argc, char const *argv[])
 {
     initialDatabseLoad();
+    
     runVacuum();
     try
     {

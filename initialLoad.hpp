@@ -1,6 +1,7 @@
 #ifndef __INITIAL_LOAD
 #define __INITIAL_LOAD
 
+#include <cstdint>
 #include <unordered_map>
 #include <filesystem>
 #include <iostream>
@@ -136,7 +137,11 @@ void initialDatabseLoad()
                             std::string columnDataName = columnsArray[j][std::string("name")].getString();
                             std::string columnDataType = columnsArray[j][std::string("type")].getString();
                             JSONArrayWrapper constraintArray = columnsArray[j][std::string("constraints")].asArray();
-
+                            std::string precision_str = columnsArray[j][std::string(std::string("precision"))].getString();
+                            int32_t precision = 0;
+                            if(!precision_str.empty()){
+                                precision = static_cast<int32_t>(std::stoi(precision_str));
+                            }
                             int length = INT_MAX;
                             bool isUnique = false;
                             bool isPrimary = false;
@@ -163,6 +168,7 @@ void initialDatabseLoad()
 
                             node->constraint = constraintArray.toStringVector();
                             node->length = length;
+                            node->precision = precision;
                             node->name = columnDataName;
                             node->type = columnDataType;
                             node->autoIncrement = autoIncrement;
