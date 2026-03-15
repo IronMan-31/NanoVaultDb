@@ -69,7 +69,7 @@ struct TableGlobalColumnNode
     std::string type;
     std::string name;
     std::vector<std::string> constraint;
-    int8_t bit = 0;
+    int precision = 0;
     bool autoIncrement = false;
     bool isUnique = false;
     bool isPrimary = false;
@@ -292,13 +292,13 @@ struct ColumnDefinition
 {
     std::string name;
     std::string type;
-    int16_t bit = 0;
+    int precision = 0;
     std::vector<ColumnConstraint> constraints;
 
     ColumnDefinition(const std::string &name, const std::string &type,int16_t bit = 0)
-        : name(name), type(type),bit(bit) {}
+        : name(name), type(type),precision(bit) {}
     void print(){
-        std::cout<<name<<" "<<type<<" "<<bit<<"\n";
+        std::cout<<name<<" "<<type<<" "<<precision<<"\n";
     }
 };
 

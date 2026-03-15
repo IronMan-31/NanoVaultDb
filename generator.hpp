@@ -571,6 +571,102 @@ namespace CommandRunner
         MyUtility::createFile(delFile.str(), "");
         tableLocks[stmt->name].unlock();
     }
+
+    void generateHFTCreateStatement(const std::unique_ptr<CreateStatement> &stmt)
+    {
+        std::lock_guard<std::mutex> dbLock(dbMutex);
+        JSONParser::JSONArray columnArray;
+        std::vector<std::shared_ptr<TableGlobalColumnNode>> newTableCache;
+
+        for (const auto &col : stmt->columns)
+        {
+            std::shared_ptr<TableGlobalColumnNode> node = std::make_shared<TableGlobalColumnNode>();
+            node->name = col.name;
+            node->type = col.type;
+            
+            // Keep constraints empty as requested
+            JSONParser::JSONArray constraintArray;
+
+            JSONParser::JSONObject colJson = {
+                {"name", JSONParser::JSONValue(col.name)},
+                {"type", JSONParser::JSONValue(col.type)},
+                {"precision", JSONParser::JSONValue(static_cast<int>(col.precision))},
+                {"constraints", JSONParser::JSONValue(constraintArray)}
+            };
+            
+            columnArray.push_back(JSONParser::JSONValue(colJson));
+            
+            node->autoIncrement = false;
+            node->isUnique = false;
+            node->createIndex = false;
+            node->isPrimary = false;
+            node->precision = col.precision;
+            newTableCache.push_back(node);
+        }
+
+        // Check if table already exists
+        if (globalTableCache[currentDatabase].find(stmt->name) != globalTableCache[currentDatabase].end())
+        {
+            throw std::runtime_error(" Table '" + stmt->name + "' already exists in DB '" + currentDatabase + "'");
+        }
+
+        JSONParser::JSONObject tableJson = {
+            {"name", JSONParser::JSONValue(stmt->name)},
+            {"columns", JSONParser::JSONValue(columnArray)}
+        };
+
+        std::string filePath = "./db/" + currentDatabase + ".shivam.db";
+        JSONParser parser(filePath);
+
+        if (!parser.loadFromFile())
+        {
+            throw std::runtime_error(" Failed to load DB file: " + filePath);
+        }
+
+        JSONParser::JSONValue root = parser.getObject(0);
+        if (!std::holds_alternative<JSONParser::JSONObject>(root.value))
+        {
+            throw std::runtime_error("Root of DB JSON must be an object");
+        }
+
+        auto &dbObj = std::get<JSONParser::JSONObject>(root.value);
+
+        if (dbObj.find("tables") != dbObj.end() &&
+            std::holds_alternative<JSONParser::JSONArray>(dbObj["tables"].value))
+        {
+            auto &tables = std::get<JSONParser::JSONArray>(dbObj["tables"].value);
+            tables.push_back(JSONParser::JSONValue(tableJson));
+        }
+        else
+        {
+            dbObj["tables"] = JSONParser::JSONValue(JSONParser::JSONArray{
+                JSONParser::JSONValue(tableJson)});
+        }
+
+        parser.clear();
+        parser.appendValue(JSONParser::JSONValue(dbObj));
+
+        if (!parser.saveToFile())
+        {
+            throw std::runtime_error(" Failed to save DB JSON file");
+        }
+
+        globalTableCache[currentDatabase][stmt->name] = newTableCache; 
+        tableLocks[stmt->name];  // initialize mutex
+                      
+        std::cout << " HFT Table '" << stmt->name << "' added to DB '" << currentDatabase << "' successfully.\n";
+        
+        std::string tablename = stmt->name;
+        std::stringstream indexFile, dataFile, delFile;
+
+        indexFile << tableDirectory << "/" << currentDatabase << "/" << tablename << ".index";
+        dataFile << tableDirectory << "/" << currentDatabase << "/" << tablename << ".data";
+        delFile << tableDirectory << "/" << currentDatabase << "/" << tablename << ".delete";
+        
+        MyUtility::createFile(indexFile.str(), "");
+        MyUtility::createFile(dataFile.str(), "");
+        MyUtility::createFile(delFile.str(), "");
+    }
     void memorySet(const std::string& key,
                const std::string& value,
                int ttlSeconds)

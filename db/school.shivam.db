@@ -21,6 +21,35 @@
           }
         ],
         "name": "studentrolls"
+      },
+      {
+        "columns": [
+          {
+            "constraints": [],
+            "name": "timestamp",
+            "precision": 0,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "price",
+            "precision": 10,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "volume",
+            "precision": 2,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "side",
+            "precision": 0,
+            "type": "double"
+          }
+        ],
+        "name": "btc_ticks"
       }
     ]
   }

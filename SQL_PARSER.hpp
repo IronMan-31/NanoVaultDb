@@ -347,9 +347,8 @@ public:
         }
 
         stmt->print();
+        CommandRunner::generateHFTCreateStatement(stmt);
         
-
-
         return stmt;
     }
     std::unique_ptr<CreateStatement> parseCreateStatement()
