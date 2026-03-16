@@ -5,22 +5,33 @@
       {
         "columns": [
           {
-            "constraints": [
-              "primary_key",
-              "auto_increment"
-            ],
-            "name": "id",
-            "type": "int"
+            "constraints": [],
+            "name": "timestamp",
+            "precision": 0,
+            "type": "double"
           },
           {
-            "constraints": [
-              "not_null"
-            ],
-            "name": "roll_no",
-            "type": "int"
+            "constraints": [],
+            "name": "price",
+            "precision": 10,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "volume",
+            "precision": 2,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "side",
+            "precision": 0,
+            "type": "double"
           }
         ],
-        "name": "studentrolls"
+        "name": "btc_ticks",
+        "symbol": 1,
+        "top": 0
       },
       {
         "columns": [
@@ -49,7 +60,9 @@
             "type": "double"
           }
         ],
-        "name": "btc_ticks"
+        "name": "eth_ticks",
+        "symbol": 2,
+        "top": 0
       }
     ]
   }

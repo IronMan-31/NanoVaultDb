@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include "UDPReceiver.hpp"
 #include "SQL_LEXER.hpp"
 #include "SQL_PARSER.hpp"
 #include "initialLoad.hpp"
@@ -53,12 +53,12 @@ int main(int argc, char const *argv[])
 // DELETE FROM StudentRolls WHERE roll_no=12;
 // )",
 R"(
-CREATE HFT TABLE btc_ticks (
+CREATE HFT TABLE eth_ticks (
     timestamp  DOUBLE PRECISION 0,          
     price      DOUBLE PRECISION 10,           
     volume     DOUBLE PRECISION 2,            
     side       DOUBLE PRECISION 0              
-)
+) SYMBOL 2 TOP;
 )",
 // R"(
 // SELECT * FROM testing;
@@ -113,7 +113,7 @@ CREATE HFT TABLE btc_ticks (
             }
 
             Parser parser(tokens);
-            parser.parse(); // Parse the SQL
+            // parser.parse(); // Par/se the SQL
         }
         catch (const std::exception &e)
         {
@@ -122,6 +122,7 @@ CREATE HFT TABLE btc_ticks (
         cout << "\n";
     }
 
+        NetFeed::run_receiver();
     return 0;
 }
 

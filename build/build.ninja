@@ -46,7 +46,7 @@ build cmake_object_order_depends_target_main: phony || CMakeFiles/main.dir
 
 build CMakeFiles/main.dir/main.cpp.o: CXX_COMPILER__main_unscanned_ /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/main.cpp || cmake_object_order_depends_target_main
   DEP_FILE = CMakeFiles/main.dir/main.cpp.o.d
-  FLAGS = -O3 -march=native -std=gnu++17
+  FLAGS = -O3 -march=native -std=gnu++20
   OBJECT_DIR = CMakeFiles/main.dir
   OBJECT_FILE_DIR = CMakeFiles/main.dir
 

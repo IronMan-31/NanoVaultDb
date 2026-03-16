@@ -11,9 +11,10 @@
 #include <climits>
 #include <string>
 #include <thread>
+#include <format>
 #include <chrono>
 #include <atomic>
-
+#include "hft.hpp"
 #include "global.hpp"
 #include "utility.hpp"
 
@@ -126,10 +127,17 @@ void initialDatabseLoad()
                     for (int64_t i = 0; i < tablesArray.size(); ++i)
                     {
                         std::string tableName = tablesArray[i][std::string("name")].getString();
+                        std::string symbolString = std::to_string(tablesArray[i][std::string("symbol")].getInt());
+                        std::string  topString = std::to_string(tablesArray[i][std::string("top")].getInt());
+                        bool isSymbol = false;
+                        bool isTop = false;
+                        MyUtility::createFile("error.txt", std::format("the tableName is {}",symbolString));
+                        if(!symbolString.empty()) isSymbol = true;
+                        if(!topString.empty()) isTop = true;
                         JSONArrayWrapper columnsArray = tablesArray[i][std::string("columns")].asArray();
 
                         std::vector<std::shared_ptr<TableGlobalColumnNode>> columnNodes;
-
+                        
                         for (int64_t j = 0; j < columnsArray.size(); ++j)
                         {
                             std::shared_ptr<TableGlobalColumnNode> node = std::make_shared<TableGlobalColumnNode>();
@@ -188,6 +196,11 @@ void initialDatabseLoad()
 
                         // Save table columns in globalTableCache
                         globalTableCache[dbname][tableName] = std::move(columnNodes);
+                        if(isSymbol){
+                            int64_t symbol = static_cast<int64_t>(std::stoi(symbolString));
+
+                            HFT::symbolAccessArray[symbol].init(columnsArray.size(),isTop?true:false,symbol);
+                        }
 
                         std::cout << "Loaded table: " << tableName << " from DB: " << dbname << std::endl;
                     }

@@ -1,10 +1,12 @@
 #ifndef GLOBALS_HPP
 #define GLOBALS_HPP
 
+#include <array>
 #include <cstdint>
 #include <string>
 #include <unordered_map>
 #include <memory>
+#include <utility>
 #include <variant>
 #include <vector>
 #include <climits>
@@ -28,6 +30,7 @@ struct MemoryEntry {
     std::string value;
     std::chrono::steady_clock::time_point expiry;
 };
+
 
 // Main store
 extern std::unordered_map<std::string, MemoryEntry> memoryStore;
@@ -106,6 +109,13 @@ std::unordered_map<
         std::string,
         std::vector<std::shared_ptr<TableGlobalColumnNode>>>>
     globalTableCache;
+
+
+
+
+
+
+
 
 struct IndexNode
 {
@@ -318,6 +328,8 @@ struct CreateStatement : public ASTNode
 {
     bool isDatabase = false;
     std::string name;
+    int32_t symbol = -1;
+    bool top = false;
     std::vector<ColumnDefinition> columns;
 
     ASTNodeType getType() const override { return ASTNodeType::CREATE_STATEMENT; }
@@ -325,6 +337,7 @@ struct CreateStatement : public ASTNode
         for(auto e:columns){
             e.print();
         }
+        std::cout<<"SYMBOL is "<<symbol<<"\n";
     }
 };
 

@@ -610,8 +610,11 @@ namespace CommandRunner
             throw std::runtime_error(" Table '" + stmt->name + "' already exists in DB '" + currentDatabase + "'");
         }
 
+
         JSONParser::JSONObject tableJson = {
             {"name", JSONParser::JSONValue(stmt->name)},
+            {"symbol",JSONParser::JSONValue(stmt->symbol)},
+            {"top",JSONParser::JSONValue(stmt->top ? 1 : 0)},
             {"columns", JSONParser::JSONValue(columnArray)}
         };
 

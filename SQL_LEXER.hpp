@@ -76,7 +76,9 @@ enum class TokenType
     PRECISION,
     TICKS,
     HFT,
-    TICK_SIDE // 0 for buy 1 for sell 2 for unknow
+    TICK_SIDE, // 0 for buy 1 for sell 2 for unknow
+    SYMBOL,
+    TOP
 };
 
 // Make these static const to avoid multiple definition errors
@@ -87,6 +89,8 @@ static const std::unordered_map<std::string, TokenType> keywords = {
     {"precision",TokenType::PRECISION},
     {"ticks",TokenType::TICKS},
     {"hft",TokenType::HFT},
+    {"symbol",TokenType::SYMBOL},
+    {"top",TokenType::TOP},
 
 
     {"select", TokenType::SELECT},
@@ -144,6 +148,9 @@ std::string typeToString(TokenType TYPE)
     case TokenType::PRECISION: return "PRECISION";
     case TokenType::TICK_SIDE: return "TICK_SIDE";
     case TokenType::HFT: return "HFT";
+    case TokenType::SYMBOL: return "SYMBOL";
+    case TokenType::TOP: return "TOP";
+    
         // Keywords
     
     case TokenType::SELECT: return "SELECT";

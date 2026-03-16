@@ -3,7 +3,9 @@
 #define __PARSER_AST_HPP
 
 #include <cstdint>
+#include "hft.hpp"
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 #include <memory>
@@ -346,7 +348,24 @@ public:
             
         }
 
+        expect(TokenType::SYMBOL, "use the symbol keyword\n");
+        expect(TokenType::NUMBER, "the symbol should be a number");
+        Token * sym = previous();
+        int32_t symbol = static_cast<int>(std::stoi(sym->VALUE));
+        if(symbol>(HFT::MAXHFTSYMBOL -1)){
+            std::stringstream s; 
+            s<<"the symbol value is not more than "<<(HFT::MAXHFTSYMBOL -1) <<"\n";
+            std::runtime_error(s.str());
+        }
+        stmt->symbol = symbol;
         stmt->print();
+
+        Token * curr = current();
+        if(curr->TYPE != TokenType::SEMICOLON){
+            expect(TokenType::TOP, "expected top variable for best bid and best ask price");
+            stmt->top = true;
+        }
+
         CommandRunner::generateHFTCreateStatement(stmt);
         
         return stmt;
