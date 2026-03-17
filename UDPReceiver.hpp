@@ -23,9 +23,10 @@ FORCE_INLINE int64_t read_be64(const char *p) {
 COLD void packet_error() {
   std::cerr << "Invalid packet\n";
 }
+int64_t count = 0;
 
 HOT void process_packet(const char *__restrict buffer, ssize_t n) {
-
+    count++;
     std::cout << "packet processing\n";
 
     const int64_t tick = read_be64(buffer);
@@ -108,7 +109,7 @@ void run_receiver() {
     return;
   }
 
-  alignas(CACHELINE) char buffer[64];
+  alignas(CACHELINE) char buffer[1024];
 
   while (true) {
 
@@ -121,6 +122,7 @@ void run_receiver() {
     }
 
     process_packet(buffer, n);
+    std::cout<<"count "<<count<<"\n";
   }
 }
 

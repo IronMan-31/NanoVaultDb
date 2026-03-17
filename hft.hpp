@@ -1,9 +1,10 @@
 #ifndef HFT_CODE
 #define HFT_CODE
 
+#include "utils/types.hpp"
 #include <array>
-#include <iostream>
 #include <cstdint>
+#include <iostream>
 
 namespace HFT {
 
@@ -32,7 +33,7 @@ struct alignas(64) TableColumn {
 
   int64_t precisions[MAXCOLUMN];
 
-  ColumnRing history[MAXCOLUMN]; 
+  ColumnRing history[MAXCOLUMN];
 
   // ask order ask quantity bid order bid quantity
   int64_t topOrderBookPrecision = 10;
@@ -44,7 +45,8 @@ struct alignas(64) TableColumn {
   int32_t symbol = -1;
 
   void init(int cols, bool isBook = false, int sym = -1) {
-    std::cout<<"HFT symbol initialized  "<<" "<<cols<<" "<<isBook<<" "<<sym<<"\n";
+    std::cout << "HFT symbol initialized  " << " " << cols << " " << isBook
+              << " " << sym << "\n";
     columnCount = cols;
     this->symbol = sym;
     isTopOrderBook = isBook;
@@ -69,5 +71,32 @@ alignas(64) std::array<TableColumn, MAXHFTSYMBOL> symbolAccessArray;
 // }
 
 } // namespace HFT
+
+
+
+
+
+namespace Indicator {
+ struct BaseIndicator {
+  double data = 0.0;
+  bool isready = false;
+  alignas(64) std::array<double, HFT::MAXRINGSIZE> ring;
+  alignas(CACHELINE) char name[64];
+  int64_t symbol = -1;
+  int64_t ticksSeen = 0;
+
+  virtual void on_tick(double data) noexcept = 0;
+  virtual const char *getName() const noexcept = 0;
+  virtual int64_t getSymbol() const noexcept = 0;
+  virtual void updateSymBol() noexcept = 0;
+  virtual ~BaseIndicator() = default;
+};
+}; // namespace Indicator
+
+
+
+
+
+
 
 #endif

@@ -19,10 +19,14 @@ struct TickPacket {
     int64_t timestamp;   
     int64_t price;       
     int64_t volume;      
-    int64_t side;        
+    int64_t side;    
+    int64_t askOrder;
+    int64_t askQuantity;
+    int64_t bidOrder;
+    int64_t bidQuantity;    
 };
 #pragma pack(pop)
-static_assert(sizeof(TickPacket) == 40, "packet must be 40 bytes");
+static_assert(sizeof(TickPacket) == 72, "packet must be 40 bytes");
 
 static int64_t now_us() {
     return std::chrono::duration_cast<std::chrono::microseconds>(
@@ -52,12 +56,15 @@ int main(int argc, char* argv[]) {
     while (true) {
         TickPacket pkt;
 
-        pkt.tick = htobe64((uint64_t)to_fixed(1, 0));
+        pkt.tick = htobe64((uint64_t)to_fixed(2, 0));
         pkt.timestamp = htobe64((uint64_t)now_us());
         pkt.price     = htobe64((uint64_t)to_fixed(price,  10));
         pkt.volume    = htobe64((uint64_t)to_fixed(volume,  2));
         pkt.side      = htobe64((uint64_t)(count % 3));  // BUY/SELL/UNK
-
+        pkt.askOrder = htobe64((uint64_t)to_fixed(74300.53000000, 8));
+        pkt.askQuantity = htobe64((uint64_t)to_fixed(4.51596000, 8));
+        pkt.bidOrder = htobe64((uint64_t)to_fixed(74300.52000000, 8));
+        pkt.bidQuantity = htobe64((uint64_t)to_fixed(74300.52000000, 8));
         ssize_t sent = sendto(sock,
                               &pkt, sizeof(pkt), 0,
                               (sockaddr*)&dest, sizeof(dest));

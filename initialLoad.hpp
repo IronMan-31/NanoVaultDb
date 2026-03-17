@@ -14,6 +14,7 @@
 #include <format>
 #include <chrono>
 #include <atomic>
+#include <utility>
 #include "hft.hpp"
 #include "global.hpp"
 #include "utility.hpp"
@@ -131,9 +132,9 @@ void initialDatabseLoad()
                         std::string  topString = std::to_string(tablesArray[i][std::string("top")].getInt());
                         bool isSymbol = false;
                         bool isTop = false;
-                        MyUtility::createFile("error.txt", std::format("the tableName is {}",symbolString));
+                        MyUtility::appendToFile("error.txt", std::format("the tableName is {} and top string is {}",symbolString,topString));
                         if(!symbolString.empty()) isSymbol = true;
-                        if(!topString.empty()) isTop = true;
+                        if(topString[0]=='1') isTop = true;
                         JSONArrayWrapper columnsArray = tablesArray[i][std::string("columns")].asArray();
 
                         std::vector<std::shared_ptr<TableGlobalColumnNode>> columnNodes;
@@ -193,13 +194,14 @@ void initialDatabseLoad()
                                 dbBtrees[currentDatabase][tableName][columnDataName] = std::make_pair(tree, 0);
                             }
                         }
-
+                        
                         // Save table columns in globalTableCache
                         globalTableCache[dbname][tableName] = std::move(columnNodes);
                         if(isSymbol){
                             int64_t symbol = static_cast<int64_t>(std::stoi(symbolString));
 
-                            HFT::symbolAccessArray[symbol].init(columnsArray.size(),isTop?true:false,symbol);
+                            MyUtility::appendToFile("error.txt", std::format("the table name is {} symbol is {} isTop is {}",tableName,symbol,isTop));
+                            HFT::symbolAccessArray[symbol].init(columnsArray.size(),isTop?1:0,symbol);
                         }
 
                         std::cout << "Loaded table: " << tableName << " from DB: " << dbname << std::endl;
