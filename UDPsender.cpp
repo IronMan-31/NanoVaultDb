@@ -19,7 +19,7 @@ struct TickPacket {
     int64_t timestamp;   
     int64_t price;       
     int64_t volume;      
-    int64_t side;        
+    int64_t side;       
 };
 #pragma pack(pop)
 static_assert(sizeof(TickPacket) == 40, "packet must be 40 bytes");
@@ -45,10 +45,9 @@ int main(int argc, char* argv[]) {
               << ":" << port << "\n";
 
 
-    double price  = 65000.00;
-    double volume = 1.50;
+    double price  = 69000.00;
+    double volume = 1.70;
     int    count  = 0;
-
     while (true) {
         TickPacket pkt;
 
@@ -57,6 +56,7 @@ int main(int argc, char* argv[]) {
         pkt.price     = htobe64((uint64_t)to_fixed(price,  10));
         pkt.volume    = htobe64((uint64_t)to_fixed(volume,  2));
         pkt.side      = htobe64((uint64_t)(count % 3));  // BUY/SELL/UNK
+        std::cout<<(int)sizeof(pkt.tick)<<"\n";
 
         ssize_t sent = sendto(sock,
                               &pkt, sizeof(pkt), 0,

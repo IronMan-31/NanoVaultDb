@@ -46,7 +46,7 @@ HOT void process_packet(const char *__restrict buffer, ssize_t n) {
     std::cout << "columnCount = " << columnCount << "\n";
     std::cout << "isTop = " << isTop << "\n";
 
-    const int64_t expected = (columnCount + 1 + (isTop << 2)) << 3;
+    const int64_t expected = (columnCount + 1) << 3;
 
     std::cout << "packet size n = " << n << "\n";
     std::cout << "expected size = " << expected << "\n";
@@ -67,6 +67,10 @@ HOT void process_packet(const char *__restrict buffer, ssize_t n) {
         entry->pushHistory(i, value);
         ptr += 8;
     }
+    for (int64_t i = 0; i < columnCount; ++i) {
+        int64_t mean = entry->calc_mean_n(i,10);
+        std::cout << "mean[" << i << "] = " << mean << "\n";
+    }
 
     if (LIKELY(isTop)) {
         std::cout << "reading topOrderBook\n";
@@ -85,7 +89,7 @@ HOT void process_packet(const char *__restrict buffer, ssize_t n) {
 
     std::cout << "ticks " << entry->symbol
               << " latest price "
-              << entry->history[entry->symbol].latest_ptr()
+              << *entry->history[entry->symbol].latest_ptr()
               << "\n";
 }
 

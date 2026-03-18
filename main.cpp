@@ -58,7 +58,14 @@ CREATE HFT TABLE eth_ticks (
     price      DOUBLE PRECISION 10,           
     volume     DOUBLE PRECISION 2,            
     side       DOUBLE PRECISION 0              
-) SYMBOL 2 TOP;
+) SYMBOL 2 AGGREGATES(
+    MEAN 30 1
+    MEAN 60 1
+    STDDEV 20 1
+    MAX_N 60 1
+    MIN_N 60 1
+    COUNT_N 60 1
+) TOP
 )",
 // R"(
 // SELECT * FROM testing;
@@ -113,7 +120,7 @@ CREATE HFT TABLE eth_ticks (
             }
 
             Parser parser(tokens);
-            // parser.parse(); // Par/se the SQL
+            // parser.parse(); 
         }
         catch (const std::exception &e)
         {

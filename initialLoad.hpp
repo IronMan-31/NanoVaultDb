@@ -11,7 +11,7 @@
 #include <climits>
 #include <string>
 #include <thread>
-#include <format>
+
 #include <chrono>
 #include <atomic>
 #include "hft.hpp"
@@ -131,7 +131,7 @@ void initialDatabseLoad()
                         std::string  topString = std::to_string(tablesArray[i][std::string("top")].getInt());
                         bool isSymbol = false;
                         bool isTop = false;
-                        MyUtility::createFile("error.txt", std::format("the tableName is {}",symbolString));
+                        MyUtility::createFile("error.txt", "the tableName is " + symbolString);
                         if(!symbolString.empty()) isSymbol = true;
                         if(!topString.empty()) isTop = true;
                         JSONArrayWrapper columnsArray = tablesArray[i][std::string("columns")].asArray();

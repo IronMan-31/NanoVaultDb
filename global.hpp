@@ -312,6 +312,22 @@ struct ColumnDefinition
     }
 };
 
+struct Aggregates
+{
+    std::string type;
+    bool time_wise;     
+    int64_t time;
+    int32_t col_idx;      
+    int64_t threshold;
+    Aggregates(const std::string &type, bool time_wise, int64_t time, int32_t col_idx, int64_t threshold){  // Bug fix: was named AggDef, must match struct name
+        this->type = type;
+        this->time_wise = time_wise;
+        this->time = time;
+        this->col_idx = col_idx;
+        this->threshold = threshold;
+    }
+}; 
+
 struct DeleteStatement : public ASTNode
 {
     std::string table;
@@ -331,6 +347,7 @@ struct CreateStatement : public ASTNode
     int32_t symbol = -1;
     bool top = false;
     std::vector<ColumnDefinition> columns;
+    std::vector<Aggregates>aggregates;
 
     ASTNodeType getType() const override { return ASTNodeType::CREATE_STATEMENT; }
     void print(){
