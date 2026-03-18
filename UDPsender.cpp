@@ -22,7 +22,7 @@ struct TickPacket {
     int64_t side;       
 };
 #pragma pack(pop)
-static_assert(sizeof(TickPacket) == 40, "packet must be 40 bytes");
+static_assert(sizeof(TickPacket) == 72, "packet must be 40 bytes");
 
 static int64_t now_us() {
     return std::chrono::duration_cast<std::chrono::microseconds>(
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
     while (true) {
         TickPacket pkt;
 
-        pkt.tick = htobe64((uint64_t)to_fixed(1, 0));
+        pkt.tick = htobe64((uint64_t)to_fixed(2, 0));
         pkt.timestamp = htobe64((uint64_t)now_us());
         pkt.price     = htobe64((uint64_t)to_fixed(price,  10));
         pkt.volume    = htobe64((uint64_t)to_fixed(volume,  2));

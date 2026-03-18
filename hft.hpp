@@ -1,8 +1,8 @@
 #ifndef HFT_CODE
 #define HFT_CODE
 
+#include "utils/types.hpp"
 #include <array>
-#include <iostream>
 #include <cstdint>
 #include <cmath>
 #include <climits>
@@ -35,7 +35,7 @@ struct alignas(64) TableColumn {
 
   int64_t precisions[MAXCOLUMN];
 
-  ColumnRing history[MAXCOLUMN]; 
+  ColumnRing history[MAXCOLUMN];
 
   // ask order ask quantity bid order bid quantity
   int64_t topOrderBookPrecision = 10;
@@ -47,7 +47,8 @@ struct alignas(64) TableColumn {
   int32_t symbol = -1;
 
   void init(int cols, bool isBook = false, int sym = -1) {
-    std::cout<<"HFT symbol initialized  "<<" "<<cols<<" "<<isBook<<" "<<sym<<"\n";
+    std::cout << "HFT symbol initialized  " << " " << cols << " " << isBook
+              << " " << sym << "\n";
     columnCount = cols;
     this->symbol = sym;
     isTopOrderBook = isBook;
@@ -183,5 +184,13 @@ alignas(64) std::array<TableColumn, MAXHFTSYMBOL> symbolAccessArray;
 // }
 
 } // namespace HFT
+
+
+
+
+
+
+
+
 
 #endif

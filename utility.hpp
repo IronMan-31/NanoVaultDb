@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <filesystem> // Include for std::filesystem
 #include <fstream>
+#include <string_view>
 #include <sys/stat.h>
 #include "json.hpp"   // Assuming this is a necessary include
 #include "global.hpp" // Assuming this is a necessary include
@@ -26,6 +27,27 @@ namespace MyUtility
     return stem;  // returns "hello"
 }
 
+    
+    void appendToFile(const std::string_view & filePath,const std::string_view &cntent){
+        fs::path parentDir = fs::path(filePath).parent_path();
+            if (!parentDir.empty() && !fs::exists(parentDir))
+            {
+                std::error_code ec;
+                if (fs::create_directories(parentDir, ec))
+                {
+                    std::cout << "Created directory: " << parentDir << std::endl;
+                }
+                else
+                {
+                    throw std::runtime_error("Error creating directory: " + ec.message());
+                }
+            }
+            std::ofstream outfile(filePath.data(),std::ios::app);
+            outfile<<"\n";
+            outfile<<cntent.data()<<"\n";
+            outfile.close();
+
+    }
     void createFile(const std::string &filePath, const std::string &content)
     {
         fs::path parentDir = fs::path(filePath).parent_path();
