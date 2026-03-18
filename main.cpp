@@ -64,7 +64,7 @@ CREATE HFT TABLE eth_ticks (
     STDDEV 20 1
     MAX_N 60 1
     MIN_N 60 1
-    COUNT_N 60 1
+    COUNT_N 60 1 20
 ) TOP
 )",
 // R"(
@@ -120,7 +120,7 @@ CREATE HFT TABLE eth_ticks (
             }
 
             Parser parser(tokens);
-            // parser.parse(); 
+            parser.parse(); 
         }
         catch (const std::exception &e)
         {
