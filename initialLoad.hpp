@@ -199,8 +199,7 @@ void initialDatabseLoad()
                         globalTableCache[dbname][tableName] = std::move(columnNodes);
                         if(isSymbol){
                             int64_t symbol = static_cast<int64_t>(std::stoi(symbolString));
-
-                            MyUtility::appendToFile("error.txt", std::format("the table name is {} symbol is {} isTop is {}",tableName,symbol,isTop));
+                            MyUtility::appendToFile("error.txt", std::string("Fuck of geeks"));
                             HFT::symbolAccessArray[symbol].init(columnsArray.size(),isTop?1:0,symbol);
                         }
 
