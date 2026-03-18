@@ -76,26 +76,6 @@ alignas(64) std::array<TableColumn, MAXHFTSYMBOL> symbolAccessArray;
 
 
 
-namespace Indicator {
-  const int64_t RINGSIZE = 16;
-  struct BaseIndicator {
-    double data = 0.0;
-    uint8_t isready = false;
-    alignas(64) std::array<double,RINGSIZE > ring;
-    alignas(CACHELINE) char name[64];
-    int64_t symbol = -1;
-    int64_t ticksSeen = 0;
-
-    virtual void on_tick(double data) noexcept = 0;
-    virtual const char *getName() const noexcept = 0;
-    virtual int64_t getSymbol() const noexcept = 0;
-    virtual void updateSymBol() noexcept = 0;
-    virtual ~BaseIndicator() = default;
-  };
-}; // namespace Indicator
-
-
-
 
 
 
