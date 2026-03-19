@@ -110,13 +110,6 @@ std::unordered_map<
         std::vector<std::shared_ptr<TableGlobalColumnNode>>>>
     globalTableCache;
 
-
-
-
-
-
-
-
 struct IndexNode
 {
     int64_t start;
@@ -314,19 +307,28 @@ struct ColumnDefinition
 
 struct Aggregates
 {
-    std::string type;
-    bool time_wise;     
+    std::string type;    
     int64_t time;
     int32_t col_idx;      
     int64_t threshold;
-    Aggregates(const std::string &type, bool time_wise, int64_t time, int32_t col_idx, int64_t threshold){  // Bug fix: was named AggDef, must match struct name
+    Aggregates(const std::string &type, int64_t time, int32_t col_idx, int64_t threshold){
         this->type = type;
-        this->time_wise = time_wise;
         this->time = time;
         this->col_idx = col_idx;
         this->threshold = threshold;
     }
+    Aggregates(){ 
+        this->type = "";
+        this->time = -1;
+        this->col_idx = -1;
+        this->threshold = -1;
+    }
 }; 
+struct Bucket {
+    Aggregates data[10];
+    int size = 0;
+};
+Bucket agg[1000];
 
 struct DeleteStatement : public ASTNode
 {

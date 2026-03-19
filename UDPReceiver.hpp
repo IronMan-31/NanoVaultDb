@@ -11,6 +11,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include "hft.hpp"
+#include "global.hpp"
 
 namespace NetFeed {
 
@@ -40,6 +41,7 @@ HOT void process_packet(const char *__restrict buffer, ssize_t n) {
         std::cout << "ERROR: invalid symbol\n";
         return;
     }
+    std::cout<<entry->time_wise_stddev(1,20)<<"\n";
 
     const int64_t columnCount = entry->columnCount;
     const int64_t isTop = entry->isTopOrderBook;
@@ -67,6 +69,28 @@ HOT void process_packet(const char *__restrict buffer, ssize_t n) {
 
         entry->pushHistory(i, value);
         ptr += 8;
+    }
+    entry->updateAllAggregates();
+    std::string type;
+    for (int i=0;i<10;i++){
+        type=agg[entry->symbol].data[i].type;
+        if (UNLIKELY(type=="")) break;
+        if (type=="mean" || type=="mean_n"){
+            int64_t val=(type=="mean")?entry->time_wise_mean(agg[entry->symbol].data[i].col_idx,agg[entry->symbol].data[i].time):entry->calc_mean_n(agg[entry->symbol].data[i].col_idx,agg[entry->symbol].data[i].time);
+            std::cout<<"Aggregate "<<type<<" for column "<<agg[entry->symbol].data[i].col_idx<<" is "<<val<<"\n";
+        }else if (type=="max" || type=="max_n"){
+            int64_t val=(type=="max")?entry->time_wise_max(agg[entry->symbol].data[i].col_idx,agg[entry->symbol].data[i].time):entry->calc_max_n(agg[entry->symbol].data[i].col_idx,agg[entry->symbol].data[i].time);
+            std::cout<<"Aggregate "<<type<<" for column "<<agg[entry->symbol].data[i].col_idx<<" is "<<val<<"\n";
+        }else if (type=="min" || type=="min_n"){
+            int64_t val=(type=="min")?entry->time_wise_min(agg[entry->symbol].data[i].col_idx,agg[entry->symbol].data[i].time):entry->calc_min_n(agg[entry->symbol].data[i].col_idx,agg[entry->symbol].data[i].time);
+            std::cout<<"Aggregate "<<type<<" for column "<<agg[entry->symbol].data[i].col_idx<<" is "<<val<<"\n";
+         }else if (type=="count" || type=="count_n"){
+            int64_t val=(type=="count")?entry->time_wise_count(agg[entry->symbol].data[i].col_idx,agg[entry->symbol].data[i].time,agg[entry->symbol].data[i].threshold):entry->calc_count_n(agg[entry->symbol].data[i].col_idx,agg[entry->symbol].data[i].time,agg[entry->symbol].data[i].threshold);
+            std::cout<<"Aggregate "<<type<<" for column "<<agg[entry->symbol].data[i].col_idx<<" is "<<val<<"\n";
+         }else if (type=="stddev"){
+            int64_t val=entry->time_wise_stddev(agg[entry->symbol].data[i].col_idx,agg[entry->symbol].data[i].time);
+            std::cout<<"Aggregate "<<type<<" for column "<<agg[entry->symbol].data[i].col_idx<<" is "<<val<<"\n";
+         }
     }
     for (int64_t i = 0; i < columnCount; ++i) {
         int64_t mean = entry->calc_mean_n(i,10);

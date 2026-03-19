@@ -195,12 +195,40 @@ void initialDatabseLoad()
                             }
                         }
                         
-                        // Save table columns in globalTableCache
                         globalTableCache[dbname][tableName] = std::move(columnNodes);
                         if(isSymbol){
                             int64_t symbol = static_cast<int64_t>(std::stoi(symbolString));
                             MyUtility::appendToFile("error.txt", std::string("Fuck of geeks"));
                             HFT::symbolAccessArray[symbol].init(columnsArray.size(),isTop?1:0,symbol);
+
+                            if (tablesArray[i].hasKey(std::string("aggregates"))) {
+                                JSONArrayWrapper aggsArray = tablesArray[i][std::string("aggregates")].asArray();
+                                int ct=0;
+                                for (int64_t a = 0; a < aggsArray.size(); ++a) {
+                                    std::string aggType = aggsArray[a][std::string("type")].getString();
+                                    bool timeWise = aggsArray[a][std::string("time_wise")].getBool();
+                                    int32_t colIdx = aggsArray[a][std::string("col_idx")].getInt();
+                                    int64_t timeVal = aggsArray[a][std::string("time")].getInt();
+                                    int64_t threshold=-1;
+                                    if (aggType=="count" || aggType=="count_n") {
+                                        threshold = aggsArray[a][std::string("threshold")].getInt();
+                                    }
+                                    if (timeWise && aggType == "mean") {
+                                        HFT::symbolAccessArray[symbol].registerTimeWiseMean(colIdx, timeVal);
+                                    } else if (timeWise && aggType == "max") {
+                                        HFT::symbolAccessArray[symbol].registerTimeWiseMax(colIdx, timeVal);
+                                    } else if (timeWise && aggType == "min") {
+                                        HFT::symbolAccessArray[symbol].registerTimeWiseMin(colIdx, timeVal);
+                                    } else if (timeWise && aggType == "count") {
+                                        int64_t threshold = aggsArray[a][std::string("threshold")].getInt();
+                                        HFT::symbolAccessArray[symbol].registerTimeWiseCount(colIdx, timeVal, threshold);
+                                    }else if (timeWise && aggType=="stddev"){
+                                        HFT::symbolAccessArray[symbol].registerTimeWiseStddev(colIdx, timeVal);
+                                    }
+                                    agg[symbol].data[ct]=Aggregates(aggType,timeVal,colIdx,threshold);
+                                    ct++;
+                                }
+                            }
                         }
 
                         std::cout << "Loaded table: " << tableName << " from DB: " << dbname << std::endl;

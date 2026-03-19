@@ -120,7 +120,7 @@ CREATE HFT TABLE eth_ticks (
             }
 
             Parser parser(tokens);
-            parser.parse(); 
+            // parser.parse(); 
         }
         catch (const std::exception &e)
         {

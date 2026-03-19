@@ -34,6 +34,50 @@
         "top": 0
       },
       {
+        "aggregates": [
+          {
+            "col_idx": 1,
+            "threshold": -1,
+            "time": 30,
+            "time_wise": true,
+            "type": "mean"
+          },
+          {
+            "col_idx": 1,
+            "threshold": -1,
+            "time": 60,
+            "time_wise": true,
+            "type": "mean"
+          },
+          {
+            "col_idx": 1,
+            "threshold": -1,
+            "time": 20,
+            "time_wise": true,
+            "type": "stddev"
+          },
+          {
+            "col_idx": 1,
+            "threshold": -1,
+            "time": 60,
+            "time_wise": false,
+            "type": "max_n"
+          },
+          {
+            "col_idx": 1,
+            "threshold": -1,
+            "time": 60,
+            "time_wise": false,
+            "type": "min_n"
+          },
+          {
+            "col_idx": 1,
+            "threshold": 20,
+            "time": 60,
+            "time_wise": false,
+            "type": "count_n"
+          }
+        ],
         "columns": [
           {
             "constraints": [],

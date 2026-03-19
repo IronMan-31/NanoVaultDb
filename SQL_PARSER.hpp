@@ -369,7 +369,7 @@ public:
                     expect(TokenType::NUMBER, "expected column index after time");
                     Token * colIdxToken = previous();
                     int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
-                    stmt->aggregates.push_back(Aggregates("mean", true, time, colIdx, -1));
+                    stmt->aggregates.push_back(Aggregates("mean", time, colIdx, -1));
                 }
                 else if (match(TokenType::STDDEV)){
                     expect(TokenType::NUMBER, "expected time value after stddev");
@@ -378,7 +378,7 @@ public:
                     expect(TokenType::NUMBER, "expected column index after time");
                     Token * colIdxToken = previous();
                     int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
-                    stmt->aggregates.push_back(Aggregates("stddev", true, time, colIdx, -1));
+                    stmt->aggregates.push_back(Aggregates("stddev", time, colIdx, -1));
                 }
                 else if (match(TokenType::MAX)){
                     expect(TokenType::NUMBER, "expected time value after max");
@@ -387,7 +387,7 @@ public:
                     expect(TokenType::NUMBER, "expected column index after time");
                     Token * colIdxToken = previous();
                     int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
-                    stmt->aggregates.push_back(Aggregates("max", true, time, colIdx, -1));
+                    stmt->aggregates.push_back(Aggregates("max", time, colIdx, -1));
                 }
                 else if (match(TokenType::MIN)){
                     expect(TokenType::NUMBER, "expected time value after min");
@@ -396,7 +396,7 @@ public:
                     expect(TokenType::NUMBER, "expected column index after time");
                     Token * colIdxToken = previous();
                     int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
-                    stmt->aggregates.push_back(Aggregates("min", true, time, colIdx, -1));
+                    stmt->aggregates.push_back(Aggregates("min", time, colIdx, -1));
                 }else if (match(TokenType::COUNT)){
                     expect(TokenType::NUMBER, "expected time value after count");
                     Token * timeToken = previous();
@@ -407,7 +407,7 @@ public:
                     expect(TokenType::NUMBER, "expected threshold value after column index");
                     Token * thresholdToken = previous();
                     int64_t threshold = static_cast<int64_t>(std::stoi(thresholdToken->VALUE));
-                    stmt->aggregates.push_back(Aggregates("count", true, time, colIdx, threshold));
+                    stmt->aggregates.push_back(Aggregates("count", time, colIdx, threshold));
                 }else if (match(TokenType::MEAN_N)){
                     expect(TokenType::NUMBER, "Expect n after mean_n");
                     Token* nToken = previous();
@@ -415,7 +415,7 @@ public:
                     expect(TokenType::NUMBER, "Expect column index after n");
                     Token* colIdxToken = previous();
                     int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
-                    stmt->aggregates.push_back(Aggregates("mean_n", false, n, colIdx, -1));
+                    stmt->aggregates.push_back(Aggregates("mean_n", n, colIdx, -1));
                 }else if (match(TokenType::STDDEV_N)){
                     expect(TokenType::NUMBER, "Expect n after stddev_n");
                     Token* nToken = previous();
@@ -423,7 +423,7 @@ public:
                     expect(TokenType::NUMBER, "Expect column index after n");
                     Token* colIdxToken = previous();
                     int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
-                    stmt->aggregates.push_back(Aggregates("stddev_n", false, n, colIdx, -1));
+                    stmt->aggregates.push_back(Aggregates("stddev_n", n, colIdx, -1));
                 }else if (match(TokenType::MAX_N)){
                     expect(TokenType::NUMBER, "Expect n after max_n");
                     Token* nToken = previous();
@@ -431,7 +431,7 @@ public:
                     expect(TokenType::NUMBER, "Expect column index after n");
                     Token* colIdxToken = previous();
                     int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
-                    stmt->aggregates.push_back(Aggregates("max_n", false, n, colIdx, -1));
+                    stmt->aggregates.push_back(Aggregates("max_n", n, colIdx, -1));
                 }else if (match(TokenType::MIN_N)){
                     expect(TokenType::NUMBER, "Expect n after min_n");
                     Token* nToken = previous();
@@ -439,8 +439,8 @@ public:
                     expect(TokenType::NUMBER, "Expect column index after n");
                     Token* colIdxToken = previous();
                     int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
-                    stmt->aggregates.push_back(Aggregates("min_n", false, n, colIdx, -1));
-                }else if (match(TokenType::COUNT_N)){  // Bug fix: missing closing paren
+                    stmt->aggregates.push_back(Aggregates("min_n", n, colIdx, -1));
+                }else if (match(TokenType::COUNT_N)){  
                     expect(TokenType::NUMBER, "EXpected n after count_n");
                     Token*ntoken=previous();
                     int64_t n = static_cast<int64_t>(std::stoi(ntoken->VALUE));
@@ -450,7 +450,7 @@ public:
                     expect(TokenType::NUMBER, "Expect threshold value after column index");
                     Token* thresholdToken = previous();
                     int64_t threshold = static_cast<int64_t>(std::stoi(thresholdToken->VALUE));
-                    stmt->aggregates.push_back(Aggregates("count_n", false, n, colIdx, threshold));
+                    stmt->aggregates.push_back(Aggregates("count_n", n, colIdx, threshold));
                 }else{
                     throw std::runtime_error("Unexpected keyword found");
                 }   
