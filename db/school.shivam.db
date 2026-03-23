@@ -1,0 +1,69 @@
+[
+  {
+    "name": "school",
+    "tables": [
+      {
+        "columns": [
+          {
+            "constraints": [],
+            "name": "timestamp",
+            "precision": 0,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "price",
+            "precision": 10,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "volume",
+            "precision": 2,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "side",
+            "precision": 0,
+            "type": "double"
+          }
+        ],
+        "name": "btc_ticks",
+        "symbol": 1,
+        "top": 0
+      },
+      {
+        "columns": [
+          {
+            "constraints": [],
+            "name": "timestamp",
+            "precision": 0,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "price",
+            "precision": 10,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "volume",
+            "precision": 2,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "side",
+            "precision": 0,
+            "type": "double"
+          }
+        ],
+        "name": "eth_ticks",
+        "symbol": 2,
+        "top": 1
+      }
+    ]
+  }
+]
