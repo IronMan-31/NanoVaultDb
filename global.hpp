@@ -86,6 +86,30 @@ struct TableGlobalColumnNode
     bool createIndex = false;
     int length = INT_MAX;
 };
+struct Aggregates
+{
+    std::string type;    
+    int64_t time;
+    int32_t col_idx;      
+    int64_t threshold;
+    Aggregates(const std::string &type, int64_t time, int32_t col_idx, int64_t threshold){
+        this->type = type;
+        this->time = time;
+        this->col_idx = col_idx;
+        this->threshold = threshold;
+    }
+    Aggregates(){ 
+        this->type = "";
+        this->time = -1;
+        this->col_idx = -1;
+        this->threshold = -1;
+    }
+}; 
+struct Bucket {
+    Aggregates data[10];
+    int size = 0;
+};
+Bucket agg[1000];
 
 // --- JSON Parser Cache ---
 // db_name -> JSON parser
@@ -345,6 +369,7 @@ struct CreateStatement : public ASTNode
     int32_t symbol = -1;
     bool top = false;
     std::vector<ColumnDefinition> columns;
+    std::vector<Aggregates>aggregates;
 
     ASTNodeType getType() const override { return ASTNodeType::CREATE_STATEMENT; }
     void print(){

@@ -363,13 +363,109 @@ public:
         }
         stmt->symbol = symbol;
         stmt->print();
-
+        if (match(TokenType::AGGREGATES)){
+            expect(TokenType::OPEN_PAREN, "Expected '(' after AGGREGATES");
+            while(!match(TokenType::CLOSE_PAREN)){
+                if (match(TokenType::MEAN)){
+                    expect(TokenType::NUMBER, "expected time value after mean");
+                    Token * timeToken = previous();
+                    int64_t time = static_cast<int64_t>(std::stoi(timeToken->VALUE));
+                    expect(TokenType::NUMBER, "expected column index after time");
+                    Token * colIdxToken = previous();
+                    int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
+                    stmt->aggregates.push_back(Aggregates("mean", time, colIdx, -1));
+                }
+                else if (match(TokenType::STDDEV)){
+                    expect(TokenType::NUMBER, "expected time value after stddev");
+                    Token * timeToken = previous();
+                    int64_t time = static_cast<int64_t>(std::stoi(timeToken->VALUE));
+                    expect(TokenType::NUMBER, "expected column index after time");
+                    Token * colIdxToken = previous();
+                    int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
+                    stmt->aggregates.push_back(Aggregates("stddev", time, colIdx, -1));
+                }
+                else if (match(TokenType::MAX)){
+                    expect(TokenType::NUMBER, "expected time value after max");
+                    Token * timeToken = previous();
+                    int64_t time = static_cast<int64_t>(std::stoi(timeToken->VALUE));
+                    expect(TokenType::NUMBER, "expected column index after time");
+                    Token * colIdxToken = previous();
+                    int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
+                    stmt->aggregates.push_back(Aggregates("max", time, colIdx, -1));
+                }
+                else if (match(TokenType::MIN)){
+                    expect(TokenType::NUMBER, "expected time value after min");
+                    Token * timeToken = previous();
+                    int64_t time = static_cast<int64_t>(std::stoi(timeToken->VALUE));
+                    expect(TokenType::NUMBER, "expected column index after time");
+                    Token * colIdxToken = previous();
+                    int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
+                    stmt->aggregates.push_back(Aggregates("min", time, colIdx, -1));
+                }else if (match(TokenType::COUNT)){
+                    expect(TokenType::NUMBER, "expected time value after count");
+                    Token * timeToken = previous();
+                    int64_t time = static_cast<int64_t>(std::stoi(timeToken->VALUE));
+                    expect(TokenType::NUMBER, "expected column index after time");
+                    Token * colIdxToken = previous();
+                    int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
+                    expect(TokenType::NUMBER, "expected threshold value after column index");
+                    Token * thresholdToken = previous();
+                    int64_t threshold = static_cast<int64_t>(std::stoi(thresholdToken->VALUE));
+                    stmt->aggregates.push_back(Aggregates("count", time, colIdx, threshold));
+                }else if (match(TokenType::MEAN_N)){
+                    expect(TokenType::NUMBER, "Expect n after mean_n");
+                    Token* nToken = previous();
+                    int64_t n = static_cast<int64_t>(std::stoi(nToken->VALUE));
+                    expect(TokenType::NUMBER, "Expect column index after n");
+                    Token* colIdxToken = previous();
+                    int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
+                    stmt->aggregates.push_back(Aggregates("mean_n", n, colIdx, -1));
+                }else if (match(TokenType::STDDEV_N)){
+                    expect(TokenType::NUMBER, "Expect n after stddev_n");
+                    Token* nToken = previous();
+                    int64_t n = static_cast<int64_t>(std::stoi(nToken->VALUE));
+                    expect(TokenType::NUMBER, "Expect column index after n");
+                    Token* colIdxToken = previous();
+                    int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
+                    stmt->aggregates.push_back(Aggregates("stddev_n", n, colIdx, -1));
+                }else if (match(TokenType::MAX_N)){
+                    expect(TokenType::NUMBER, "Expect n after max_n");
+                    Token* nToken = previous();
+                    int64_t n = static_cast<int64_t>(std::stoi(nToken->VALUE));
+                    expect(TokenType::NUMBER, "Expect column index after n");
+                    Token* colIdxToken = previous();
+                    int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
+                    stmt->aggregates.push_back(Aggregates("max_n", n, colIdx, -1));
+                }else if (match(TokenType::MIN_N)){
+                    expect(TokenType::NUMBER, "Expect n after min_n");
+                    Token* nToken = previous();
+                    int64_t n = static_cast<int64_t>(std::stoi(nToken->VALUE));
+                    expect(TokenType::NUMBER, "Expect column index after n");
+                    Token* colIdxToken = previous();
+                    int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
+                    stmt->aggregates.push_back(Aggregates("min_n", n, colIdx, -1));
+                }else if (match(TokenType::COUNT_N)){  
+                    expect(TokenType::NUMBER, "EXpected n after count_n");
+                    Token*ntoken=previous();
+                    int64_t n = static_cast<int64_t>(std::stoi(ntoken->VALUE));
+                    expect(TokenType::NUMBER, "Expect column index after n");
+                    Token* colIdxToken = previous();
+                    int32_t colIdx = static_cast<int32_t>(std::stoi(colIdxToken->VALUE));
+                    expect(TokenType::NUMBER, "Expect threshold value after column index");
+                    Token* thresholdToken = previous();
+                    int64_t threshold = static_cast<int64_t>(std::stoi(thresholdToken->VALUE));
+                    stmt->aggregates.push_back(Aggregates("count_n", n, colIdx, threshold));
+                }else{
+                    throw std::runtime_error("Unexpected keyword found");
+                }   
+            }
+        }
         Token * curr = current();
         if(curr->TYPE != TokenType::SEMICOLON){
             expect(TokenType::TOP, "expected top variable for best bid and best ask price");
             stmt->top = true;
-        }
-
+        }else stmt->top = false;
+        std::cout<<"Create HFT Parsed\n";
         CommandRunner::generateHFTCreateStatement(stmt);
         
         return stmt;

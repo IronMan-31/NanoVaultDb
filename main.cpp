@@ -161,6 +161,21 @@ int main(int argc, char const *argv[])
 R"(
 ADD INDICATOR "INDICATOR_NAME" ON SYMBOL 2 COLUMN_NO = -3;
 )",
+R"(
+CREATE HFT TABLE eth_ticks (
+    timestamp  DOUBLE PRECISION 0,          
+    price      DOUBLE PRECISION 10,           
+    volume     DOUBLE PRECISION 2,            
+    side       DOUBLE PRECISION 0              
+) SYMBOL 2 AGGREGATES(
+    MEAN 30 1
+    MEAN 60 1
+    STDDEV 20 1
+    MAX_N 60 1
+    MIN_N 60 1
+    COUNT_N 60 1 20
+) TOP
+)",
 // R"(
 // DROP TABLE StudentRolls;
 // )",

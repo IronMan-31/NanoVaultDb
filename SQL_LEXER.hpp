@@ -85,7 +85,18 @@ enum class TokenType
     ON,
     COLUMN_NO,
     LIST,
-    STRATEGY
+    STRATEGY,
+     AGGREGATES,
+    MEAN,
+    MEAN_N,
+    MAX,
+    MAX_N,
+    MIN,
+    MIN_N,
+    COUNT,
+    COUNT_N,
+    STDDEV,
+    STDDEV_N,
 };
 
 // Make these static const to avoid multiple definition errors
@@ -106,7 +117,16 @@ static const std::unordered_map<std::string, TokenType> keywords = {
     {"list",TokenType::LIST},
     {"strategy",TokenType::STRATEGY},
 
-
+    {"mean",TokenType::MEAN},
+    {"mean_n",TokenType::MEAN_N},
+    {"max",TokenType::MAX},
+    {"max_n",TokenType::MAX_N},
+    {"min",TokenType::MIN},
+    {"min_n",TokenType::MIN_N},
+    {"count",TokenType::COUNT},
+    {"count_n",TokenType::COUNT_N},
+    {"stddev",TokenType::STDDEV},
+    {"stddev_n",TokenType::STDDEV_N},
     {"select", TokenType::SELECT},
     {"use",TokenType::USE},
     {"from", TokenType::FROM},
