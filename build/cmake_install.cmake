@@ -1,4 +1,4 @@
-# Install script for directory: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb
+# Install script for directory: /home/pranab/nano_db_latest
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/pranab/nano_db_latest/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

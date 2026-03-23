@@ -213,18 +213,6 @@ void initialDatabseLoad()
                                     if (aggType=="count" || aggType=="count_n") {
                                         threshold = aggsArray[a][std::string("threshold")].getInt();
                                     }
-                                    if (timeWise && aggType == "mean") {
-                                        HFT::symbolAccessArray[symbol].registerTimeWiseMean(colIdx, timeVal);
-                                    } else if (timeWise && aggType == "max") {
-                                        HFT::symbolAccessArray[symbol].registerTimeWiseMax(colIdx, timeVal);
-                                    } else if (timeWise && aggType == "min") {
-                                        HFT::symbolAccessArray[symbol].registerTimeWiseMin(colIdx, timeVal);
-                                    } else if (timeWise && aggType == "count") {
-                                        int64_t threshold = aggsArray[a][std::string("threshold")].getInt();
-                                        HFT::symbolAccessArray[symbol].registerTimeWiseCount(colIdx, timeVal, threshold);
-                                    }else if (timeWise && aggType=="stddev"){
-                                        HFT::symbolAccessArray[symbol].registerTimeWiseStddev(colIdx, timeVal);
-                                    }
                                     agg[symbol].data[ct]=Aggregates(aggType,timeVal,colIdx,threshold);
                                     ct++;
                                 }

@@ -17,13 +17,8 @@ int main(int argc, char const *argv[])
 {
     initialDatabseLoad();
     
-    runVacuum();
-    try
-    {
-        initializePrimaryIndexBtrees();
-    }
-    catch(const std::exception& e)
-    {}
+    // runVacuum();
+    initializePrimaryIndexBtrees();
 
     std::cout<<"#### \n\n\n finished b+ \n\n\n\n ###";
 
@@ -102,10 +97,10 @@ CREATE HFT TABLE eth_ticks (
 
     for (const auto &sql : testSQLs)
     {
-        cout << "\n=============================\n";
-        cout << "SQL:\n"
-             << sql << endl;
-        cout << "=============================\n";
+        // cout << "\n=============================\n";
+        // cout << "SQL:\n"
+        //      << sql << endl;
+        // cout << "=============================\n";
 
         try
         {
@@ -113,14 +108,14 @@ CREATE HFT TABLE eth_ticks (
             vector<Token *> tokens = lexer.tokenize();
 
             // Debug: Print tokens
-            cout << "Tokens:\n";
-            for (Token *token : tokens)
-            {
-                cout << typeToString(token->TYPE) << " : " << token->VALUE << endl;
-            }
+            // cout << "Tokens:\n";
+            // for (Token *token : tokens)
+            // {
+            //     cout << typeToString(token->TYPE) << " : " << token->VALUE << endl;
+            // }
 
             Parser parser(tokens);
-            // parser.parse(); 
+            parser.parse(); 
         }
         catch (const std::exception &e)
         {
