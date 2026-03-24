@@ -79,7 +79,14 @@ enum class TokenType
     TICK_SIDE, // 0 for buy 1 for sell 2 for unknow
     SYMBOL,
     TOP,
-    AGGREGATES,
+    ADD,
+    INDICATOR,
+    FILE,
+    ON,
+    COLUMN_NO,
+    LIST,
+    STRATEGY,
+     AGGREGATES,
     MEAN,
     MEAN_N,
     MAX,
@@ -102,6 +109,13 @@ static const std::unordered_map<std::string, TokenType> keywords = {
     {"hft",TokenType::HFT},
     {"symbol",TokenType::SYMBOL},
     {"top",TokenType::TOP},
+    {"add",TokenType::ADD},
+    {"indicator",TokenType::INDICATOR},
+    {"file",TokenType::FILE},
+    {"on",TokenType::ON},
+    {"column_no",TokenType::COLUMN_NO},
+    {"list",TokenType::LIST},
+    {"strategy",TokenType::STRATEGY},
 
     {"mean",TokenType::MEAN},
     {"mean_n",TokenType::MEAN_N},
@@ -113,9 +127,7 @@ static const std::unordered_map<std::string, TokenType> keywords = {
     {"count_n",TokenType::COUNT_N},
     {"stddev",TokenType::STDDEV},
     {"stddev_n",TokenType::STDDEV_N},
-    
     {"select", TokenType::SELECT},
-    {"aggregates", TokenType::AGGREGATES},
     {"use",TokenType::USE},
     {"from", TokenType::FROM},
     {"where", TokenType::WHERE},
@@ -172,8 +184,14 @@ std::string typeToString(TokenType TYPE)
     case TokenType::HFT: return "HFT";
     case TokenType::SYMBOL: return "SYMBOL";
     case TokenType::TOP: return "TOP";
-    
-        // Keywords
+    case TokenType::ADD: return "ADD";
+    case TokenType::INDICATOR: return "indicator";
+    case TokenType::FILE: return "file";
+    case TokenType::ON: return "on";
+    case TokenType::COLUMN_NO:return "column_no";
+    case TokenType::LIST : return "list";
+    case TokenType::STRATEGY: return "strategy";
+
     
     case TokenType::SELECT: return "SELECT";
     case TokenType::FROM: return "FROM";

@@ -11,10 +11,11 @@
 #include <climits>
 #include <string>
 #include <thread>
-
+#include <format>
 #include <chrono>
 #include <atomic>
 #include <utility>
+#include <vector>
 #include "hft.hpp"
 #include "global.hpp"
 #include "utility.hpp"
@@ -132,13 +133,13 @@ void initialDatabseLoad()
                         std::string  topString = std::to_string(tablesArray[i][std::string("top")].getInt());
                         bool isSymbol = false;
                         bool isTop = false;
-                        MyUtility::createFile("error.txt", "the tableName is " + symbolString);
+                        MyUtility::appendToFile("error.txt", std::format("the tableName is {} and top string is {}",symbolString,topString));
                         if(!symbolString.empty()) isSymbol = true;
                         if(topString[0]=='1') isTop = true;
                         JSONArrayWrapper columnsArray = tablesArray[i][std::string("columns")].asArray();
 
                         std::vector<std::shared_ptr<TableGlobalColumnNode>> columnNodes;
-                        
+                        std::vector<int64_t> precisions;
                         for (int64_t j = 0; j < columnsArray.size(); ++j)
                         {
                             std::shared_ptr<TableGlobalColumnNode> node = std::make_shared<TableGlobalColumnNode>();
@@ -146,11 +147,10 @@ void initialDatabseLoad()
                             std::string columnDataName = columnsArray[j][std::string("name")].getString();
                             std::string columnDataType = columnsArray[j][std::string("type")].getString();
                             JSONArrayWrapper constraintArray = columnsArray[j][std::string("constraints")].asArray();
-                            std::string precision_str = columnsArray[j][std::string(std::string("precision"))].getString();
-                            int32_t precision = 0;
-                            if(!precision_str.empty()){
-                                precision = static_cast<int32_t>(std::stoi(precision_str));
-                            }
+                            int64_t precision = columnsArray[j][std::string(std::string("precision"))].getInt();
+                            precisions.push_back(precision);
+
+                            std::cout<<"the precision is "<<precision<<"\n";
                             int length = INT_MAX;
                             bool isUnique = false;
                             bool isPrimary = false;
@@ -195,28 +195,13 @@ void initialDatabseLoad()
                             }
                         }
                         
+                        // Save table columns in globalTableCache
                         globalTableCache[dbname][tableName] = std::move(columnNodes);
                         if(isSymbol){
                             int64_t symbol = static_cast<int64_t>(std::stoi(symbolString));
-                            MyUtility::appendToFile("error.txt", std::string("Fuck of geeks"));
-                            HFT::symbolAccessArray[symbol].init(columnsArray.size(),isTop?1:0,symbol);
 
-                            if (tablesArray[i].hasKey(std::string("aggregates"))) {
-                                JSONArrayWrapper aggsArray = tablesArray[i][std::string("aggregates")].asArray();
-                                int ct=0;
-                                for (int64_t a = 0; a < aggsArray.size(); ++a) {
-                                    std::string aggType = aggsArray[a][std::string("type")].getString();
-                                    bool timeWise = aggsArray[a][std::string("time_wise")].getBool();
-                                    int32_t colIdx = aggsArray[a][std::string("col_idx")].getInt();
-                                    int64_t timeVal = aggsArray[a][std::string("time")].getInt();
-                                    int64_t threshold=-1;
-                                    if (aggType=="count" || aggType=="count_n") {
-                                        threshold = aggsArray[a][std::string("threshold")].getInt();
-                                    }
-                                    agg[symbol].data[ct]=Aggregates(aggType,timeVal,colIdx,threshold);
-                                    ct++;
-                                }
-                            }
+                            MyUtility::appendToFile("error.txt", std::format("the table name is {} symbol is {} isTop is {}",tableName,symbol,isTop));
+                            HFT::symbolAccessArray[symbol].init(precisions,columnsArray.size(),isTop?1:0,symbol);
                         }
 
                         std::cout << "Loaded table: " << tableName << " from DB: " << dbname << std::endl;

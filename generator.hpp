@@ -576,7 +576,6 @@ namespace CommandRunner
     {
         std::lock_guard<std::mutex> dbLock(dbMutex);
         JSONParser::JSONArray columnArray;
-        JSONParser::JSONArray aggregateArray;
         std::vector<std::shared_ptr<TableGlobalColumnNode>> newTableCache;
 
         for (const auto &col : stmt->columns)
@@ -604,16 +603,6 @@ namespace CommandRunner
             node->precision = col.precision;
             newTableCache.push_back(node);
         }
-        for (const auto &agg : stmt->aggregates)
-        {
-            JSONParser::JSONObject aggJson = {
-                {"type", JSONParser::JSONValue(agg.type)},
-                {"time", JSONParser::JSONValue(static_cast<int>(agg.time))},
-                {"col_idx", JSONParser::JSONValue(agg.col_idx)},
-                {"threshold", JSONParser::JSONValue(static_cast<int>(agg.threshold))}
-            };
-            aggregateArray.push_back(JSONParser::JSONValue(aggJson));
-        }
 
         // Check if table already exists
         if (globalTableCache[currentDatabase].find(stmt->name) != globalTableCache[currentDatabase].end())
@@ -626,8 +615,7 @@ namespace CommandRunner
             {"name", JSONParser::JSONValue(stmt->name)},
             {"symbol",JSONParser::JSONValue(stmt->symbol)},
             {"top",JSONParser::JSONValue(stmt->top ? 1 : 0)},
-            {"columns", JSONParser::JSONValue(columnArray)},
-            {"aggregates", JSONParser::JSONValue(aggregateArray)}
+            {"columns", JSONParser::JSONValue(columnArray)}
         };
 
         std::string filePath = "./db/" + currentDatabase + ".shivam.db";
