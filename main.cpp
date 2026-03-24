@@ -22,14 +22,14 @@ std::string typeToString(TokenType TYPE);
 
 
 void setup(){
-std::thread packet_receiver(NetFeed::run_receiver);
-        std::thread packet_parser(NetFeed::run_packet_parser);
+    std::thread packet_receiver(NetFeed::run_receiver);
+    std::thread packet_parser(NetFeed::run_packet_parser);
 
-        pin_thread_to_cpu(packet_receiver,0);
-        pin_thread_to_cpu(packet_parser,1);
+    pin_thread_to_cpu(packet_receiver,0);
+    pin_thread_to_cpu(packet_parser,1);
 
-        packet_receiver.detach();
-        packet_parser.detach();
+    packet_receiver.detach();
+    packet_parser.detach();
 }
 
 string readLineWithHistory(vector<string>& history, int& historyIndex)
