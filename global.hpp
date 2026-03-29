@@ -121,8 +121,6 @@ inline std::ostream& operator<<(std::ostream& os, const IndexNode& node) {
     return os;
 }
 
-// --- B+ Tree Variant for different key types ---
-// only int64_t and string call be index in the b+ trees
 using TreeVariant =
     std::variant<std::shared_ptr<BPlusTree<int64_t, IndexNode>>,
                  std::shared_ptr<BPlusTree<std::string, IndexNode>>>;
