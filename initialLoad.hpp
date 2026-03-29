@@ -16,10 +16,11 @@
 #include <atomic>
 #include <utility>
 #include <vector>
+#include "SQL_PARSER.hpp"
 #include "hft.hpp"
 #include "global.hpp"
 #include "utility.hpp"
-
+#include "batchWriter.hpp"
 namespace fs = std::filesystem;
 
 std::string getCurrentDatabase(std::string &metaFile)
@@ -129,6 +130,8 @@ void initialDatabseLoad()
                     for (int64_t i = 0; i < tablesArray.size(); ++i)
                     {
                         std::string tableName = tablesArray[i][std::string("name")].getString();
+                        std::string indexFileName = tableDirectory + "/" + dbname + "/" + tableName + ".data"; 
+                        std::unique_ptr<IoUringQueue> io_queue = std::make_unique<IoUringQueue>(indexFileName);
                         std::string symbolString = std::to_string(tablesArray[i][std::string("symbol")].getInt());
                         std::string  topString = std::to_string(tablesArray[i][std::string("top")].getInt());
                         bool isSymbol = false;
@@ -202,6 +205,7 @@ void initialDatabseLoad()
 
                             MyUtility::appendToFile("error.txt", std::format("the table name is {} symbol is {} isTop is {}",tableName,symbol,isTop));
                             HFT::symbolAccessArray[symbol].init(precisions,columnsArray.size(),isTop?1:0,symbol);
+                            batchWriterFileMap[symbol] = std::move(io_queue);
                         }
 
                         std::cout << "Loaded table: " << tableName << " from DB: " << dbname << std::endl;

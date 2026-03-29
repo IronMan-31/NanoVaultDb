@@ -4,7 +4,7 @@
 template <typename T, size_t Capacity>
 class SPSCQueue
 {
-    static_assert((Capacity & (Capacity - 1)) == 0, "capacoty must be power of 2");
+    static_assert((Capacity & (Capacity - 1)) == 0, "capacity must be power of 2");
     static constexpr size_t MASK = Capacity - 1;
 
     alignas(64) std::atomic<size_t> head_{0};

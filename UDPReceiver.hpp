@@ -2,6 +2,7 @@
 #define __UDP_RECEIVER
 
 
+#include "batchWriter.hpp"
 #include "utils/types.hpp"
 #include <arpa/inet.h>
 #include <atomic>
@@ -17,6 +18,7 @@
 namespace NetFeed {
 
 constexpr int PORT = 9090;
+// SPSCQueue<BatchWriter::batchWriterPacket, BatchWriter::batchWriterQueueSize>& __restrict batchWriter = BatchWriter::batchWriterPacketQueue;
 
 FORCE_INLINE int64_t read_be64(const char *p) {
     int64_t val;
@@ -32,6 +34,7 @@ HOT void process_packet(const HFTStorage::Packet& packet, ssize_t n) {
     const char * __restrict__ buffer = packet.data;
     count++;
 
+    // tick is the incoming symbol
     const int64_t tick = read_be64(buffer);
     if (UNLIKELY(tick < 0 || tick >= HFT::MAXHFTSYMBOL)) {
       std::cout << "Invalid tick index: " << tick << "\n";
@@ -93,6 +96,17 @@ HOT void process_packet(const HFTStorage::Packet& packet, ssize_t n) {
                   << entry->topOrderBook[3] << "\n";
     }
 
+    int i = 0;
+
+    for(int64_t i = 0;i<entry->indicatorIndex;i++){
+        auto * __restrict indicator = &entry->indicators[i];
+        indicator->fn(indicator->ptr);
+    }
+    
+    
+    BatchWriter::writeHFTDataToIndexFile(tick);
+
+    i = 0;
     std::cout << "ticks " << entry->symbol
               << " latest price "
               << *entry->history[entry->symbol].latest_ptr()

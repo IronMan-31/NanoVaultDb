@@ -2,7 +2,10 @@
 #ifndef __PARSER_AST_HPP
 #define __PARSER_AST_HPP
 
+#include <algorithm>
 #include <charconv>
+#include "IndicatorHandler.hpp"
+#include <cmath>
 #include <cstdint>
 #include "hft.hpp"
 #include <exception>
@@ -23,6 +26,7 @@
 #include "selectAstEvaluator.hpp"
 #include "FastIndicators.hpp"
 #include "initialLoad.hpp"
+#include "batchWriter.hpp"
 
 namespace fs = std::filesystem; // Shorthand for std::filesystem
 
@@ -660,8 +664,33 @@ public:
         return stmt;
     }
 
-    
+
+    std::unique_ptr<EnableStatement> parseEnableStatement(){
+        expect(TokenType::ENABLE, "expect token type enable");
+        expect(TokenType::BATCH, "expect token type batch");
+
+        expect(TokenType::WRITING, "expect token type writing");
+        expect(TokenType::ON, "expect token type on");
+        expect(TokenType::TABLE, "expect token type table");
+        Token * table =expect(TokenType::STRING, "expect table name to be string");
+        std::string table_name = table->VALUE;
+
+        expect(TokenType::TICKS, "expect tokens ticks");
+
+        Token * token = expect(TokenType::NUMBER, "expect ticks to be a number");
+        int64_t ticks_value;
+        std::from_chars(token->VALUE.data(),token->VALUE.data() + token->VALUE.size(),ticks_value);
+
+        std::unique_ptr<EnableStatement> statement = std::make_unique<EnableStatement>();
+        statement->tableName = table_name;
+        statement->ticks  = ticks_value;
+
+        return statement;
+    }
+
     std::unique_ptr<AddIndicatorOnTableStatement> parseAddIndicatorOnTableStatement(){
+           
+            std::unique_ptr<AddIndicatorOnTableStatement> statement = std::make_unique<AddIndicatorOnTableStatement>();
             expect(TokenType::ADD, "expect Token type add");
             expect(TokenType::INDICATOR, "expect token type indictor");
 
@@ -670,29 +699,61 @@ public:
             Token * indicator = expect(TokenType::STRING, "expect indicator name as string");
             indicatorName = indicator->VALUE;
 
+            std::vector<std::string> params;
+            if(match(TokenType::OPEN_PAREN)){
+                while (!match(TokenType::CLOSE_PAREN)) {
+                    std::string val = expect(TokenType::STRING, "expect argument to be string")->VALUE;
+                    // std::cout<<"val is "<<val<<"\n";
+                    params.push_back(val);
+                    
+                    if (match(TokenType::COMMA)) {
+                        continue;
+                    } else if (peek(0) && peek(0)->TYPE == TokenType::CLOSE_PAREN) {
+                        continue;
+                    } else {
+                        throw std::runtime_error("Parse error: expect ',' or ')' in parameter list");
+                    }
+                }
+            }
+
+            
             expect(TokenType::ON, "expect token ON after indicator");
             expect(TokenType::SYMBOL,"expect token type symbol");
-
+            
             int64_t symbol ;
-            Token * symBolToken = expect(TokenType::INT, "expect symbol to be int");
+            std::cout<<"curent token type "<<current()->VALUE <<"\n"; 
+            Token * symBolToken = expect(TokenType::NUMBER, "expect symbol to be int");
             std::from_chars(symBolToken->VALUE.data(),symBolToken->VALUE.data() +  symBolToken->VALUE.size(),symbol);
-
+            
             expect(TokenType::COLUMN_NO, "expect token COLUMN_NO");
             int64_t columnNo;
-
+            
             if(match(TokenType::MINUS)){
                 Token *columnSymbol = expect(TokenType::NUMBER, "expect a number");
                 columnNo = -1;
                 //  std::from_chars(columnSymbol->VALUE.data(),columnSymbol->VALUE.data() +  columnSymbol->VALUE.size(),columnNo);
             }else{
-                rewind();
+                // rewind();
                 Token *columnSymbol = expect(TokenType::NUMBER, "expect a number");
-                 std::from_chars(columnSymbol->VALUE.data(),columnSymbol->VALUE.data() +  columnSymbol->VALUE.size(),columnNo);
+                std::from_chars(columnSymbol->VALUE.data(),columnSymbol->VALUE.data() +  columnSymbol->VALUE.size(),columnNo);
             }
             
-            
+            expect(TokenType::TICKS, "expect token type ticks ");
+            Token * tick = expect(TokenType::NUMBER, "expect tick number\n");
+
+            int64_t tick_no;
+            std::from_chars(tick->VALUE.data(),tick->VALUE.data() + tick->VALUE.size(),tick_no);
+
+
+            statement->indicator.first = indicatorName;
+            statement->symbol = symbol;
+            statement->column_no = columnNo;
+            statement->ticks = tick_no;
+            statement->paramas = std::move(params);
             expect(TokenType::SEMICOLON, "expect token ;");
 
+            
+            return statement;
     }
 
     std::unique_ptr<SelectStatement> parseSelectStatement()
@@ -962,6 +1023,22 @@ public:
         }
         
         } 
+        else if(match(TokenType::ENABLE)){
+            try {
+                rewind();
+                std::unique_ptr<EnableStatement> statement = parseEnableStatement();
+                statement->print();
+                BatchWriter::parseEnableNatchStatement(std::move(statement));
+                return r;
+            } catch (const std::exception & err) {
+                  std::stringstream e;
+            e << "{" << "\"success\": false, " << "\"error\": \"\033[31m"
+            << err.what() << "\033[0m\"" << "}";
+
+            return e.str();
+
+            }
+        }
         else if(match(TokenType::LIST)){
             try {
                 std::unique_ptr<LISTStatement> statement = parseListStatement();
@@ -1084,6 +1161,10 @@ public:
                 rewind();
                 rewind();
 
+                std::unique_ptr<AddIndicatorOnTableStatement> statement = parseAddIndicatorOnTableStatement() ;
+                std::cout<<"PRINITING THE STATEMNT\n"; 
+                statement->print();
+                IndicatorHandler::parsingAddIndicator(std::move(statement));
                 return r;   
             }
             rewind();
