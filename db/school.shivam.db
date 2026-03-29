@@ -31,7 +31,8 @@
         ],
         "name": "btc_ticks",
         "symbol": 1,
-        "top": 0
+        "ticks": 10000,
+        "top": 1
       },
       {
         "columns": [
@@ -63,6 +64,26 @@
         "name": "eth_ticks",
         "symbol": 2,
         "top": 1
+      },
+      {
+        "columns": [
+          {
+            "constraints": [
+              "primary_key",
+              "auto_increment"
+            ],
+            "name": "id",
+            "type": "int"
+          },
+          {
+            "constraints": [
+              "not_null"
+            ],
+            "name": "roll_no",
+            "type": "int"
+          }
+        ],
+        "name": "studentrolls"
       }
     ]
   }

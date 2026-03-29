@@ -28,7 +28,13 @@ namespace MyUtility
     return stem;  // returns "hello"
 }
 
-    
+    std::string to_lower(std::string s){
+        std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) {
+    return std::tolower(c);
+});
+return s;
+    }    
+
     void appendToFile(const std::string_view & filePath,const std::string_view &cntent){
         fs::path parentDir = fs::path(filePath).parent_path();
             if (!parentDir.empty() && !fs::exists(parentDir))

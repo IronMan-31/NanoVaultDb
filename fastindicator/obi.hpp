@@ -3,16 +3,16 @@
 #include "../hft.hpp"
 #include "../FastIndicators.hpp"
 
-class OBI {
+class alignas(CACHELINE) OBI {
 
 private:
-    alignas(CACHELINE) int64_t tick = 1;
-    alignas(CACHELINE) int64_t count = 0;
+    int64_t tick = 1;
+    int64_t count = 0;
+    int64_t obi_value = 0;
 
     HFT::TableColumn* tableColumn = nullptr;
 
     // scaled imbalance (to avoid float)
-    alignas(CACHELINE) int64_t obi_value = 0;
 
 public:
     OBI(std::array<HFT::TableColumn, HFT::MAXHFTSYMBOL>& symbolAccessArr,
@@ -64,9 +64,11 @@ public:
     }
 
     FastIndicators::IndicatorEntry create() {
-        return FastIndicators::IndicatorEntry{
-            static_cast<void*>(this),
-            &OBI::run
-        };
+         FastIndicators::IndicatorEntry e;
+    e.checked = 1;
+    e.ptr = this;
+    e.fn = &OBI::run;
+    e.indicatorIndex = -1;
+    return e;
     }
 };

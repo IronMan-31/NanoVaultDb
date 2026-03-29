@@ -66,6 +66,7 @@ build CMakeFiles/main.dir/main.cpp.o: CXX_COMPILER__main_unscanned_Debug /home/s
 build main: CXX_EXECUTABLE_LINKER__main_Debug CMakeFiles/main.dir/main.cpp.o
   FLAGS = -g
   LINK_FLAGS = -fsanitize=address
+  LINK_LIBRARIES = -luring
   OBJECT_DIR = CMakeFiles/main.dir
   POST_BUILD = :
   PRE_LINK = :

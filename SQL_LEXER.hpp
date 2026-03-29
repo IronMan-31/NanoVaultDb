@@ -86,6 +86,9 @@ enum class TokenType
     COLUMN_NO,
     LIST,
     STRATEGY,
+    ENABLE,
+    BATCH,
+    WRITING,
      AGGREGATES,
     MEAN,
     MEAN_N,
@@ -116,6 +119,9 @@ static const std::unordered_map<std::string, TokenType> keywords = {
     {"column_no",TokenType::COLUMN_NO},
     {"list",TokenType::LIST},
     {"strategy",TokenType::STRATEGY},
+    {"enable",TokenType::ENABLE},
+    {"batch",TokenType::BATCH},
+    {"writing",TokenType::WRITING},
 
     {"mean",TokenType::MEAN},
     {"mean_n",TokenType::MEAN_N},
@@ -191,6 +197,9 @@ std::string typeToString(TokenType TYPE)
     case TokenType::COLUMN_NO:return "column_no";
     case TokenType::LIST : return "list";
     case TokenType::STRATEGY: return "strategy";
+    case TokenType::ENABLE: return "enable";
+    case TokenType::BATCH: return "batch";
+    case TokenType::WRITING: return "writing";
 
     
     case TokenType::SELECT: return "SELECT";
