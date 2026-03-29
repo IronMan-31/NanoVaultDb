@@ -1,6 +1,3 @@
-// g++ -c db_engine.cpp -o db_engine.o
-// ar rcs libdb_engine.a db_engine.o
-
 #include "SQL_LEXER.hpp"
 #include "SQL_PARSER.hpp"
 #include "UDPReceiver.hpp"
@@ -15,6 +12,7 @@
 #include <unistd.h>
 #include <vector>
 #include "IndicatorHandler.hpp"
+#include "Btrees_testing.hpp"
 
 using namespace std;
 std::string typeToString(TokenType TYPE);
@@ -97,39 +95,41 @@ string readLineWithHistory(vector<string> &history, int &historyIndex) {
 int main(int argc, char const *argv[]) {
   initialDatabseLoad();
   HFT::InitalStorage::initialIndicatorLoad();
-  // runVacuum();
+  runVacuum();
 
-  try {
-    initializePrimaryIndexBtrees();
-  } catch (const std::exception &e) {
-  }
+  initializePrimaryIndexBtrees();
+  cout<<"\n";
+  test_b_trees();
 
   std::cout << "#### \n\n\n finished b+ \n\n\n\n ###";
 
   std::vector<std::string> testSQLs = {
       // R"(
-      //     CREATE DATABASE school;
+      //     CREATE DATABASE testing;
       // )",
       // R"(
       // CREATE TABLE StudentRolls (
       //     id INT PRIMARY KEY AUTO_INCREMENT,
       //     roll_no INT NOT NULL
       // );
-      // // )",
+      // // // // // // )",
       // R"(
       // INSERT INTO StudentRolls (roll_no)
       // VALUES (2);
       // )",
       // R"(
       // INSERT INTO StudentRolls (roll_no)
-      // VALUES (5);
+      // VALUES (7);
       // )",
       // R"(
       // UPDATE StudentRolls SET roll_no=12 WHERE roll_no<5;
-      // )",
+      // )",`
       // R"(
       // DELETE FROM StudentRolls WHERE roll_no=12;
       // )",
+      R"(
+      SELECT * FROM StudentRolls;
+      )" 
       // R"(
       // CREATE HFT TABLE eth_ticks (
       //     timestamp  DOUBLE PRECISION 0,

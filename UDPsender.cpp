@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
     while (true) {
         TickPacket pkt;
 
-        pkt.tick = htobe64((uint64_t)to_fixed(1, 0));
+        pkt.tick = htobe64((uint64_t)to_fixed(2, 0));
         int64_t ts = now_us();
         pkt.timestamp = htobe64((uint64_t)ts);
         pkt.price     = htobe64((uint64_t)to_fixed(price,  10));

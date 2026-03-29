@@ -233,7 +233,7 @@ namespace SelectQueryHandler
         std::vector<TableGlobalColumnNode> allColumns;
         std::vector<std::string> allColumnName;
         {
-            auto &colPtrs = globalTableCache[currentDatabase][tableName];
+            auto &colPtrs = globalTableCache[currentDatabase][tableName].second;
             // allColumns.reserve(colPtrs.size());
             for (const auto &p : colPtrs)
             {

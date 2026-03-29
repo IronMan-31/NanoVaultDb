@@ -143,7 +143,7 @@ namespace CommandRunner
             auto it_table = it_db->second.find(tableName);
             if (it_table != it_db->second.end())
             {
-                std::vector<std::shared_ptr<TableGlobalColumnNode>> &columns = it_table->second;
+                std::vector<std::shared_ptr<TableGlobalColumnNode>> &columns = it_table->second.second;
 
                 // Use `columns` here
                 for ( auto &col : columns)
@@ -219,7 +219,7 @@ namespace CommandRunner
         if (currentDatabase.empty())
             throw std::runtime_error("No database selected");
 
-        auto& tableCols = globalTableCache[currentDatabase][tableName];
+        auto& tableCols = globalTableCache[currentDatabase][tableName].second;
 
         //  Identify primary key column
         std::string primaryKey;
@@ -356,7 +356,7 @@ namespace CommandRunner
         if (deleteFile.fail())
             throw std::runtime_error("Failed to open delete file");
         std::vector<std::string> allColumnNames;
-        for (auto& col : globalTableCache[currentDatabase][tableName])
+        for (auto& col : globalTableCache[currentDatabase][tableName].second)
             allColumnNames.push_back(col->name);
 
         sort(allColumnNames.begin(), allColumnNames.end());
@@ -426,16 +426,20 @@ namespace CommandRunner
             std::shared_ptr<TableGlobalColumnNode> node = std::make_shared<TableGlobalColumnNode>();
             node->name = col.name;
             node->type = col.type;
+            node->precision=0;
 
             int length = INT_MAX;
             bool isUnique = false;
             bool isPrimary = false;
             bool autoIncrement = false;
             bool createIndex = false;
+            int symbol=-1;
+            int top=-1;
             std::vector<std::string> ActualTableConstraint;
             
             JSONParser::JSONObject colJson = {
                 {"name", JSONParser::JSONValue(col.name)},
+                {"precision",JSONParser::JSONValue(col.precision)},
                 {"type", JSONParser::JSONValue(col.type)}};
 
             // Extract length if it's a VARCHAR with size, e.g., varchar(255)
@@ -512,6 +516,8 @@ namespace CommandRunner
         // Step 2: Create table JSON
         JSONParser::JSONObject tableJson = {
             {"name", JSONParser::JSONValue(stmt->name)},
+            {"symbol", JSONParser::JSONValue(stmt->symbol)},
+            {"top", JSONParser::JSONValue(stmt->top)},
             {"columns", JSONParser::JSONValue(columnArray)}};
 
         // Step 3: Load existing JSON file
@@ -556,7 +562,7 @@ namespace CommandRunner
 
         // Optional: Update in-memory cache too
         
-        globalTableCache[currentDatabase][stmt->name] = newTableCache; // You can populate columns later
+        globalTableCache[currentDatabase][stmt->name].second = newTableCache; // You can populate columns later
         tableLocks[stmt->name];  // initialize mutex for this table
                       
         std::cout << " Table '" << stmt->name << "' added to DB '" << currentDatabase << "' successfully.\n";
@@ -653,8 +659,8 @@ namespace CommandRunner
         {
             throw std::runtime_error(" Failed to save DB JSON file");
         }
-
-        globalTableCache[currentDatabase][stmt->name] = newTableCache; 
+        globalTableCache[currentDatabase][stmt->name].first=std::to_string(stmt->symbol);
+        globalTableCache[currentDatabase][stmt->name].second = newTableCache; 
         tableLocks[stmt->name];  // initialize mutex
                       
         std::cout << " HFT Table '" << stmt->name << "' added to DB '" << currentDatabase << "' successfully.\n";
