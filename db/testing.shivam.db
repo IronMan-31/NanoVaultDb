@@ -1,7 +1,31 @@
 [
   {
-    "name": "school",
+    "name": "testing",
     "tables": [
+      {
+        "columns": [
+          {
+            "constraints": [
+              "primary_key",
+              "auto_increment"
+            ],
+            "name": "id",
+            "precision": 0,
+            "type": "int"
+          },
+          {
+            "constraints": [
+              "not_null"
+            ],
+            "name": "roll_no",
+            "precision": 0,
+            "type": "int"
+          }
+        ],
+        "name": "studentrolls",
+        "symbol": -1,
+        "top": false
+      },
       {
         "columns": [
           {
@@ -29,8 +53,8 @@
             "type": "double"
           }
         ],
-        "name": "btc_ticks",
-        "symbol": 1,
+        "name": "eth_ticks",
+        "symbol": 2,
         "ticks": 10000,
         "top": 1
       }

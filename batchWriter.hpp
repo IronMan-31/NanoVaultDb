@@ -158,6 +158,7 @@ struct alignas(CACHELINE) batchWriterPacket{
 
 void parseEnableNatchStatement(std::unique_ptr<EnableStatement> &&statement) {
  std::string currentDb = dbDirectoryPath + "/" + currentDatabase +  ".shivam" + ".db";
+ std::cout<<currentDb<<"\n";
 if (!MyUtility::checkIfFileExist(currentDb)) {
     throw std::runtime_error(
         std::format("the file {} does not exist", currentDb));

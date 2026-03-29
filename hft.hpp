@@ -115,14 +115,6 @@ inline std::pair<bool,std::pair<std::string,int64_t>> getIndicator(const std::st
     int32_t count = 0;
     std::unordered_map<std::string, int64_t> indicatorsIndexStorage;
 
-
-    
-
-    // ask order ask quantity bid order bid quantity
-
-
-
-
     ColumnRing& operator [](int64_t index){
       return this->history[index];
     }

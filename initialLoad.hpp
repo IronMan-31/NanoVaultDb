@@ -57,8 +57,8 @@ void runVacuum() {
     std::vector<std::pair<std::string, std::string>> tablesToVacuum;
 
     for (auto& [dbName, tables] : globalTableCache) {
-        for (auto& [tableName, _] : tables) {
-            tablesToVacuum.emplace_back(dbName, tableName);
+        for (auto i=tables.begin();i!=tables.end();i++) {
+            tablesToVacuum.emplace_back(dbName, i->first);
         }
     }
 
@@ -134,6 +134,7 @@ void initialDatabseLoad()
                         std::unique_ptr<IoUringQueue> io_queue = std::make_unique<IoUringQueue>(indexFileName);
                         std::string symbolString = std::to_string(tablesArray[i][std::string("symbol")].getInt());
                         std::string  topString = std::to_string(tablesArray[i][std::string("top")].getInt());
+                        std::cout<<symbolString<<" "<<topString<<"\n";
                         bool isSymbol = false;
                         bool isTop = false;
                         MyUtility::appendToFile("error.txt", std::format("the tableName is {} and top string is {}",symbolString,topString));
@@ -199,7 +200,8 @@ void initialDatabseLoad()
                         }
                         
                         // Save table columns in globalTableCache
-                        globalTableCache[dbname][tableName] = std::move(columnNodes);
+                        auto it=std::move(columnNodes);
+                        globalTableCache[dbname][tableName] = {symbolString,it};
                         if(isSymbol){
                             int64_t symbol = static_cast<int64_t>(std::stoi(symbolString));
 
@@ -220,10 +222,10 @@ void initialDatabseLoad()
     }
 }
 
-void loadAllNodesOfBtreeForPrimaryKey(TreeVariant &tree, int64_t size, std::string tableName)
+void loadAllNodesOfBtreeForPrimaryKey(TreeVariant &tree,std::string dbName, int64_t size, std::string tableName)
 {
     std::stringstream indexFileName;
-    indexFileName << tableDirectory << "/" << currentDatabase << "/" << tableName << ".index";
+    indexFileName << tableDirectory << "/" << dbName << "/" << tableName << ".index";
     std::cout << "INDEX FILE NAME " << indexFileName.str() << "\n";
     if (MyUtility::checkIfFileExist(indexFileName.str()))
     {
@@ -292,12 +294,12 @@ void loadAllNodesOfBtreeForPrimaryKey(TreeVariant &tree, int64_t size, std::stri
     }
 }
 
-void loadAllNodesOfBtreeForUniqueKey(TreeVariant &tree, int64_t size, std::string tableName,std::string columnName, const std::vector<std::string> &sortedColumnsVector, const std::string &dataType)
+void loadAllNodesOfBtreeForUniqueKey(TreeVariant &tree,std::string dbName, int64_t size, std::string tableName,std::string columnName, const std::vector<std::string> &sortedColumnsVector, const std::string &dataType)
 {
     std::stringstream indexFileName;
     std::stringstream dataFileName;
-    indexFileName << tableDirectory << "/" << currentDatabase << "/" << tableName << ".index";
-    dataFileName << tableDirectory << "/" << currentDatabase << "/" << tableName << ".data";
+    indexFileName << tableDirectory << "/" << dbName << "/" << tableName << ".index";
+    dataFileName << tableDirectory << "/" << dbName << "/" << tableName << ".data";
 
     int64_t columnNameIndexInSortedOrder = -1;
     std::cout<<"### --- startedSorted---\n";
@@ -464,16 +466,14 @@ void initializePrimaryIndexBtrees()
         for (const auto &tablePair : tables)
         {
             const std::string &tableName = tablePair.first;
-            const auto &columns = tablePair.second;
+            if (tablePair.second.first!="-1") continue;
+            const auto &columns = tablePair.second.second;
             int64_t noOfColumns = columns.size();
 
             std::vector<std::string> sortedColumnVector;
             for (const auto &columnPtr : columns)
-            {
-               
-                
-                    sortedColumnVector.emplace_back(columnPtr->name);
-                
+            {             
+                    sortedColumnVector.emplace_back(columnPtr->name);   
             }
             sort(sortedColumnVector.begin(), sortedColumnVector.end());
 
@@ -491,7 +491,6 @@ void initializePrimaryIndexBtrees()
                     {
                         tree = std::make_shared<BPlusTree<int64_t, IndexNode>>();
                     }
-
                     else
                     {
                         std::cerr << "Unsupported primary key type: " << type
@@ -500,7 +499,7 @@ void initializePrimaryIndexBtrees()
                     }
                     dbBtrees[dbName][tableName][columnName] = std::make_pair(std::move(tree), noOfColumns);
                     std::cout<<"btreecalled"<<"\n";
-                    loadAllNodesOfBtreeForPrimaryKey(dbBtrees[dbName][tableName][columnName].first, noOfColumns, tableName);
+                    loadAllNodesOfBtreeForPrimaryKey(dbBtrees[dbName][tableName][columnName].first,dbName, noOfColumns, tableName);
 
                     std::cout << "Initialized B+ Tree for " << dbName
                               << "." << tableName << "." << columnName << " " << "and size is " << noOfColumns << std::endl;
@@ -530,7 +529,7 @@ void initializePrimaryIndexBtrees()
                     }
 
                     dbBtrees[dbName][tableName][columnName] = std::make_pair(std::move(tree), noOfColumns);
-                    loadAllNodesOfBtreeForUniqueKey(dbBtrees[dbName][tableName][columnName].first, noOfColumns, tableName,columnName, sortedColumnVector, type);
+                    loadAllNodesOfBtreeForUniqueKey(dbBtrees[dbName][tableName][columnName].first,dbName, noOfColumns, tableName,columnName, sortedColumnVector, type);
 
                     std::cout << "Initialized B+ Tree for Unique Key" << dbName
                               << "." << tableName << "." << columnName << " " << "and size is " << noOfColumns << std::endl;

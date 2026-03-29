@@ -108,7 +108,7 @@ std::atomic<bool> memorySchedulerRunning{true};
 std::unordered_map<
     std::string,
     std::unordered_map<std::string,
-                       std::vector<std::shared_ptr<TableGlobalColumnNode>>>>
+                       std::pair<std::string,std::vector<std::shared_ptr<TableGlobalColumnNode>>>>>
     globalTableCache;
 
 struct IndexNode {
@@ -116,8 +116,11 @@ struct IndexNode {
   int16_t end;
 };
 
-// --- B+ Tree Variant for different key types ---
-// only int64_t and string call be index in the b+ trees
+inline std::ostream& operator<<(std::ostream& os, const IndexNode& node) {
+    os << "{start=" << node.start << ", end=" << node.end << "}";
+    return os;
+}
+
 using TreeVariant =
     std::variant<std::shared_ptr<BPlusTree<int64_t, IndexNode>>,
                  std::shared_ptr<BPlusTree<std::string, IndexNode>>>;
@@ -302,11 +305,26 @@ struct DeleteStatement : public ASTNode {
   ASTNodeType getType() const override { return ASTNodeType::DELETE_STATEMENT; }
 };
 
+struct Aggregates
+{
+    std::string type;  
+    int64_t time;
+    int32_t col_idx;      
+    int64_t threshold;
+    Aggregates(const std::string &type, int64_t time, int32_t col_idx, int64_t threshold){  
+        this->type = type;
+        this->time = time;
+        this->col_idx = col_idx;
+        this->threshold = threshold;
+    }
+}; 
+
 struct CreateStatement : public ASTNode {
   bool isDatabase = false;
   std::string name;
   int32_t symbol = -1;
   bool top = false;
+  std::vector<Aggregates>aggregates;
   std::vector<ColumnDefinition> columns;
 
   ASTNodeType getType() const override { return ASTNodeType::CREATE_STATEMENT; }

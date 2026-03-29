@@ -174,6 +174,7 @@ namespace PagerHandler
     int64_t getFileSize(const std::string &filename)
     {
         struct stat st;
+        std::cout<<filename<<"\n";
         if (stat(filename.c_str(), &st) != 0)
             return 0;
         return st.st_size;
@@ -193,14 +194,13 @@ namespace PagerHandler
         std::cout<<"old files opened"<<"\n";
 
         if (oldIndex.fail() || oldData.fail() || oldDel.fail())
-            return; // table deleted / corrupted → skip safely
-
+            return; 
         std::fstream newIndex(base + ".index.new", std::ios::out | std::ios::binary);
         std::fstream newData (base + ".data.new",  std::ios::out | std::ios::binary);
         std::fstream newDel  (base + ".delete.new",std::ios::out | std::ios::binary);
         std::cout<<"new file created"<<"\n";
 
-        auto& cols = globalTableCache[db][table];
+        auto& cols = globalTableCache[db][table].second;
         std::cout<<"globaltable cache"<<"\n";
         size_t colCount = cols.size();
 
@@ -208,10 +208,10 @@ namespace PagerHandler
             sizeof(int64_t) + (colCount - 1) * sizeof(PagerHandler::RowIndex);
 
         int64_t indexSize = PagerHandler::getFileSize(base + ".index");
+        std::cout<<indexSize<<" "<<rowSize<<"\n";
         int64_t rowCount  = indexSize / rowSize;
 
         int64_t newDataOffset = 0;
-
         for (int64_t row = 0; row < rowCount; row++) {
             uint8_t deleted;
             oldDel.seekg(row);
@@ -223,7 +223,6 @@ namespace PagerHandler
                 continue;
             }
             std::cout<<"deleted skippped"<<"\n";
-            // ---- copy ID ----
             int64_t id;
             oldIndex.read(reinterpret_cast<char*>(&id), sizeof(int64_t));
             newIndex.write(reinterpret_cast<char*>(&id), sizeof(int64_t));
