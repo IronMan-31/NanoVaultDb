@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+    <html>
+        <body>
+            <script>
+                let ws = new WebSocket("ws://localhost:6969");
+
+                ws.onopen = () => {
+                    console.log("Connected to server");
+                    ws.send("Hello from client");
+                };
+
+                ws.onmessage = (event) => {
+                    console.log("Received:", event.data);
+                };
+            </script>
+        </body>
+    </html>
