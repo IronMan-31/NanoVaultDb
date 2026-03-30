@@ -8,11 +8,12 @@
 #include <memory>
 #include <stdexcept>
 
-#include <filesystem> // Include for std::filesystem
+#include <filesystem>
 #include <fstream>
 #include <thread>
 #include "json.hpp"
 #include "utility.hpp"
+#include "initialLoad.hpp"
 #include "global.hpp"
 #include "selectAstEvaluator.hpp"
 namespace fs = std::filesystem;
@@ -303,6 +304,29 @@ namespace CommandRunner
             delFile.seekp(row);
             delFile.write(reinterpret_cast<char*>(&dead), 1);
 
+            if (dbBtrees.find(currentDatabase) != dbBtrees.end() && 
+                dbBtrees[currentDatabase].find(tableName) != dbBtrees[currentDatabase].end()) {
+                
+                auto& tableBtrees = dbBtrees[currentDatabase][tableName];
+                for (auto& [colName, treePair] : tableBtrees) {
+                    TreeVariant& treeVar = treePair.first;
+                    std::string colValueStr = valueToStorageString(oldRow.columns[colName]);
+                    
+                    std::visit([&](auto& treePtr) {
+                        using TreePtr = std::decay_t<decltype(treePtr)>;
+                        if (treePtr) {
+                            if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<int64_t, IndexNode>>>) {
+                                int64_t val = 0;
+                                try { val = std::stoll(colValueStr); } catch (...) {}
+                                treePtr->remove(val);
+                            } else if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<std::string, IndexNode>>>) {
+                                treePtr->remove(colValueStr);
+                            }
+                        }
+                    }, treeVar);
+                }
+            }
+
             // 🔟 INSERT new row
             std::vector<std::pair<std::string,
                 std::pair<std::string, bool>>> insertCols;
@@ -407,6 +431,29 @@ namespace CommandRunner
                 deleteFile.seekp(row * sizeof(uint8_t), std::ios::beg);
                 deleteFile.write(reinterpret_cast<char*>(&dead), 1);
                 count++;
+
+                if (dbBtrees.find(currentDatabase) != dbBtrees.end() && 
+                    dbBtrees[currentDatabase].find(tableName) != dbBtrees[currentDatabase].end()) {
+                    
+                    auto& tableBtrees = dbBtrees[currentDatabase][tableName];
+                    for (auto& [colName, treePair] : tableBtrees) {
+                        TreeVariant& treeVar = treePair.first;
+                        std::string colValueStr = valueToStorageString(r.columns[colName]);
+                        
+                        std::visit([&](auto& treePtr) {
+                            using TreePtr = std::decay_t<decltype(treePtr)>;
+                            if (treePtr) {
+                                if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<int64_t, IndexNode>>>) {
+                                    int64_t val = 0;
+                                    try { val = std::stoll(colValueStr); } catch (...) {}
+                                    treePtr->remove(val);
+                                } else if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<std::string, IndexNode>>>) {
+                                    treePtr->remove(colValueStr);
+                                }
+                            }
+                        }, treeVar);
+                    }
+                }
             }
         }
 
@@ -562,6 +609,7 @@ namespace CommandRunner
 
         // Optional: Update in-memory cache too
         
+        globalTableCache[currentDatabase][stmt->name].first = std::to_string(stmt->symbol);
         globalTableCache[currentDatabase][stmt->name].second = newTableCache; // You can populate columns later
         tableLocks[stmt->name];  // initialize mutex for this table
                       
@@ -575,6 +623,7 @@ namespace CommandRunner
         MyUtility::createFile(indexFile.str(), "");
         MyUtility::createFile(dataFile.str(), "");
         MyUtility::createFile(delFile.str(), "");
+        initializePrimaryIndexBtrees(tablename,false);
         tableLocks[stmt->name].unlock();
     }
 

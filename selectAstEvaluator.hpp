@@ -287,7 +287,7 @@ namespace SelectQueryHandler
         std::stringstream json;
         json << "[";
 
-        bool firstRow = true; // Track first row to handle commas
+        bool firstRow = true; 
 
         while (getTotalNoOfRows--)
         {

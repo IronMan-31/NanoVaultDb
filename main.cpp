@@ -96,47 +96,56 @@ int main(int argc, char const *argv[]) {
   initialDatabseLoad();
   HFT::InitalStorage::initialIndicatorLoad();
   runVacuum();
-
-  initializePrimaryIndexBtrees();
+  initializePrimaryIndexBtrees("abcd",true);
   cout<<"\n";
   test_b_trees();
 
-  std::cout << "#### \n\n\n finished b+ \n\n\n\n ###";
+  std::cout << "Finished b+\n";
 
   std::vector<std::string> testSQLs = {
       // R"(
-      //     CREATE DATABASE testing;
+      //     CREATE DATABASE test2;
       // )",
       // R"(
       // CREATE TABLE StudentRolls (
       //     id INT PRIMARY KEY AUTO_INCREMENT,
-      //     roll_no INT NOT NULL
+      //     roll_no VARCHAR(10) NOT NULL UNIQUE
       // );
-      // // // // // // )",
+      // // // // // // // // // )",
       // R"(
       // INSERT INTO StudentRolls (roll_no)
-      // VALUES (2);
+      // VALUES ("Hey");
       // )",
       // R"(
       // INSERT INTO StudentRolls (roll_no)
-      // VALUES (7);
+      // VALUES ("Hello");
       // )",
       // R"(
-      // UPDATE StudentRolls SET roll_no=12 WHERE roll_no<5;
-      // )",`
+      // UPDATE StudentRolls SET roll_no="WH" WHERE roll_no="W";
+      // )",
       // R"(
       // DELETE FROM StudentRolls WHERE roll_no=12;
       // )",
-      R"(
-      SELECT * FROM StudentRolls;
-      )" 
+      //  R"(
+      // INSERT INTO StudentRolls (roll_no)
+      // VALUES (69);
+      // )",
       // R"(
-      // CREATE HFT TABLE eth_ticks (
+      // SELECT * FROM StudentRolls;
+      // )" ,
+      //  R"(
+      // STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="WH";
+      // )" ,
+      // R"(
+      // STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="W";
+      // )" ,
+      // R"(
+      // CREATE HFT TABLE sel_ticks (
       //     timestamp  DOUBLE PRECISION 0,
       //     price      DOUBLE PRECISION 10,
       //     volume     DOUBLE PRECISION 2,
       //     side       DOUBLE PRECISION 0
-      // ) SYMBOL 2 TOP;
+      // ) SYMBOL 10 TOP;
       // )",
 
 //       R"(
@@ -171,7 +180,7 @@ int main(int argc, char const *argv[]) {
   //     testSQLs.push_back(insertSQL);
   // }
 
-  initialDatabseLoad();
+  // initialDatabseLoad();
   IndicatorHandler::registerAllIndicators(IndicatorHandler::indicatorRegistry);
   for (const auto &sql : testSQLs) {
     cout << "\n=============================\n";

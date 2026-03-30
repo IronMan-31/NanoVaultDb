@@ -450,9 +450,10 @@ public:
         std::cout << std::endl;
     }
 
-    void print_leaf_sequence() {
+    // Traverse all leaf nodes in order and call fn(key) for each key
+    template<typename Fn>
+    void forEachKey(Fn fn) {
         std::shared_lock<std::shared_mutex> tree_lock(tree_mutex);
-        std::cout << "Leaf sequence: ";
         
         Node* leaf = root;
         while (!leaf->is_leaf) {
@@ -464,14 +465,13 @@ public:
 
         while (leaf) {
             std::shared_lock<std::shared_mutex> leaf_lock(leaf->mutex);
-            for (int i = 0; i < leaf->keys.size(); i++) {
-                std::cout << leaf->keys[i] << "(" << leaf->values[i] << ") ";
+            for (size_t i = 0; i < leaf->keys.size(); i++) {
+                fn(leaf->keys[i]);
             }
             Node* next_leaf = leaf->next;
             leaf_lock.unlock();
             leaf = next_leaf;
         }
-        std::cout << std::endl;
     }
 };
 

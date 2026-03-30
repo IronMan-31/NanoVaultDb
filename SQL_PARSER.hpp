@@ -498,7 +498,27 @@ public:
 
         throw std::runtime_error("error expect either strategy or TABLE TABLE_NAME with LIST");
     }
-
+    std::unique_ptr<StatisticsStatement> parseStatisticsStatement(){
+        expect(TokenType::STATISTICS, "Expected statistics keyword");
+        std::unique_ptr<StatisticsStatement>stmt=std::make_unique<StatisticsStatement>();
+        if (match(TokenType::MEAN)) stmt->type="mean";
+        else if (match(TokenType::COUNT)) stmt->type="count";
+        else if (match(TokenType::MAX))stmt->type="max";
+        else if (match(TokenType::MIN)) stmt->type="min";
+        else throw std::runtime_error("Unexpected Keyword");
+        expect(TokenType::FROM, "Expected from keyword");
+        Token*tableName=expect(TokenType::IDENTIFIER,"Expected table name");
+        stmt->tableName=tableName->VALUE;
+        expect(TokenType::ON, "Expected ON Keyword");
+        Token*colName=expect(TokenType::IDENTIFIER, "Expected column name");
+        stmt->colName=colName->VALUE;
+        
+        if (match(TokenType::WHERE)){
+            auto condition = parseExpression();
+            stmt->whereClause = std::make_unique<WhereClause>(std::move(condition));
+        }
+        return stmt;
+    }
 
     std::unique_ptr<CreateStatement> parseCreateStatement()
     {
@@ -851,6 +871,7 @@ public:
             
             return statement;
     }
+    
 
     std::unique_ptr<SelectStatement> parseSelectStatement()
     {
@@ -1118,8 +1139,18 @@ public:
             return e.str();
         }
         
-        } 
-        else if(match(TokenType::ENABLE)){
+        } else if (match(TokenType::STATISTICS)){
+            try{
+                rewind();
+                std::unique_ptr<StatisticsStatement> stmt = parseStatisticsStatement();
+                std::string statResult = PagerHandler::ExecStatStat(stmt);
+                return statResult;
+            }catch (const std::exception &err){
+                std::stringstream tp;
+                tp << "{" << "\"success\": false, " << "\"error\": \"\033[31m" << err.what() << "\033[0m\"" << "}";
+                return tp.str();
+            }
+        } else if(match(TokenType::ENABLE)){
             try {
                 rewind();
                 std::unique_ptr<EnableStatement> statement = parseEnableStatement();
