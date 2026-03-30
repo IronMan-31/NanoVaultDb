@@ -37,6 +37,7 @@ enum class TokenType
     ORDERBY,
     AUTO_INCREMENT,
     NULL_T,UNIQUE,
+    STATISTICS,
     
      INT, VARCHAR, PRIMARY, KEY,
 
@@ -122,6 +123,7 @@ static const std::unordered_map<std::string, TokenType> keywords = {
     {"enable",TokenType::ENABLE},
     {"batch",TokenType::BATCH},
     {"writing",TokenType::WRITING},
+    {"statistics",TokenType::STATISTICS},
 
     {"mean",TokenType::MEAN},
     {"mean_n",TokenType::MEAN_N},
@@ -200,7 +202,18 @@ std::string typeToString(TokenType TYPE)
     case TokenType::ENABLE: return "enable";
     case TokenType::BATCH: return "batch";
     case TokenType::WRITING: return "writing";
-
+    case TokenType::STATISTICS: return "statistics";
+    case TokenType::AGGREGATES: return "AGGREGATES";
+    case TokenType::MEAN: return "MEAN";
+    case TokenType::MEAN_N: return "MEAN_N";
+    case TokenType::MAX: return "MAX";
+    case TokenType::MAX_N: return "MAX_N";
+    case TokenType::MIN: return "MIN";
+    case TokenType::MIN_N: return "MIN_N";
+    case TokenType::COUNT: return "COUNT";
+    case TokenType::COUNT_N: return "COUNT_N";
+    case TokenType::STDDEV: return "STDDEV";
+    case TokenType::STDDEV_N: return "STDDEV_N";
     
     case TokenType::SELECT: return "SELECT";
     case TokenType::FROM: return "FROM";

@@ -104,7 +104,7 @@ int main() {
     signal(SIGINT, handleSignal);
     initialDatabseLoad();
     try {
-        initializePrimaryIndexBtrees();
+        initializePrimaryIndexBtrees("abcd",true;);
     } catch (const std::exception &e) {
         std::cerr << "[WARN] B-tree init failed: " << e.what() << "\n";
     }

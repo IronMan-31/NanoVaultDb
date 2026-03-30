@@ -13,6 +13,7 @@
 #include "json.hpp"   // Assuming this is a necessary include
 #include "global.hpp" // Assuming this is a necessary include
 #include <utility>
+#include <limits>
 #include "databaseSchemaReader.hpp"
 namespace MyUtility
 {                                   // Define a namespace called MyUtility
@@ -274,7 +275,7 @@ namespace PagerHandler
         replaceFile(base + ".delete.new", base + ".delete");
         std::cout<<"base delete replace"<<"\n";
     }
-
+    std::string ExecStatStat(std::unique_ptr<StatisticsStatement>&stmt);
 
     void insertRow(std::string primaryName, std::vector<std::pair<std::string, std::pair<std::string, bool>>> data, std::string tableName)
     {
@@ -366,6 +367,9 @@ namespace PagerHandler
         deleteFile.write(reinterpret_cast<char*>(&alive), 1);
 
         deleteFile.flush();
+        
+        int64_t rowStartIndexInIndexFile = indexFile.tellp();
+
         indexFile.write(reinterpret_cast<const char *>(&newRowId), sizeof(int64_t));
         if (indexFile.fail())
         {
@@ -397,6 +401,60 @@ namespace PagerHandler
                       << "' stored at [" << start << "-" << end << "]\n";
         }
 
+        int64_t rowEndIndexInIndexFile = indexFile.tellp();
+        
+        IndexNode rowIndexNode;
+        rowIndexNode.start = rowStartIndexInIndexFile;
+        rowIndexNode.end = static_cast<int16_t>(rowEndIndexInIndexFile);
+
+        if (!primaryName.empty()) {
+            if (dbBtrees.find(currentDatabase) != dbBtrees.end() && 
+                dbBtrees[currentDatabase].find(tableName) != dbBtrees[currentDatabase].end() &&
+                dbBtrees[currentDatabase][tableName].find(primaryName) != dbBtrees[currentDatabase][tableName].end()) {
+                
+                auto& treePair = dbBtrees[currentDatabase][tableName][primaryName];
+                TreeVariant& treeVar = treePair.first;
+                std::visit([&](auto& treePtr) {
+                    using TreePtr = std::decay_t<decltype(treePtr)>;
+                    if (treePtr) {
+                        if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<int64_t, IndexNode>>>) {
+                            treePtr->insert(newRowId, rowIndexNode);
+                        } else if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<std::string, IndexNode>>>) {
+                            treePtr->insert(std::to_string(newRowId), rowIndexNode);
+                        }
+                    }
+                }, treeVar);
+            }
+        }
+
+        for (size_t i = 0; i < data.size(); i++) {
+            const std::string &columnName = data[i].first;
+            const std::string &columnData = data[i].second.first;
+            bool isUnique = data[i].second.second;
+
+            if (isUnique) {
+                if (dbBtrees.find(currentDatabase) != dbBtrees.end() && 
+                    dbBtrees[currentDatabase].find(tableName) != dbBtrees[currentDatabase].end() &&
+                    dbBtrees[currentDatabase][tableName].find(columnName) != dbBtrees[currentDatabase][tableName].end()) {
+                    
+                    auto& treePair = dbBtrees[currentDatabase][tableName][columnName];
+                    TreeVariant& treeVar = treePair.first;
+                    std::visit([&](auto& treePtr) {
+                        using TreePtr = std::decay_t<decltype(treePtr)>;
+                        if (treePtr) {
+                            if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<int64_t, IndexNode>>>) {
+                                int64_t val = 0;
+                                try { val = std::stoll(columnData); } catch (...) {}
+                                treePtr->insert(val, rowIndexNode);
+                            } else if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<std::string, IndexNode>>>) {
+                                treePtr->insert(columnData, rowIndexNode);
+                            }
+                        }
+                    }, treeVar);
+                }
+            }
+        }
+
         dataFile.flush();
         indexFile.flush();
 
@@ -405,5 +463,108 @@ namespace PagerHandler
 
 };
 
-// for this does not cahnge the function name just make it thread safe
+#include "selectAstEvaluator.hpp"
+
+inline std::string PagerHandler::ExecStatStat(std::unique_ptr<StatisticsStatement>&stmt){
+        const std::string& db = currentDatabase;
+        const std::string& table = stmt->tableName;
+        const std::string& col = stmt->colName;
+        const std::string& type = stmt->type;
+
+        if (dbBtrees.find(db) == dbBtrees.end() ||
+            dbBtrees[db].find(table) == dbBtrees[db].end() ||
+            dbBtrees[db][table].find(col) == dbBtrees[db][table].end()) {
+            throw std::runtime_error("No index found for column '" + col + "' in table '" + table + "'. Column must have a PRIMARY KEY or UNIQUE index.");
+        }
+        auto& treePair = dbBtrees[db][table][col];
+        TreeVariant& treeVar = treePair.first;
+
+        std::stringstream result;
+
+        std::visit([&](auto& treePtr) {
+            using TreePtr = std::decay_t<decltype(treePtr)>;
+
+            if (!treePtr) {
+                throw std::runtime_error("B-tree is null for column '" + col + "'");
+            }
+
+            if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<int64_t, IndexNode>>>) {
+                int64_t count = 0;
+                int64_t sum = 0;
+                int64_t maxVal = std::numeric_limits<int64_t>::min();
+                int64_t minVal = std::numeric_limits<int64_t>::max();
+
+                treePtr->forEachKey([&](const int64_t& key) {
+                    if (stmt->whereClause) {
+                        Row row;
+                        row.columns[col] = key;
+                        if (!AstParser::evaluateWhere(stmt->whereClause.get(), row)) {
+                            return;
+                        }
+                    }
+                    count++;
+                    sum += key;
+                    if (key > maxVal) maxVal = key;
+                    if (key < minVal) minVal = key;
+                });
+
+                if (count == 0) {
+                    result << "No data found in column '" << col << "'";
+                    return;
+                }
+
+                if (type == "mean") {
+                    double mean = static_cast<double>(sum) / static_cast<double>(count);
+                    result << "MEAN(" << col << ") = " << mean << "  [count=" << count << ", sum=" << sum << "]";
+                } else if (type == "max") {
+                    result << "MAX(" << col << ") = " << maxVal;
+                } else if (type == "min") {
+                    result << "MIN(" << col << ") = " << minVal;
+                } else if (type == "count") {
+                    result << "COUNT(" << col << ") = " << count;
+                }
+            } else if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<std::string, IndexNode>>>) {
+                int64_t count = 0;
+                std::string maxVal = "";
+                std::string minVal = "";
+
+                treePtr->forEachKey([&](const std::string& key) {
+                    if (stmt->whereClause) {
+                        Row row;
+                        row.columns[col] = key;
+                        if (!AstParser::evaluateWhere(stmt->whereClause.get(), row)) {
+                            return;
+                        }
+                    }
+                    if (count == 0) {
+                        maxVal = key;
+                        minVal = key;
+                    } else {
+                        if (key > maxVal) maxVal = key;
+                        if (key < minVal) minVal = key;
+                    }
+                    count++;
+                });
+
+                if (count == 0) {
+                    result << "No data found in column '" << col << "' for given query";
+                    return;
+                }
+
+                if (type == "mean") {
+                    throw std::runtime_error("MEAN is not supported on string columns");
+                } else if (type == "max") {
+                    throw std::runtime_error("MAX is not supported on string columns");
+                } else if (type == "min") {
+                    throw std::runtime_error("MIN is not supported on string columns");
+                } else if (type == "count") {
+                    result << "COUNT(" << col << ") = " << count;
+                }
+            }
+        }, treeVar);
+
+        std::cout << result.str() << "\n";
+        return result.str();
+}
+
 #endif

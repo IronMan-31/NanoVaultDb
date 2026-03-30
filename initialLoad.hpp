@@ -381,14 +381,18 @@ void loadAllNodesOfBtreeForUniqueKey(TreeVariant &tree,std::string dbName, int64
             {
                 if (dataType == "int")
             {
-                int64_t value;
-                dataFile.read(reinterpret_cast<char *>(&value), sizeof(int64_t));
+                // Data file stores values as ASCII strings, not binary int64_t.
+                // Read the string and convert to int64_t.
+                uint64_t strSize = uniqueReadEndIndex - uniqueReadStartIndex;
+                std::string strValue(strSize, '\0');
+                dataFile.read(strValue.data(), strSize);
+                std::cout<<"VALUE READ (int) "<<strValue<<"\n";
+                int64_t value = std::stoll(strValue);
                 id = value;
             }
             else
             {
-                // read string: assume fixed length or length-prefixed
-                uint64_t strSize = uniqueReadEndIndex - uniqueReadStartIndex + 1;
+                uint64_t strSize = uniqueReadEndIndex - uniqueReadStartIndex;
                 std::cout<<"start "<<uniqueReadStartIndex<<" and end "<<uniqueReadEndIndex<<"\n";
                 std::string value(strSize, '\0');
                 dataFile.read(value.data(), strSize);
@@ -427,7 +431,6 @@ void loadAllNodesOfBtreeForUniqueKey(TreeVariant &tree,std::string dbName, int64
                        { std::cout << value; }, id);
             std::cout << " start " << start << " end " << end << "\n";
 
-            // Insert into the appropriate typed B+ tree by visiting both the tree variant and the id variant.
             std::visit([&](auto &treePtr, auto &&val)
                        {
                            using TreeType = std::decay_t<decltype(*treePtr)>;
@@ -456,7 +459,7 @@ void loadAllNodesOfBtreeForUniqueKey(TreeVariant &tree,std::string dbName, int64
     }
 }
 
-void initializePrimaryIndexBtrees()
+void initializePrimaryIndexBtrees(std::string tabName,bool first)
 {
     for (const auto &dbPair : globalTableCache)
     {
@@ -466,6 +469,7 @@ void initializePrimaryIndexBtrees()
         for (const auto &tablePair : tables)
         {
             const std::string &tableName = tablePair.first;
+            if (!first && tabName!=tableName) continue;
             if (tablePair.second.first!="-1") continue;
             const auto &columns = tablePair.second.second;
             int64_t noOfColumns = columns.size();

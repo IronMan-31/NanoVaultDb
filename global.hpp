@@ -20,7 +20,6 @@
 #include <variant>
 #include <vector>
 
-// Removed SQL_PARSER.hpp to break circular dependency
 class IoUringQueue;
 #include "databaseSchemaReader.hpp"
 #include "storageTree.hpp"
@@ -154,6 +153,7 @@ enum class ASTNodeType {
   LIST_STATEMENT,
   CREATE_STATEMENT,
   ENABLE_STATEMENT,
+  STATISTICS_STATEMENT,
 
   // HFT_STATEMENT
   ADD_HFT_INDICATOR_STATEMENT,
@@ -284,6 +284,16 @@ struct DropStatement : public ASTNode {
   std::string name;
 
   ASTNodeType getType() const override { return ASTNodeType::DROP_STATEMENT; }
+};
+
+struct StatisticsStatement : public ASTNode {
+  std::string tableName;
+  std::string colName;
+  std::string type;
+  std::unique_ptr<WhereClause> whereClause = nullptr;
+  ASTNodeType getType() const override {
+    return ASTNodeType::STATISTICS_STATEMENT;
+  }
 };
 
 struct ColumnDefinition {
