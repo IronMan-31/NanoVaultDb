@@ -26,7 +26,8 @@ struct TickPacket {
     int64_t bidQuantity;    
 };
 #pragma pack(pop)
-static_assert(sizeof(TickPacket) == 72, "packet must be 40 bytes");
+
+static_assert(sizeof(TickPacket) == 72, "packet must be 72 bytes");
 
 static int64_t now_us() {
     return std::chrono::duration_cast<std::chrono::microseconds>(
@@ -41,49 +42,56 @@ int main(int argc, char* argv[]) {
     if (sock < 0) { perror("socket"); return 1; }
 
     sockaddr_in dest{};
-    dest.sin_family      = AF_INET;
-    dest.sin_port        = htons(port);
+    dest.sin_family = AF_INET;
+    dest.sin_port   = htons(port);
     inet_pton(AF_INET, host, &dest.sin_addr);
 
-    std::cout << "Sending ticks to " << host
-              << ":" << port << "\n";
-
+    std::cout << "Sending ticks to " << host << ":" << port << "\n";
 
     double price  = 1.00;
     double volume = 1.50;
     int    count  = 0;
 
     while (true) {
-        TickPacket pkt;
+        TickPacket pkt{};
 
-        pkt.tick = htobe64((uint64_t)to_fixed(10, 0));
-        int64_t ts = now_us();
-        pkt.timestamp = htobe64((uint64_t)ts);
-        pkt.price     = htobe64((uint64_t)to_fixed(price,  10));
-        pkt.volume    = htobe64((uint64_t)to_fixed(volume,  2));
-        pkt.side      = htobe64((uint64_t)to_fixed((count % 3), 2));  // BUY/SELL/UNK
-        pkt.askOrder = htobe64((uint64_t)to_fixed(74300.53000000, 10));
-        pkt.askQuantity = htobe64((uint64_t)to_fixed(4.51596000, 10));
-        pkt.bidOrder = htobe64((uint64_t)to_fixed(74300.52000000, 10));
-        pkt.bidQuantity = htobe64((uint64_t)to_fixed(74300.52000000, 10));
+        int64_t tick      = to_fixed(1, 0);
+        int64_t ts        = now_us();
+        int64_t price_fx  = to_fixed(price, 10);
+        int64_t vol_fx    = to_fixed(volume, 2);
+        int64_t side_fx   = (count % 3);
+
+        pkt.tick        = htobe64(tick);
+        pkt.timestamp   = htobe64(ts);
+        pkt.price       = htobe64(price_fx);
+        pkt.volume      = htobe64(vol_fx);
+        pkt.side        = htobe64(side_fx);
+        pkt.askOrder    = htobe64(to_fixed(74300.53000000, 10));
+        pkt.askQuantity = htobe64(to_fixed(4.51596000, 10));
+        pkt.bidOrder    = htobe64(to_fixed(74300.52000000, 10));
+        pkt.bidQuantity = htobe64(to_fixed(4.51596000, 10)); 
+
         ssize_t sent = sendto(sock,
                               &pkt, sizeof(pkt), 0,
                               (sockaddr*)&dest, sizeof(dest));
+
         if (sent != sizeof(pkt)) {
-            perror("sendto"); break;
+            perror("sendto");
+            break;
         }
 
-        std::cout << "sent tick #" << count
-                <<" timestamp "<<ts
-                  << "  price=" << price
-                  << "  vol="   << volume
-                  << "  side="  << (count % 3) << "\n";
+        std::cout << "sent tick #" << tick
+                  << " count=" << count
+                  << " timestamp=" << ts
+                  << " price=" << price
+                  << " vol=" << volume
+                  << " side=" << side_fx
+                  << "\n";
 
         price += (count % 2 == 0) ? 0.01 : -0.01;
         count++;
 
-        std::this_thread::sleep_for(
-            std::chrono::milliseconds(1));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 
     close(sock);

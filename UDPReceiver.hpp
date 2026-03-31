@@ -102,6 +102,11 @@ HOT void process_packet(const HFTStorage::Packet& packet, ssize_t n) {
         auto * __restrict indicator = &entry->indicators[i];
         indicator->fn(indicator->ptr);
     }
+
+    for(int64_t i = 0;i<entry->strategyIndex;i++){
+      auto * __restrict strategy = &entry->strategys[i];
+      strategy->result_fn(strategy->ptr);
+    }
     
     
     BatchWriter::writeHFTDataToIndexFile(tick);

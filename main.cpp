@@ -4,6 +4,7 @@
 #include "hft.hpp"
 #include "initialLoad.hpp"
 #include "logging.hpp"
+#include "strategyHandler.hpp"
 #include "utils/cpu_affinity.hpp"
 #include <iostream>
 #include <string>
@@ -95,7 +96,8 @@ string readLineWithHistory(vector<string> &history, int &historyIndex) {
 int main(int argc, char const *argv[]) {
   initialDatabseLoad();
   HFT::InitalStorage::initialIndicatorLoad();
-  runVacuum();
+  HFT::InitalStorage::initialStrategyLoad();
+  // runVacuum();
   initializePrimaryIndexBtrees("abcd",true);
   cout<<"\n";
   test_b_trees();
@@ -140,12 +142,12 @@ int main(int argc, char const *argv[]) {
       // STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="W";
       // )" ,
       // R"(
-      // CREATE HFT TABLE sel_ticks (
+      // CREATE HFT TABLE btc_ticks (
       //     timestamp  DOUBLE PRECISION 0,
       //     price      DOUBLE PRECISION 10,
       //     volume     DOUBLE PRECISION 2,
       //     side       DOUBLE PRECISION 0
-      // ) SYMBOL 10 TOP;
+      // ) SYMBOL 1 TOP;
       // )",
 
 //       R"(
@@ -182,6 +184,7 @@ int main(int argc, char const *argv[]) {
 
   // initialDatabseLoad();
   IndicatorHandler::registerAllIndicators(IndicatorHandler::indicatorRegistry);
+  StrategyHandler::registerAllStrategy(StrategyHandler::strategyRegistry);
   for (const auto &sql : testSQLs) {
     cout << "\n=============================\n";
     cout << "SQL:\n" << sql << endl;

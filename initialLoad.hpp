@@ -71,12 +71,13 @@ void runVacuum() {
 
 void vacuumScheduler() {
     while (!shuttingDown.load()) {
-        runVacuum();
-
         for (int i = 0; i < 360; i++) { 
             if (shuttingDown.load()) return;
             std::this_thread::sleep_for(std::chrono::seconds(60));
         }
+        
+        if (shuttingDown.load()) return;
+        runVacuum();
     }
 }
 

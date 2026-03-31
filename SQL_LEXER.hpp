@@ -73,6 +73,7 @@ enum class TokenType
 
 
     // HFT SPECIFIC
+    FETCH,
     DOUBLE,
     PRECISION,
     TICKS,
@@ -124,6 +125,7 @@ static const std::unordered_map<std::string, TokenType> keywords = {
     {"batch",TokenType::BATCH},
     {"writing",TokenType::WRITING},
     {"statistics",TokenType::STATISTICS},
+    {"fetch",TokenType::FETCH},
 
     {"mean",TokenType::MEAN},
     {"mean_n",TokenType::MEAN_N},
@@ -214,6 +216,7 @@ std::string typeToString(TokenType TYPE)
     case TokenType::COUNT_N: return "COUNT_N";
     case TokenType::STDDEV: return "STDDEV";
     case TokenType::STDDEV_N: return "STDDEV_N";
+    case TokenType::FETCH: return "fetch";
     
     case TokenType::SELECT: return "SELECT";
     case TokenType::FROM: return "FROM";

@@ -5,9 +5,11 @@
 #include <algorithm>
 #include <charconv>
 #include "IndicatorHandler.hpp"
+#include "strategyHandler.hpp"
 #include <cmath>
 #include <cstdint>
 #include "hft.hpp"
+#include <cstdio>
 #include <exception>
 #include <iostream>
 #include <sstream>
@@ -27,6 +29,7 @@
 #include "FastIndicators.hpp"
 #include "initialLoad.hpp"
 #include "batchWriter.hpp"
+
 
 namespace fs = std::filesystem; // Shorthand for std::filesystem
 
@@ -781,6 +784,21 @@ public:
     }
 
 
+    std::unique_ptr<FetchIndicatorStatement> parseFetchIndicatorStatement(){
+        expect(TokenType::FETCH, "expect token type fetch");
+        expect(TokenType::INDICATOR, "expect token type indicator");
+        expect(TokenType::FROM, "expect token type from");
+        expect(TokenType::HFT, "expect token type hft");
+        expect(TokenType::SYMBOL, "expect token type symbol");
+
+        Token * token = expect(TokenType::NUMBER, "the symbol should be no");
+        int64_t symbol;
+        std::from_chars(token->VALUE.data(), token->VALUE.data() + token->VALUE.size(),symbol);
+        std::unique_ptr<FetchIndicatorStatement> statement  = std::make_unique<FetchIndicatorStatement>();
+        statement->symbol = symbol;
+        return statement;
+    }
+
     std::unique_ptr<EnableStatement> parseEnableStatement(){
         expect(TokenType::ENABLE, "expect token type enable");
         expect(TokenType::BATCH, "expect token type batch");
@@ -804,6 +822,60 @@ public:
         return statement;
     }
 
+    // ENABLE strategy
+    std::unique_ptr<AddStrategyOnTableStatement> parseAddStrategystatement(){
+        expect(TokenType::ENABLE, "expect token type enable");
+        expect(TokenType::STRATEGY, "expect token type strategy");
+
+        Token * name  = expect(TokenType::STRING, "the strategy name should be string");
+        std::string strategyName;
+        strategyName = name->VALUE;
+
+        std::vector<std::string> params;
+        
+        if(match(TokenType::OPEN_PAREN)){
+            while (!match(TokenType::CLOSE_PAREN)) {
+                std::string val = expect(TokenType::STRING, "expect argument to be string")->VALUE;
+                // std::cout<<"val is "<<val<<"\n";
+                params.push_back(val);
+                
+                if (match(TokenType::COMMA)) {
+                    continue;
+                } else if (peek(0) && peek(0)->TYPE == TokenType::CLOSE_PAREN) {
+                    continue;
+                } else {
+                    throw std::runtime_error("Parse error: expect ',' or ')' in parameter list");
+                }
+            }
+        }
+
+        expect(TokenType::ON, "expect token type ON");
+        expect(TokenType::SYMBOL, "expect token type symbol");
+
+        Token * symbol_token = expect(TokenType::NUMBER, "expect token type number");
+        int64_t symbol;
+
+        std::from_chars(symbol_token->VALUE.data(),symbol_token->VALUE.data() + symbol_token->VALUE.size(),symbol);
+        expect(TokenType::COLUMN_NO, "expect toekn type column_no");
+        Token * column_token = expect(TokenType::NUMBER, "expect column type number");
+        int64_t column;
+        
+        std::from_chars(column_token->VALUE.data(),column_token->VALUE.data() + column_token->VALUE.size(),column);
+        
+        expect(TokenType::TICKS, "expect token type ticks");
+        Token * tick = expect(TokenType::NUMBER, "token type tick should be number");
+        int64_t ticks;
+        std::from_chars(tick->VALUE.data(),tick->VALUE.data() + tick->VALUE.size(),ticks);
+        expect(TokenType::SEMICOLON, "expect token type semi colon"); 
+        
+        std::unique_ptr<AddStrategyOnTableStatement> statement = std::make_unique<AddStrategyOnTableStatement>();
+        statement->strategy.first = strategyName;
+        statement->symbol = symbol;
+        statement->ticks = ticks;
+        statement->paramas = std::move(params);
+
+        return statement;
+    }
     std::unique_ptr<AddIndicatorOnTableStatement> parseAddIndicatorOnTableStatement(){
            
             std::unique_ptr<AddIndicatorOnTableStatement> statement = std::make_unique<AddIndicatorOnTableStatement>();
@@ -1151,6 +1223,19 @@ public:
                 return tp.str();
             }
         } else if(match(TokenType::ENABLE)){
+            if(match(TokenType::STRATEGY)){
+                
+                rewind();
+                rewind();
+                std::cout<<"HERE\n";
+                std::unique_ptr<AddStrategyOnTableStatement> statement = parseAddStrategystatement();
+                statement->print();
+                StrategyHandler::parsingAddStrategy(std::move(statement));
+                return r;
+
+                
+            }
+            rewind();
             try {
                 rewind();
                 std::unique_ptr<EnableStatement> statement = parseEnableStatement();
@@ -1177,6 +1262,19 @@ public:
 
             return e.str();
             }
+        }
+        else if (match(TokenType::FETCH)){
+            if(match(TokenType::INDICATOR)){
+                rewind();
+                rewind();
+
+                std::unique_ptr<FetchIndicatorStatement> statement = parseFetchIndicatorStatement();
+                statement->print();
+                std::string val = IndicatorHandler::parsingFetchIndicatorStatement(std::move(statement));
+
+                return val;
+            }
+
         }
         else if (match(TokenType::INSERT)) {
         rewind();
@@ -1294,6 +1392,17 @@ public:
                 IndicatorHandler::parsingAddIndicator(std::move(statement));
                 return r;   
             }
+            
+            
+            if(match(TokenType::STRATEGY)){
+                rewind();
+                rewind();
+                std::cout<<"INSIDE\n";
+                std::cout<<current()->VALUE<<"\n";
+                std::unique_ptr<AddHftStrategyStatement> statement = parseAddHftStrategyStatement();
+                StrategyHandler::parseStrategy(std::move(statement));
+                return r;
+            }
             rewind();
             rewind();
             try {
@@ -1322,6 +1431,19 @@ public:
         }
     }
 
+    std::unique_ptr<AddHftStrategyStatement> parseAddHftStrategyStatement(){
+        expect(TokenType::ADD, "expect token type add");
+        expect(TokenType::STRATEGY, "expect token type strategy" );
+        expect(TokenType::FROM, "expect token type from");
+
+        expect(TokenType::FILE, "expect token type file");
+
+        std::unique_ptr<AddHftStrategyStatement> statement = std::make_unique<AddHftStrategyStatement>();
+
+        Token * file_name = expect(TokenType::STRING  ,"expect file name to be string" );
+        statement->file_path = file_name->VALUE;
+        return statement;
+    }
 
     std::unique_ptr<AddHftIndicatorStatement> parseAddHftIndicatorStatement(){
         expect(TokenType::ADD, "expected token type add");

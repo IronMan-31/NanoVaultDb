@@ -1,5 +1,6 @@
 #pragma once
 
+#include "FastStrategy.hpp"
 #include "utils/types.hpp"
 #include <array>
 #include <atomic>
@@ -24,6 +25,12 @@ namespace HFTStorage {
     int64_t size;
   };
   
+  struct alignas(CACHELINE) strategyPacket{
+    int64_t tick;
+    int64_t strategyIndex;
+  };
+
+
   SPSCQueue<Packet, PacketParserQueueSize> PacketParseQueue;
 
 }
@@ -38,9 +45,13 @@ constexpr int64_t MAXRINGSIZE = 256;
 constexpr int64_t MAXRINGMASK = MAXRINGSIZE - 1;
 constexpr int64_t OrderBookSize = 4;
 constexpr int64_t MAX_NO_OF_INDICATORS = 128;
+constexpr int64_t MAX_NO_OF_STRATEGY = 128;
 
 namespace InitalStorage {
+  // name path index
   std::unordered_map<std::string, std::pair<std::string, int64_t>> Indicators;
+  std::unordered_map<std::string, std::pair<std::string, int64_t>> Strategy;
+
   bool initialIndicatorLoad() {
     // std::cout<<"INITIAL INDICATOR LOAD\n";
     namespace fs = std::filesystem;
@@ -68,10 +79,46 @@ namespace InitalStorage {
     return true;
   }
 
+
+
+  bool initialStrategyLoad() {
+    // std::cout<<"INITIAL INDICATOR LOAD\n";
+    namespace fs = std::filesystem;
+
+    fs::path relativePath = "./faststrategy";
+
+    if (!fs::exists(relativePath) || !fs::is_directory(relativePath)) {
+        return false;
+    }
+
+    int64_t index =  0;
+    for (const auto& entry : fs::directory_iterator(relativePath)) {
+        if (entry.is_regular_file()) {
+            fs::path filePath = entry.path();
+            std::cout<<"strategy load ";
+            std::cout<<"file "<<filePath << " is loaded \n";
+            std::string baseName = filePath.stem().string();
+
+            std::string absolutePath = fs::absolute(filePath).string();
+            std::cout<<baseName<<"\n";
+            Strategy[baseName] = {absolutePath,index};
+            index++;
+        }
+    }
+
+    return true;
+  }
+
+
   inline bool checkIndicatorExists(const std::string &s){
     return Indicators.find(s) != Indicators.end();
 }
 
+
+  inline bool checkStrategyExits(const std::string &s){
+    return Strategy.find(s) != Strategy.end();
+}
+  
   // return the indcator path and index
 
 inline std::pair<bool,std::pair<std::string,int64_t>> getIndicator(const std::string &s){
@@ -81,7 +128,18 @@ inline std::pair<bool,std::pair<std::string,int64_t>> getIndicator(const std::st
 
     return {true, Indicators[s]};
 }
-};
+
+inline std::pair<bool,std::pair<std::string,int64_t>> getStrategy(const std::string &s){
+    if(UNLIKELY(!checkStrategyExits(s))){
+        return {false,{"",-1}};
+    }
+
+    return {true, Strategy[s]};
+}
+
+}
+;
+
 
   struct alignas(64) ColumnRing {
 
@@ -107,14 +165,16 @@ inline std::pair<bool,std::pair<std::string,int64_t>> getIndicator(const std::st
     int32_t columnCount = 0;
     int32_t symbol = -1;
     int64_t indicatorIndex =0;
+    int64_t strategyIndex = 0;
     std::array<FastIndicators::IndicatorEntry, MAX_NO_OF_INDICATORS> indicators{};
+    std::array<FastStrategy::StrategyEntry, MAX_NO_OF_STRATEGY> strategys{};
     ColumnRing history[MAXCOLUMN];
 
     // storage ticks
     int32_t storageTicks = -1;
     int32_t count = 0;
     std::unordered_map<std::string, int64_t> indicatorsIndexStorage;
-
+    std::unordered_map<std::string, int64_t> strategysIndexStorage ;
     ColumnRing& operator [](int64_t index){
       return this->history[index];
     }

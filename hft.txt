@@ -1,9 +1,15 @@
 ADD HFT INDICATOR FROM FILE '/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/m_way_tree.cpp';
-ADD INDICATOR "sma" ("10") ON SYMBOL 10 COLUMN_NO  1 ticks 100;
+ADD INDICATOR "sma" ("10") ON SYMBOL 1 COLUMN_NO  1 ticks 100;
 if no column then -1
 LIST STRATEGY ;
 LIST TABLE TABLE_NAME;
-ENABLE BATCH WRITING ON TABLE "sel_ticks" TICKS 10000;
+ENABLE BATCH WRITING ON TABLE "btc_ticks" TICKS 1000;
 ENABLE WEBSOCKET LAYER ON STRATEGY "strategy_name";
 GET STATISTICS FOR SYMBOL 2;
 GET MEAN FOR TABLE table_name ON COLUMN col_no;
+
+
+
+// FETCH  INDICATOR FROM HFT SYMBOL 1;
+ADD STRATEGY FROM FILE '/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/m_way_tree.cpp';
+ENABLE STRATEGY "basic" ("10") on symbol 1 column_no 1 ticks 100;

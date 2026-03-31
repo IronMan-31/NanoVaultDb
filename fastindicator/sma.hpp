@@ -108,13 +108,19 @@ public:
     std::cout << "----------------------\n";
   }
 
+
   static void run(void *p) { static_cast<SMA *>(p)->on_tick(); }
+
+  static int64_t get_result(void *p) {
+    return static_cast<SMA *>(p)->result();
+  }
 
   FastIndicators::IndicatorEntry create() {
     FastIndicators::IndicatorEntry e;
     e.checked = 1;
     e.ptr = this;
     e.fn = &SMA::run;
+    e.result_fn = &SMA::get_result;
     e.indicatorIndex = -1;
     return e;
   }

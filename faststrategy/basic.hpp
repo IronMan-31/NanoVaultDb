@@ -1,0 +1,78 @@
+#include "../hft.hpp"
+#include "../utils//types.hpp"
+#include <charconv>
+#include <cstdint>
+#include "../utility.hpp"
+#include "format"
+#include "../FastStrategy.hpp"
+#include <iostream>
+
+class alignas(CACHELINE) BASIC {
+
+private:
+  int64_t tick = 0;
+  int64_t count = 0;
+  int64_t window = 1;
+
+  HFT::TableColumn *tableColumn = nullptr;
+  std::array<HFT::TableColumn, HFT::MAXHFTSYMBOL> *symbolAccessArr;
+  const int64_t *precision = nullptr;
+
+public:
+  BASIC(std::array<HFT::TableColumn, HFT::MAXHFTSYMBOL> &symbolAccessArr,
+      int64_t tick, HFT::TableColumn &tableColumn) {
+
+    this->symbolAccessArr = &symbolAccessArr;
+    this->tick = tick;
+    this->count = 0;
+    this->tableColumn = &tableColumn;
+    this->precision = tableColumn.precisions;
+  }
+
+  void set_parameter(std::vector<std::string> &win) {
+    std::string param = win[0];
+    int64_t window = 1;
+
+    auto [ptr, ec] = std::from_chars(param.data(), param.data() + param.size(), window);
+
+    if (ec != std::errc() || window <= 0) {
+      throw std::runtime_error("Invalid SMA parameter");
+    }
+
+    this->window = window;
+
+    std::cout << "basic strategy window Window set to: " << this->window << "\n";
+  }
+
+  inline bool result() const {
+        auto const * __restrict entry = &this->tableColumn->indicators[0];
+        int64_t val = entry->result_fn(entry->ptr);
+        return val > this->window;
+  }
+
+  void on_tick() {
+    
+    count++;
+    if (count != tick)
+      return;
+    // MyUtility::appendToFile("hello.txt", "called");
+    count = 0;
+
+    std::cout<<std::format("the result is {} \n",this->result());
+
+  }
+
+  static void run(void *p) { static_cast<BASIC *>(p)->on_tick(); }
+    static bool get_result(void *p) {
+    return static_cast<BASIC *>(p)->result();
+  }
+  FastStrategy::StrategyEntry create() {
+    FastStrategy::StrategyEntry e;
+    e.checked = 1;
+    e.ptr = this;
+    e.fn = &BASIC::run;
+    e.result_fn = &BASIC::get_result;
+    e.strategyIndex = -1;
+    return e;
+  }
+};

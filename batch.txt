@@ -1,0 +1,352 @@
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/db/tables/testing/btc_ticks.data
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8

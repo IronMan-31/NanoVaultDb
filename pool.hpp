@@ -1,3 +1,5 @@
+#pragma once
+
 #include "hft.hpp"
 #include "utils/types.hpp"
 #include <cassert>
@@ -33,6 +35,9 @@ struct alignas(CACHELINE) IndicatorPool {
         next = 0;
     }
 };
+
+
+
 
 static IndicatorPool<SMA, HFT::MAXHFTSYMBOL> smaPool;
 static IndicatorPool<OBI,HFT::MAXHFTSYMBOL> obiPool;

@@ -157,7 +157,10 @@ enum class ASTNodeType {
 
   // HFT_STATEMENT
   ADD_HFT_INDICATOR_STATEMENT,
-  ADD_HFT_INDICATOR_ON_TABLE_STATEMENT
+  ADD_HFT_INDICATOR_ON_TABLE_STATEMENT,
+  FETCH_INDICATOR_STATEMENT,
+  ADD_HFT_STRATEGY_STATEMENT,
+  ADD_HFT_STRATEGY_ON_TABLE_STATEMENT
 };
 
 enum class LogicalOperator { AND, OR };
@@ -357,6 +360,18 @@ struct AddHftIndicatorStatement : public ASTNode {
   void print() { std::cout << " the file path is " << file_path << "\n"; }
 };
 
+struct AddHftStrategyStatement : public ASTNode {
+
+  // int64_t symbol;
+  std::string file_path;
+  // int64_t column_no;
+  ASTNodeType getType() const override {
+    return ASTNodeType::ADD_HFT_STRATEGY_STATEMENT;
+  }
+  void print() { std::cout << " the file path is " << file_path << "\n"; }
+};
+
+
 struct AddIndicatorOnTableStatement : public ASTNode {
 
   // name and path
@@ -377,6 +392,28 @@ struct AddIndicatorOnTableStatement : public ASTNode {
     std::cout << print.str() << "\n";
   }
 };
+
+
+struct AddStrategyOnTableStatement : public ASTNode {
+
+  // name and path
+  std::pair<std::string, std::string> strategy;
+  std::vector<std::string> paramas; // parameter
+  int64_t symbol = -1;
+  int64_t ticks = 1;
+  ASTNodeType getType() const override {
+    return ASTNodeType::ADD_HFT_STRATEGY_ON_TABLE_STATEMENT;
+  }
+
+  void print() {
+    std::stringstream print;
+    print << std::format(" the symbol is {} the strategy "
+                         "name is path is {} \n",
+                          symbol, strategy.first, strategy.second);
+    std::cout << print.str() << "\n";
+  }
+};
+
 
 struct LISTStatement : public ASTNode {
 
@@ -406,4 +443,13 @@ struct EnableStatement : ASTNode {
                              tableName);
   }
 };
+
+struct FetchIndicatorStatement:ASTNode{
+  int64_t symbol;
+  ASTNodeType getType() const override { return ASTNodeType::FETCH_INDICATOR_STATEMENT; }
+  void print(){
+    std::cout<<std::format("the symbol is {}",symbol);
+  }
+};
+
 #endif

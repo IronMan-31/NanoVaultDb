@@ -1,6 +1,5 @@
 #pragma once
 #include "databaseSchemaReader.hpp"
-#include <format>
 #include "global.hpp"
 #include "hft.hpp"
 #include "json.hpp"
@@ -9,6 +8,7 @@
 #include <charconv>
 #include <cstdint>
 #include <fcntl.h>
+#include <format>
 #include <liburing.h>
 #include <memory>
 #include <stdexcept>
@@ -17,21 +17,20 @@
 #include <unistd.h>
 #include <vector>
 
-
-
 class IoUringQueue {
 private:
   struct io_uring ring_;
   int fd_;
   off_t offset_;
+  std::string file_name;
 
 public:
   explicit IoUringQueue(const std::string &filename, unsigned entries = 256) {
     int ret = io_uring_queue_init(entries, &ring_, 0);
     if (ret < 0)
       throw std::runtime_error("io_uring_queue_init failed");
-
-    fd_ = open(filename.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0644);
+    this->file_name = filename.c_str();
+    fd_ = open(filename.c_str(), O_WRONLY | O_CREAT, 0644);
     if (fd_ < 0) {
       io_uring_queue_exit(&ring_);
       throw std::runtime_error("open failed");
@@ -55,14 +54,23 @@ private:
     for (size_t i = 0; i < expected; i++) {
       io_uring_cqe *cqe;
       int r = io_uring_wait_cqe(&ring_, &cqe);
-      if (r < 0)
+      if (r < 0) {
+        MyUtility::appendToFile("batch.txt", "wait_cqe failed with error: " + std::to_string(r));
         throw std::runtime_error("wait_cqe failed");
+      }
 
-      if (cqe->res < 0)
+      MyUtility::appendToFile("batch.txt", "CQE received, res (bytes written): " + std::to_string(cqe->res));
+
+      if (cqe->res < 0) {
+        MyUtility::appendToFile("batch.txt", "write failed with error code: " + std::to_string(cqe->res));
         throw std::runtime_error("write failed");
+      }
 
-      if (expected_bytes > 0 && static_cast<size_t>(cqe->res) != expected_bytes)
+      if (expected_bytes > 0 &&
+          static_cast<size_t>(cqe->res) != expected_bytes) {
+        MyUtility::appendToFile("batch.txt", "partial write detected: " + std::to_string(cqe->res) + " bytes");
         throw std::runtime_error("partial write detected");
+      }
 
       io_uring_cqe_seen(&ring_, cqe);
     }
@@ -76,11 +84,17 @@ private:
   }
 
 public:
-  template <typename T>
-  void batchWrite(const std::vector<T> &data) {
+  template <typename T> void batchWrite(const std::vector<T> &data) {
     static_assert(std::is_trivially_copyable<T>::value,
                   "T must be trivially copyable");
-
+    char pathBuf[PATH_MAX];
+    ssize_t len = readlink(("/proc/self/fd/" + std::to_string(fd_)).c_str(), pathBuf, sizeof(pathBuf)-1);
+    if(len >= 0) {
+        pathBuf[len] = '\0';
+        MyUtility::appendToFile("batch.txt", "batchWrite called for file: " + this->file_name + " fd: " + std::to_string(fd_) + " actually points to: " + pathBuf);
+    } else {
+        MyUtility::appendToFile("batch.txt", "batchWrite called for fd: " + std::to_string(fd_) + " but readlink failed!");
+    }
     if (data.empty())
       return;
 
@@ -142,97 +156,102 @@ public:
   }
 };
 
-
-
 namespace BatchWriter {
 
-  static constexpr int64_t batchWriterQueueSize = 1024;
-struct alignas(CACHELINE) batchWriterPacket{
-    int64_t symbol;
-    std::vector<int64_t>data;
+static constexpr int64_t batchWriterQueueSize = 1024;
+struct alignas(CACHELINE) batchWriterPacket {
+  int64_t symbol;
+  std::vector<int64_t> data;
 };
 
 // SPSCQueue<batchWriterPacket, batchWriterQueueSize> batchWriterPacketQueue;
 
-
-
 void parseEnableNatchStatement(std::unique_ptr<EnableStatement> &&statement) {
- std::string currentDb = dbDirectoryPath + "/" + currentDatabase +  ".shivam" + ".db";
- std::cout<<currentDb<<"\n";
-if (!MyUtility::checkIfFileExist(currentDb)) {
+  std::string currentDb =
+      dbDirectoryPath + "/" + currentDatabase + ".shivam" + ".db";
+  std::cout << currentDb << "\n";
+  if (!MyUtility::checkIfFileExist(currentDb)) {
     throw std::runtime_error(
         std::format("the file {} does not exist", currentDb));
-}
+  }
 
-std::shared_ptr<JSONParser> parser = std::make_shared<JSONParser>();
+  std::shared_ptr<JSONParser> parser = std::make_shared<JSONParser>();
 
-if (!parser->loadFromFile(currentDb)) {
+  if (!parser->loadFromFile(currentDb)) {
     std::cerr << "Failed to load file: " << currentDb << std::endl;
     throw std::runtime_error("Failed to load file: " + currentDb);
-}
+  }
 
-int ticks = statement->ticks;
+  int ticks = statement->ticks;
 
-JSONParser::JSONValue rootValue = parser->getObject(0);
-JSONParser::JSONObject& rootObj = std::get<JSONParser::JSONObject>(rootValue.value);
+  JSONParser::JSONValue rootValue = parser->getObject(0);
+  JSONParser::JSONObject &rootObj =
+      std::get<JSONParser::JSONObject>(rootValue.value);
 
-JSONParser::JSONArray& tablesArray = std::get<JSONParser::JSONArray>(rootObj["tables"].value);
+  JSONParser::JSONArray &tablesArray =
+      std::get<JSONParser::JSONArray>(rootObj["tables"].value);
 
-for (auto& tableVal : tablesArray) {
-    JSONParser::JSONObject& table = std::get<JSONParser::JSONObject>(tableVal.value);
-    
+  for (auto &tableVal : tablesArray) {
+    JSONParser::JSONObject &table =
+        std::get<JSONParser::JSONObject>(tableVal.value);
+
     std::string tableName = std::get<std::string>(table["name"].value);
 
     int64_t symbol = -1;
     auto symbolIt = table.find("symbol");
-    if (symbolIt != table.end() && !std::holds_alternative<std::nullptr_t>(symbolIt->second.value)) {
-        if (std::holds_alternative<int>(symbolIt->second.value)) {
-            symbol = std::get<int>(symbolIt->second.value);
-        } else if (std::holds_alternative<std::string>(symbolIt->second.value)) {
-            symbol = std::stoll(std::get<std::string>(symbolIt->second.value));
-        } else if (std::holds_alternative<double>(symbolIt->second.value)) {
-            symbol = static_cast<int64_t>(std::get<double>(symbolIt->second.value));
-        } else {
-            throw std::runtime_error("Invalid type for symbol in JSON");
-        }
+    if (symbolIt != table.end() &&
+        !std::holds_alternative<std::nullptr_t>(symbolIt->second.value)) {
+      if (std::holds_alternative<int>(symbolIt->second.value)) {
+        symbol = std::get<int>(symbolIt->second.value);
+      } else if (std::holds_alternative<std::string>(symbolIt->second.value)) {
+        symbol = std::stoll(std::get<std::string>(symbolIt->second.value));
+      } else if (std::holds_alternative<double>(symbolIt->second.value)) {
+        symbol = static_cast<int64_t>(std::get<double>(symbolIt->second.value));
+      } else {
+        throw std::runtime_error("Invalid type for symbol in JSON");
+      }
     }
-    std::cout<<"THE SYMBOL IS " << symbol<<"\n";
+    std::cout << "THE SYMBOL IS " << symbol << "\n";
     if (symbol != -1) {
-        std::cout<<"storage symbol and ticks is "<< symbol <<" "<<ticks<<"\n";
-        HFT::symbolAccessArray[symbol].storageTicks = ticks;
+      std::cout << "storage symbol and ticks is " << symbol << " " << ticks
+                << "\n";
+      HFT::symbolAccessArray[symbol].storageTicks = ticks;
     }
 
     if (tableName == statement->tableName) {
-        
-        table["ticks"] = JSONParser::JSONValue(ticks);
-        break;
+
+      table["ticks"] = JSONParser::JSONValue(ticks);
+      break;
     }
+  }
+
+  parser->removeObject(0);
+  parser->appendValue(rootValue);
+  parser->saveToFile(currentDb);
 }
 
-parser->removeObject(0);
-parser->appendValue(rootValue);
-parser->saveToFile(currentDb);
+bool writeHFTDataToIndexFile(int symbol) {
+  auto it = batchWriterFileMap.find(symbol);
+  auto *__restrict entry = &HFT::symbolAccessArray[symbol];
 
-}
+  entry->count++;
+  if (entry->count % 1000 == 0) {
+      MyUtility::appendToFile("batch.txt", "writeHFTDataToIndexFile: symbol=" + std::to_string(symbol) + " count=" + std::to_string(entry->count) + " storageTicks=" + std::to_string(entry->storageTicks));
+  }
 
-bool writeHFTDataToIndexFile(int symbol){
-    auto it = batchWriterFileMap.find(symbol);
-    auto *__restrict entry = &HFT::symbolAccessArray[symbol];
-
-    entry->count++;
-    if(UNLIKELY(entry->count == entry->storageTicks)){
-      entry->count = 0;
-       if (it != batchWriterFileMap.end() && it->second) {
-        std::vector data = HFT::symbolAccessArray[symbol].getWritingData();
-        it->second->batchWrite(data);
-        return true;
+  if (UNLIKELY(entry->count >= entry->storageTicks && entry->storageTicks > 0)) {
+    entry->count = 0;
+    if (it != batchWriterFileMap.end() && it->second) {
+      std::vector data = HFT::symbolAccessArray[symbol].getWritingData();
+      MyUtility::appendToFile("batch.txt", "Batch writing started. Data size: " + std::to_string(data.size()));
+      it->second->batchWrite(data);
+      return true;
+    } else {
+      MyUtility::appendToFile("batch.txt", "the symbol does not exist " + std::to_string(symbol));
     }
-    }
+  }
 
-   
-
-    std::cout<<" the symbol does not exist "<<symbol<<"\n";
-    return false;
+  return false;
 }
 
 }; // namespace BatchWriter

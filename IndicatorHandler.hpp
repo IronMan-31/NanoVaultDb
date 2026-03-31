@@ -15,6 +15,7 @@
 #include <memory>
 #include <sstream>
 #include <stdexcept>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -39,9 +40,7 @@ void registerIndicator(
                                  std::vector<std::string> &params) {
     auto *indicator = pool.acquire(symbolAccessArr, tick, table, col);
 
-    if (params.empty()) {
-      throw std::runtime_error(name + " requires parameters");
-    }
+    
 
     indicator->set_parameter(params);
 
@@ -75,7 +74,7 @@ void parseIndicators(std::unique_ptr<AddHftIndicatorStatement> &&statement) {
     throw std::runtime_error(error.str());
   }
 
-  if (!HFT::InitalStorage::checkIndicatorExists(baseName)) {
+  if (HFT::InitalStorage::checkIndicatorExists(baseName)) {
     error << std::format("indicator with base name  {}  already exist ",
                          baseName);
     std::cout << error.str();
@@ -140,6 +139,7 @@ void parsingAddIndicator(
 
     if(symbolData->indicatorsIndexStorage.find(indicatorName)==symbolData->indicatorsIndexStorage.end()){
       symbolData->indicatorsIndexStorage[indicatorName] = symbolData->indicatorIndex;
+     
     }else{
       
       error << std::format("the indiator with name {} already exist",indicatorName);
@@ -167,5 +167,39 @@ void parsingAddIndicator(
   HFT::symbolAccessArray[symbol].indicators[indicatorIndex] = entry;
   std::cout<<"\nIndicator added \n";
 }
+
+
+
+std::string parsingFetchIndicatorStatement(std::unique_ptr<FetchIndicatorStatement>&&statement){
+  std::stringstream e;
+  if(UNLIKELY(statement->symbol >= HFT::MAXHFTSYMBOL)){
+    e << std::format("the symbol {} is greater than the max limit \n",statement->symbol,HFT::MAXHFTSYMBOL);
+    throw std::runtime_error(e.str());
+  }
+  if(UNLIKELY(HFT::symbolAccessArray[statement->symbol].symbol == -1)){
+    e << std::format("there is no table registerd with symbol {} \n",statement->symbol);
+    throw std::runtime_error(e.str());
+  }
+
+  HFT::TableColumn * __restrict entry = &HFT::symbolAccessArray[statement->symbol];
+
+ e << '{';
+
+for (std::unordered_map<std::string, int64_t>::iterator it = entry->indicatorsIndexStorage.begin();
+     it != entry->indicatorsIndexStorage.end(); ++it) {
+    
+    e << "\"" << it->first << "\": " << it->second;
+
+    if (std::next(it) != entry->indicatorsIndexStorage.end()) {
+        e << ", ";
+    }
+}
+
+e << '}';
+
+return e.str();
+}
+
+
 
 }; // namespace IndicatorHandler
