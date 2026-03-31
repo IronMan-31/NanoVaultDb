@@ -37,3 +37,4 @@ struct alignas(CACHELINE) StrategyPool {
 };
 
 static StrategyPool<BASIC, HFT::MAXHFTSYMBOL> basicPool;
+static StrategyPool<AGAIN, HFT::MAXHFTSYMBOL> againPool;

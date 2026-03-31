@@ -1,13 +1,14 @@
 
 #pragma once 
 
+#include "utils/types.hpp"
 #include <cstdint>
 // symbolAccessArray , tick, TableColumn of that symbol
 
 namespace FastStrategy {
 using TickFn = void (*)(void *);
 using ResultFn = bool (*)(void *);
-struct alignas(64) StrategyEntry {
+struct alignas(CACHELINE) StrategyEntry {
   int64_t checked = -1;        // 8 bytes
   void *ptr;                   // 8 bytes
   TickFn fn;                   // 8 bytes

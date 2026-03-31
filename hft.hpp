@@ -1,13 +1,16 @@
 #pragma once
 
 #include "FastStrategy.hpp"
+#include "global.hpp"
 #include "utils/types.hpp"
 #include <array>
 #include <atomic>
 #include <cstdint>
 #include <filesystem>
 #include <iostream>
+#include <memory>
 #include <string>
+#include <string_view>
 #include <sys/types.h>
 #include <unordered_map>
 #include <utility>
@@ -20,20 +23,23 @@ namespace HFTStorage {
   std::atomic<int64_t> dropped{0};
   static constexpr size_t PacketParserQueueSize = 1024;
   static constexpr size_t PacketSize = 1024;
-   struct alignas(CACHELINE) Packet{
+   struct  Packet{
     char data[PacketSize];
     int64_t size;
   };
   
-  struct alignas(CACHELINE) strategyPacket{
+  struct  strategyPacket{
+    bool valid = false;
     int64_t tick;
     int64_t strategyIndex;
+    
   };
 
 
+  SPSCQueue<strategyPacket, PacketParserQueueSize> webSocketsPacketParser;
   SPSCQueue<Packet, PacketParserQueueSize> PacketParseQueue;
 
-}
+} 
 
 
 namespace HFT {
@@ -175,6 +181,7 @@ inline std::pair<bool,std::pair<std::string,int64_t>> getStrategy(const std::str
     int32_t count = 0;
     std::unordered_map<std::string, int64_t> indicatorsIndexStorage;
     std::unordered_map<std::string, int64_t> strategysIndexStorage ;
+    std::unordered_map<int64_t, std::string> indexToStrategy;
     ColumnRing& operator [](int64_t index){
       return this->history[index];
     }
@@ -226,9 +233,23 @@ inline std::pair<bool,std::pair<std::string,int64_t>> getStrategy(const std::str
 
 
 
+
 } // namespace HFT
 
 
+
+
+namespace WebSocketHandler {
+
+  std::unordered_map<std::string, std::string> webSocketUrlMap;
+  void handleWebsocket(std::unique_ptr<WebSocketCommand> && statement){
+    std::string name = statement->strategyName;
+    std::string url = statement->url;
+    webSocketUrlMap[name] = url;
+  }
+
+
+};
 
 
 

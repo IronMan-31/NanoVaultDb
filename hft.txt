@@ -3,13 +3,8 @@ ADD INDICATOR "sma" ("10") ON SYMBOL 1 COLUMN_NO  1 ticks 100;
 if no column then -1
 LIST STRATEGY ;
 LIST TABLE TABLE_NAME;
+STATISTICS MEAN FROM "table_name" ON "column_name" WHERE condition;
 ENABLE BATCH WRITING ON TABLE "btc_ticks" TICKS 1000;
-ENABLE WEBSOCKET LAYER ON STRATEGY "strategy_name";
-GET STATISTICS FOR SYMBOL 2;
-GET MEAN FOR TABLE table_name ON COLUMN col_no;
-
-
-
-// FETCH  INDICATOR FROM HFT SYMBOL 1;
+APPLY WEBSOCKET  ON STRATEGY "strategy_name" URL "string";
 ADD STRATEGY FROM FILE '/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/m_way_tree.cpp';
-ENABLE STRATEGY "basic" ("10") on symbol 1 column_no 1 ticks 100;
+ENABLE STRATEGY "again" ("10") on symbol 1 column_no 1 ticks 100;

@@ -101,7 +101,10 @@ enum class TokenType
     COUNT,
     COUNT_N,
     STDDEV,
+    APPLY,
     STDDEV_N,
+    WEBSOCKET,
+    URL
 };
 
 // Make these static const to avoid multiple definition errors
@@ -126,6 +129,9 @@ static const std::unordered_map<std::string, TokenType> keywords = {
     {"writing",TokenType::WRITING},
     {"statistics",TokenType::STATISTICS},
     {"fetch",TokenType::FETCH},
+    {"apply",TokenType::APPLY},
+    {"websocket",TokenType::WEBSOCKET},
+    {"url",TokenType::URL},
 
     {"mean",TokenType::MEAN},
     {"mean_n",TokenType::MEAN_N},
@@ -187,6 +193,7 @@ std::string typeToString(TokenType TYPE)
     switch (TYPE)
     {
     // HFT SPECIFIC
+    case TokenType::APPLY: return "apply";
     case TokenType::DOUBLE: return "DOUBLE";
     case TokenType::TICKS: return "TICKS";
     case TokenType::PRECISION: return "PRECISION";
@@ -217,6 +224,8 @@ std::string typeToString(TokenType TYPE)
     case TokenType::STDDEV: return "STDDEV";
     case TokenType::STDDEV_N: return "STDDEV_N";
     case TokenType::FETCH: return "fetch";
+    case TokenType::WEBSOCKET: return "websocket";
+    case TokenType::URL: return "url";
     
     case TokenType::SELECT: return "SELECT";
     case TokenType::FROM: return "FROM";

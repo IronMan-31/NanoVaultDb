@@ -3,6 +3,7 @@
 
 
 #include "batchWriter.hpp"
+#include "utility.hpp"
 #include "utils/types.hpp"
 #include <arpa/inet.h>
 #include <atomic>
@@ -62,7 +63,6 @@ HOT void process_packet(const HFTStorage::Packet& packet, ssize_t n) {
     const int64_t expected = (columnCount + 1 + (isTop << 2)) << 3;
 
     std::cout << "packet size n = " << n << "\n";
-    std::cout << "expected size = " << expected << "\n";
 
     if (UNLIKELY(n != expected)) {
         std::cout << "ERROR: packet size mismatch\n";
@@ -105,7 +105,11 @@ HOT void process_packet(const HFTStorage::Packet& packet, ssize_t n) {
 
     for(int64_t i = 0;i<entry->strategyIndex;i++){
       auto * __restrict strategy = &entry->strategys[i];
-      strategy->result_fn(strategy->ptr);
+      bool val = strategy->result_fn(strategy->ptr);
+
+      while (!HFTStorage::webSocketsPacketParser.push({val,tick,i})) {
+        MyUtility::appendToFile("strategy.txt", std::format("pushed data to strategy.txt"));
+      }
     }
     
     
@@ -163,6 +167,8 @@ void run_receiver() {
 }
 
 
+
+
 void run_packet_parser(){
   HFTStorage::Packet pkt;
   while (true) {
@@ -170,6 +176,19 @@ void run_packet_parser(){
       process_packet(pkt, pkt.size);
     }
   }
+}
+
+
+void run_strategy_parser(){
+  HFTStorage::strategyPacket pkt;
+    while (true) {
+      if(HFTStorage::webSocketsPacketParser.pop(pkt)){
+        if((pkt.valid)){
+          MyUtility::appendToFile("strategy.txt", std::format("the strategy run with symbol {} and strategy id {} ",pkt.tick,pkt.strategyIndex));
+
+        }
+      }
+    }
 }
 
 } // namespace NetFeed

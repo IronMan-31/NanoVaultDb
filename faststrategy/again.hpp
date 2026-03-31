@@ -7,7 +7,7 @@
 #include "../FastStrategy.hpp"
 #include <iostream>
 
-class alignas(CACHELINE) BASIC {
+class alignas(CACHELINE) AGAIN {
 
 private:
   int64_t tick = 0;
@@ -19,7 +19,7 @@ private:
   const int64_t *precision = nullptr;
 
 public:
-  BASIC(std::array<HFT::TableColumn, HFT::MAXHFTSYMBOL> &symbolAccessArr,
+  AGAIN(std::array<HFT::TableColumn, HFT::MAXHFTSYMBOL> &symbolAccessArr,
       int64_t tick, HFT::TableColumn &tableColumn) {
 
     this->symbolAccessArr = &symbolAccessArr;
@@ -62,16 +62,16 @@ public:
     
   }
 
-  static void run(void *p) { static_cast<BASIC *>(p)->on_tick(); }
+  static void run(void *p) { static_cast<AGAIN *>(p)->on_tick(); }
     static bool get_result(void *p) {
-    return static_cast<BASIC *>(p)->result();
+    return static_cast<AGAIN *>(p)->result();
   }
   FastStrategy::StrategyEntry create() {
     FastStrategy::StrategyEntry e;
     e.checked = 1;
     e.ptr = this;
-    e.fn = &BASIC::run;
-    e.result_fn = &BASIC::get_result;
+    e.fn = &AGAIN::run;
+    e.result_fn = &AGAIN::get_result;
     e.strategyIndex = -1;
     return e;
   }

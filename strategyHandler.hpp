@@ -49,6 +49,7 @@ void registerStrategy(
 void registerAllStrategy(
     std::unordered_map<std::string, StrategyFactory> &registry) {
   registerStrategy<BASIC, HFT::MAXHFTSYMBOL>(registry, "basic", basicPool);
+  registerStrategy<AGAIN, HFT::MAXHFTSYMBOL>(registry, "again", againPool);
 }
 
 void parseStrategy(std::unique_ptr<AddHftStrategyStatement> &&statement) {
@@ -125,7 +126,7 @@ void parsingAddStrategy(
 
     if(symbolData->strategysIndexStorage.find(strategyName)==symbolData->strategysIndexStorage.end()){
       symbolData->strategysIndexStorage[strategyName] = symbolData->strategyIndex;
-     
+      symbolData->indexToStrategy[symbolData->strategyIndex] = strategyName;
     }else{
       
       error << std::format("the indiator with name {} already exist",strategyName);

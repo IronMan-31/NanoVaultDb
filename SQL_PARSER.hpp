@@ -876,6 +876,27 @@ public:
 
         return statement;
     }
+
+    std::unique_ptr<WebSocketCommand> parseWebSocketCommand(){
+        expect(TokenType::APPLY, "expect token type Apply");
+        expect(TokenType::WEBSOCKET, "expect token webscoket");
+        expect(TokenType::ON,"expect token type on");
+        expect(TokenType::STRATEGY, "expect token type strategy ");
+
+        Token * strategy_name = expect(TokenType::STRING, "expect token type string ");
+        expect(TokenType::URL, "expect token type url");
+
+        Token * websocket_url = expect(TokenType::STRING,"expect the websocket url to be string");
+        
+        std::unique_ptr<WebSocketCommand> statement = std::make_unique<WebSocketCommand>();
+        statement->url = websocket_url->VALUE;
+        statement->strategyName = strategy_name->VALUE;
+
+        return statement;
+
+    }
+
+
     std::unique_ptr<AddIndicatorOnTableStatement> parseAddIndicatorOnTableStatement(){
            
             std::unique_ptr<AddIndicatorOnTableStatement> statement = std::make_unique<AddIndicatorOnTableStatement>();
@@ -1274,6 +1295,13 @@ public:
 
                 return val;
             }
+
+        }
+        else if(match(TokenType::APPLY)){
+            rewind();
+            std::unique_ptr<WebSocketCommand> statement = parseWebSocketCommand();
+            WebSocketHandler::handleWebsocket(std::move(statement));
+            return r;
 
         }
         else if (match(TokenType::INSERT)) {

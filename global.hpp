@@ -160,7 +160,8 @@ enum class ASTNodeType {
   ADD_HFT_INDICATOR_ON_TABLE_STATEMENT,
   FETCH_INDICATOR_STATEMENT,
   ADD_HFT_STRATEGY_STATEMENT,
-  ADD_HFT_STRATEGY_ON_TABLE_STATEMENT
+  ADD_HFT_STRATEGY_ON_TABLE_STATEMENT,
+  WEBSOCKET_STATEMENT
 };
 
 enum class LogicalOperator { AND, OR };
@@ -451,5 +452,23 @@ struct FetchIndicatorStatement:ASTNode{
     std::cout<<std::format("the symbol is {}",symbol);
   }
 };
+
+
+struct WebSocketCommand:ASTNode{
+  std::string url;
+  std::string strategyName;
+  int64_t symbol;
+  int64_t strategy_index;
+
+
+   ASTNodeType getType() const override { return ASTNodeType::WEBSOCKET_STATEMENT; }
+ 
+
+  void print(){
+    std::cout<<std::format("the symbol is {}",symbol);
+  }
+
+};
+
 
 #endif
