@@ -27676,3 +27676,4176 @@ latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1
 
 latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
 
+
+latest is 10100000000 old val is 0 sum is 10100000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 20200000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 30300000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 40400000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 50500000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 60600000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 70700000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 80800000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 90900000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 10100000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 20200000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 30300000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 40400000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 50500000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 60600000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 70700000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 80800000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 90900000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 10100000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 20200000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 30300000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 40400000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 50500000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 60600000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 70700000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 80800000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 10100000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 20200000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 30300000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 40400000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 50500000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 60600000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 70700000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 80800000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 90900000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 10100000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 20200000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 30300000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 40400000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 50500000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 60600000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 70700000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 80800000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 90900000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 10100000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 20200000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 30300000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 40400000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 50500000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 60600000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 70700000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 80800000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 90900000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 10100000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 20200000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 30300000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 40400000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 50500000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 60600000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 70700000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 80800000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 90900000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 10100000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 20200000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 30300000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 40400000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 50500000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 60600000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 70700000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 80800000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 90900000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 10100000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 20200000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 30300000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 40400000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 50500000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 60600000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 70700000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 80800000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 90900000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 10100000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 20200000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 30300000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 40400000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 50500000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 60600000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 70700000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 80800000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 90900000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 10100000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 20200000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 30300000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 40400000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 50500000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 60600000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 70700000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 80800000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 90900000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 10100000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 20200000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 30300000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 40400000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 50500000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 60600000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 70700000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 80800000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 90900000000 column is 1 
+
+
+latest is 10100000000 old val is 0 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+
+
+latest is 10100000000 old val is 10100000000 sum is 101000000000 column is 1 
+

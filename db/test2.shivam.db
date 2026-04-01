@@ -1,0 +1,33 @@
+[
+  {
+    "name": "test2",
+    "tables": [
+      {
+        "columns": [
+          {
+            "constraints": [
+              "primary_key",
+              "auto_increment"
+            ],
+            "name": "id",
+            "precision": 0,
+            "type": "int"
+          },
+          {
+            "constraints": [
+              "not_null",
+              "unique"
+            ],
+            "length": 10,
+            "name": "roll_no",
+            "precision": 0,
+            "type": "varchar"
+          }
+        ],
+        "name": "studentrolls",
+        "symbol": -1,
+        "top": false
+      }
+    ]
+  }
+]

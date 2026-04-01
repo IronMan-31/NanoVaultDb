@@ -13,12 +13,13 @@
 #include<fcntl.h> 
 #include<vector>
 #include<algorithm>
+#include "global.hpp"
 
 #define PORT "6969"
 std::vector<int>clients;
 unsigned char bit1=0b10000001;
-unsigned char bit2=0b00000100;
-unsigned char final[6]={bit1,bit2,'T','r','u','e'};     
+unsigned char bit2=0b0001100;
+unsigned char final[14]={bit1,bit2,'0','0','0','0','0','0','0','0','T','r','u','e'};     
 
 std::string base64_encode(const unsigned char* input, int length) {
     BIO *bmem, *b64;
@@ -57,7 +58,7 @@ bool do_handshake(int new_fd){
     } else {
         return false;
     }
-    std::cout<<"Sec-WebSocket-Key: "<<swk<<std::endl;
+    // std::cout<<"Sec-WebSocket-Key: "<<swk<<std::endl;
     std::string GUID="258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
     std::string tp=swk+GUID;
     unsigned char hash[SHA_DIGEST_LENGTH];
@@ -74,11 +75,6 @@ bool do_handshake(int new_fd){
         return false;
     }
     return true;
-}
-void send_message(int newfd){
-    if (send(newfd,final,6,0)<=0){
-        close(newfd);
-    }
 }
 
 void init_web_sockets(){
@@ -144,9 +140,23 @@ void init_web_sockets(){
                 }
             }
         }
-        if (clients.size()>0){
-            send_message(clients[0]);
-            usleep(100000);
+        web_socket_Packet pkt;
+        if (web_socket_queue.pop(pkt)){
+            #pragma GCC unroll 4
+            for (int i=0;i<4;i++){
+                final[5-i]='0'+pkt.symbol%10;
+                pkt.symbol/=10;
+            }
+            #pragma GCC unroll 4
+            for (int i=0;i<4;i++){
+                final[9-i]='0'+pkt.strategyIndex%10;
+                pkt.strategyIndex/=10;
+            }
+            for (int newfd:clients){
+                if (send(newfd,final,14,0)<=0){
+                    close(newfd);
+                }
+            }
         }
     }
     // char*msg="True";

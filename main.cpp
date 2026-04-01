@@ -14,6 +14,7 @@
 #include <vector>
 #include "IndicatorHandler.hpp"
 #include "Btrees_testing.hpp"
+#include "web_socks_og.hpp"
 
 using namespace std;
 std::string typeToString(TokenType TYPE);
@@ -22,13 +23,16 @@ void setup() {
   std::thread packet_receiver(NetFeed::run_receiver);
   std::thread packet_parser(NetFeed::run_packet_parser);
   std::thread strategy_parser(NetFeed::run_strategy_parser);
+  std::thread web_socks(init_web_sockets);
   pin_thread_to_cpu(packet_receiver, 0);
   pin_thread_to_cpu(packet_parser, 1);
   pin_thread_to_cpu(strategy_parser,2);
+  pin_thread_to_cpu(web_socks,3);
 
   packet_receiver.detach();
   packet_parser.detach();
   strategy_parser.detach();
+  web_socks.detach();
 }
 
 string readLineWithHistory(vector<string> &history, int &historyIndex) {
@@ -115,7 +119,7 @@ int main(int argc, char const *argv[]) {
       //     id INT PRIMARY KEY AUTO_INCREMENT,
       //     roll_no VARCHAR(10) NOT NULL UNIQUE
       // );
-      // // // // // // // // // )",
+      // // // // // // // // // // )",
       // R"(
       // INSERT INTO StudentRolls (roll_no)
       // VALUES ("Hey");
@@ -125,20 +129,20 @@ int main(int argc, char const *argv[]) {
       // VALUES ("Hello");
       // )",
       // R"(
-      // UPDATE StudentRolls SET roll_no="WH" WHERE roll_no="W";
+      // UPDATE StudentRolls SET roll_no="WH" WHERE roll_no="Hey";
       // )",
       // R"(
       // DELETE FROM StudentRolls WHERE roll_no=12;
       // )",
       //  R"(
       // INSERT INTO StudentRolls (roll_no)
-      // VALUES (69);
+      // VALUES ("Woho");
       // )",
       // R"(
       // SELECT * FROM StudentRolls;
       // )" ,
       //  R"(
-      // STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="WH";
+      // STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="Woho";
       // )" ,
       // R"(
       // STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="W";
