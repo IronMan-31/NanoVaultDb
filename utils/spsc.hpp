@@ -1,3 +1,6 @@
+#ifndef UTILS_SPSC_HPP
+#define UTILS_SPSC_HPP
+
 #include <atomic>
 #include <bits/stdc++.h>
 #include "types.hpp"
@@ -45,7 +48,6 @@ public:
     [[nodiscard]] FORCE_INLINE bool empty() const noexcept{
         return head_.load(std::memory_order_relaxed) == tail_.load(std::memory_order_relaxed);
     }
-
-    
-    
 };
+
+#endif

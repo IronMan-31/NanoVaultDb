@@ -19,6 +19,7 @@
 #include <utility>
 #include <variant>
 #include <vector>
+#include "utils/spsc.hpp"
 
 class IoUringQueue;
 #include "databaseSchemaReader.hpp"
@@ -82,6 +83,11 @@ struct TableGlobalColumnNode {
   int length = INT_MAX;
 };
 
+struct  web_socket_Packet{
+    bool valid = false;
+    int64_t symbol;
+    int64_t strategyIndex;  
+};
 // --- JSON Parser Cache ---
 // db_name -> JSON parser
 std::unordered_map<std::string, std::shared_ptr<PythonLikeJSONParser>>
@@ -101,6 +107,7 @@ std::priority_queue<ExpiryNode, std::vector<ExpiryNode>, std::greater<>>
 std::mutex expiryMutex;
 std::condition_variable expiryCV;
 std::atomic<bool> memorySchedulerRunning{true};
+SPSCQueue<web_socket_Packet,1024>web_socket_queue;
 
 // --- Table Metadata Cache ---
 // db_name -> table_name -> vector of column definitions
