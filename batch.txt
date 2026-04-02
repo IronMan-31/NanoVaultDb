@@ -2760,3 +2760,959 @@ writeHFTDataToIndexFile: symbol=1 count=45000 storageTicks=-1
 writeHFTDataToIndexFile: symbol=1 count=46000 storageTicks=-1
 
 writeHFTDataToIndexFile: symbol=1 count=47000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=2000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=3000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=2000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=2000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=3000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=4000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=5000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=6000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=7000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=8000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=1000
+
+Batch writing started. Data size: 8
+
+batchWrite called for file: ./db/tables/testing/btc_ticks.data fd: 5 actually points to: /home/pranab/nano_db_latest/db/tables/testing/btc_ticks.data (deleted)
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+CQE received, res (bytes written): 8
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=2000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=3000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=4000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=5000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=1000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=2000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=3000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=4000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=5000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=6000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=7000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=8000 storageTicks=-1
+
+writeHFTDataToIndexFile: symbol=1 count=9000 storageTicks=-1
