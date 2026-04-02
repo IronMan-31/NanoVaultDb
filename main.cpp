@@ -103,47 +103,48 @@ int main(int argc, char const *argv[]) {
   initialDatabseLoad();
   HFT::InitalStorage::initialIndicatorLoad();
   HFT::InitalStorage::initialStrategyLoad();
-  // runVacuum();
+  runVacuum();
   initializePrimaryIndexBtrees("abcd",true);
   cout<<"\n";
   test_b_trees();
 
   std::cout << "Finished b+\n";
 
+  setup();
   std::vector<std::string> testSQLs = {
-      // R"(
-      //     CREATE DATABASE test2;
-      // )",
-      // R"(
-      // CREATE TABLE StudentRolls (
-      //     id INT PRIMARY KEY AUTO_INCREMENT,
-      //     roll_no VARCHAR(10) NOT NULL UNIQUE
-      // );
-      // // // // // // // // // // )",
-      // R"(
-      // INSERT INTO StudentRolls (roll_no)
-      // VALUES ("Hey");
-      // )",
-      // R"(
-      // INSERT INTO StudentRolls (roll_no)
-      // VALUES ("Hello");
-      // )",
-      // R"(
-      // UPDATE StudentRolls SET roll_no="WH" WHERE roll_no="Hey";
-      // )",
-      // R"(
-      // DELETE FROM StudentRolls WHERE roll_no=12;
-      // )",
-      //  R"(
-      // INSERT INTO StudentRolls (roll_no)
-      // VALUES ("Woho");
-      // )",
-      // R"(
-      // SELECT * FROM StudentRolls;
-      // )" ,
-      //  R"(
-      // STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="Woho";
-      // )" ,
+      R"(
+          CREATE DATABASE test2;
+      )",
+      R"(
+      CREATE TABLE StudentRolls (
+          id INT PRIMARY KEY AUTO_INCREMENT,
+          roll_no VARCHAR(10) NOT NULL UNIQUE
+      );
+      // // // // // // // // // )",
+      R"(
+      INSERT INTO StudentRolls (roll_no)
+      VALUES ("Hey");
+      )",
+      R"(
+      INSERT INTO StudentRolls (roll_no)
+      VALUES ("Hello");
+      )",
+      R"(
+      UPDATE StudentRolls SET roll_no="WH" WHERE roll_no="Hey";
+      )",
+      R"(
+      DELETE FROM StudentRolls WHERE roll_no=12;
+      )",
+       R"(
+      INSERT INTO StudentRolls (roll_no)
+      VALUES ("Woho");
+      )",
+      R"(
+      SELECT * FROM StudentRolls;
+      )" ,
+       R"(
+      STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="Woho";
+      )" ,
       // R"(
       // STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="W";
       // )" ,
@@ -213,8 +214,6 @@ int main(int argc, char const *argv[]) {
     }
     cout << "\n";
   }
-
-  setup();
   // NetFeed::run_receiver();
 
   // --- Start Shell REPL below ---

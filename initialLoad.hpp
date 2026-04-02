@@ -139,8 +139,8 @@ void initialDatabseLoad()
                         bool isSymbol = false;
                         bool isTop = false;
                         MyUtility::appendToFile("error.txt", std::format("the tableName is {} and top string is {}",symbolString,topString));
-                        if(!symbolString.empty()) isSymbol = true;
-                        if(topString[0]=='1') isTop = true;
+                        if(!symbolString.empty() && symbolString != "-1") isSymbol = true;
+                        if(topString.length() > 0 && topString[0]=='1') isTop = true;
                         JSONArrayWrapper columnsArray = tablesArray[i][std::string("columns")].asArray();
 
                         std::vector<std::shared_ptr<TableGlobalColumnNode>> columnNodes;

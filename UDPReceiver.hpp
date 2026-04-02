@@ -39,62 +39,62 @@ HOT void process_packet(const HFTStorage::Packet& packet, ssize_t n) {
     // tick is the incoming symbol
     const int64_t tick = read_be64(buffer);
     if (UNLIKELY(tick < 0 || tick >= HFT::MAXHFTSYMBOL)) {
-      // std::cout << "Invalid tick index: " << tick << "\n";
+      std::cout << "Invalid tick index: " << tick << "\n";
       return;
 }
 
 
-    // std::cout << "tick = " << tick << "\n";
+    std::cout << "tick = " << tick << "\n";
 
     auto *__restrict entry = &HFT::symbolAccessArray[tick];
 
-    // std::cout << "symbol = " << entry->symbol << "\n";
+    std::cout << "symbol = " << entry->symbol << "\n";
 
     if (UNLIKELY(entry->symbol == -1)) {
-        // std::cout << "ERROR: invalid symbol\n";
+        std::cout << "ERROR: invalid symbol\n";
         return;
     }
 
     const int64_t columnCount = entry->columnCount;
     const int64_t isTop = entry->isTopOrderBook;
 
-    // std::cout << "columnCount = " << columnCount << "\n";
-    // std::cout << "isTop = " << isTop << "\n";
+    std::cout << "columnCount = " << columnCount << "\n";
+    std::cout << "isTop = " << isTop << "\n";
 
     const int64_t expected = (columnCount + 1 + (isTop << 2)) << 3;
 
-    // std::cout << "packet size n = " << n << "\n";
+    std::cout << "packet size n = " << n << "\n";
 
     if (UNLIKELY(n != expected)) {
-        // std::cout << "ERROR: packet size mismatch\n";
+        std::cout << "ERROR: packet size mismatch\n";
         return;
     }
 
     const char *__restrict ptr = buffer + 8;
 
-    // std::cout << "starting history loop\n";
+    std::cout << "starting history loop\n";
 
     for (int64_t i = 0; i < columnCount; ++i) {
         int64_t value = read_be64(ptr);
-        // std::cout << "history[" << i << "] = " << value << "\n";
+        std::cout << "history[" << i << "] = " << value << "\n";
 
         entry->pushHistory(i, value);
         ptr += 8;
     }
 
     if (LIKELY(isTop)) {
-        // std::cout << "reading topOrderBook\n";
+        std::cout << "reading topOrderBook\n";
 
         entry->topOrderBook[0] = read_be64(ptr);
         entry->topOrderBook[1] = read_be64(ptr + 8);
         entry->topOrderBook[2] = read_be64(ptr + 16);
         entry->topOrderBook[3] = read_be64(ptr + 24);
 
-        // std::cout << "topOrderBook: "
-        //           << entry->topOrderBook[0] << " "
-        //           << entry->topOrderBook[1] << " "
-        //           << entry->topOrderBook[2] << " "
-        //           << entry->topOrderBook[3] << "\n";
+        std::cout << "topOrderBook: "
+                  << entry->topOrderBook[0] << " "
+                  << entry->topOrderBook[1] << " "
+                  << entry->topOrderBook[2] << " "
+                  << entry->topOrderBook[3] << "\n";
     }
 
     int i = 0;
@@ -117,10 +117,10 @@ HOT void process_packet(const HFTStorage::Packet& packet, ssize_t n) {
     BatchWriter::writeHFTDataToIndexFile(tick);
 
     i = 0;
-    // std::cout << "ticks " << entry->symbol
-    //           << " latest price "
-    //           << *entry->history[entry->symbol].latest_ptr()
-    //           << "\n";
+    std::cout << "ticks " << entry->symbol
+              << " latest price "
+              << *entry->history[entry->symbol].latest_ptr()
+              << "\n";
 }
 
 void run_receiver() {
@@ -150,7 +150,7 @@ void run_receiver() {
 
     if (UNLIKELY(n & 7)) {
       packet_error();
-      // std::cout << "error\n";
+      std::cout << "error\n";
       continue;
     }
 
@@ -163,7 +163,7 @@ void run_receiver() {
     }
 
     // process_packet(buffer, n);
-    // std::cout<<"count "<<count<<"\n";
+    std::cout<<"count "<<count<<"\n";
   }
 }
 
