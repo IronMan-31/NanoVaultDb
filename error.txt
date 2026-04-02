@@ -4788,3 +4788,11 @@ the table name is btc_ticks symbol is 1 isTop is true
 the tableName is -1 and top string is 0
 
 the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0

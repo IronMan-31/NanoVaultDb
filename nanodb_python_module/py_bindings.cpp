@@ -1,5 +1,5 @@
 #include <pybind11/pybind11.h>
-#include "main_db_class.hpp"
+#include "./main_db_class.hpp"
 
 namespace py = pybind11;
 
