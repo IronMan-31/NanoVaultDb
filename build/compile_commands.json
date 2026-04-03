@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/pranab/nano_db_latest/build",
+  "command": "/usr/bin/g++-13 -g -Wall -Wextra -fdiagnostics-color=always -O0 -g -fsanitize=address -fno-omit-frame-pointer -std=gnu++20 -o CMakeFiles/main.dir/main.cpp.o -c /home/pranab/nano_db_latest/main.cpp",
+  "file": "/home/pranab/nano_db_latest/main.cpp"
+}
+]

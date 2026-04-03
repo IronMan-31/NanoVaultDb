@@ -97,6 +97,16 @@ bool checkDBexist(const std::string &name)
 void initialDatabseLoad()
 {
     std::string currentDbMeta = "./db/current_db.meta";
+    if (!fs::is_directory("./db")){
+        fs::create_directories("./db/tables");
+        std::ofstream file("./db/current_db.meta");
+        if (file.is_open()){
+            file << "{\"current_db\":\"\"}";
+            file.close();
+        }else{
+            std::cout<<"Failed to create meta file\n";
+        }
+    }
     std::string dbName = getCurrentDatabase(currentDbMeta);
     if (dbName=="") return;
     currentDatabase = dbName;
