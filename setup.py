@@ -13,7 +13,7 @@ ext_modules = [
 
 setup(
     name="nanovaultdb",
-    version="1.0.0",
+    version="1.0.1",
     description="High-performance C++ database with Batch writing, web socket support only for high frequency data incoming along with general table storage",
     ext_modules=ext_modules,
     cmdclass={"build_ext": build_ext},

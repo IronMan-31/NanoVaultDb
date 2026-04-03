@@ -20,4 +20,4 @@ db.init()
 
 print(db.execute('ADD INDICATOR "sma" ("10") ON SYMBOL 1 COLUMN_NO  1 ticks 100;'))
 print(db.execute('ENABLE STRATEGY "again" ("10") on symbol 1 column_no 1 ticks 100;'))
-db.enter_shell()
+db.enter_shell()    
