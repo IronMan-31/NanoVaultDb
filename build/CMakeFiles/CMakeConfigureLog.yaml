@@ -507,3 +507,38 @@ events:
       
       
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "/usr/share/cmake-3.28/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/usr/share/cmake-3.28/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "/usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "/usr/lib/x86_64-linux-gnu/cmake/boost_thread-1.83.0/boost_thread-config.cmake:118 (find_dependency)"
+      - "/usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake:141 (find_package)"
+      - "/usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake:262 (boost_find_component)"
+      - "/usr/share/cmake-3.28/Modules/FindBoost.cmake:594 (find_package)"
+      - "CMakeLists.txt:41 (find_package)"
+    directories:
+      source: "/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/build/CMakeFiles/CMakeScratch/TryCompile-oVqnKh"
+      binary: "/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/build/CMakeFiles/CMakeScratch/TryCompile-oVqnKh"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/build/CMakeFiles/CMakeScratch/TryCompile-oVqnKh'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_c1f1b
+        [1/2] /usr/bin/gcc-13 -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_c1f1b.dir/src.c.o -c /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/build/CMakeFiles/CMakeScratch/TryCompile-oVqnKh/src.c
+        [2/2] : && /usr/bin/gcc-13   CMakeFiles/cmTC_c1f1b.dir/src.c.o -o cmTC_c1f1b   && :
+        
+      exitCode: 0
+...
