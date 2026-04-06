@@ -29,4 +29,4 @@ target_compile_options(main PRIVATE
     $<$<CONFIG:Release>:-O3 -march=native>
 )
 
-target_link_libraries(main PRIVATE uring)
+target_link_libraries(main PRIVATE uring crypto ssl)

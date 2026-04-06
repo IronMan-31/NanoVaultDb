@@ -15,6 +15,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include "hft.hpp"
+#include "global.hpp"
 
 namespace NetFeed {
 
@@ -183,9 +184,11 @@ void run_strategy_parser(){
   HFTStorage::strategyPacket pkt;
     while (true) {
       if(HFTStorage::webSocketsPacketParser.pop(pkt)){
+        std::cout<<"Web socket\n";
         if((pkt.valid)){
           MyUtility::appendToFile("strategy.txt", std::format("the strategy run with symbol {} and strategy id {} ",pkt.tick,pkt.strategyIndex));
-
+          MyUtility::appendToFile("strategy.txt", std::format("Websocket packet pushed "));
+          web_socket_queue.push(web_socket_Packet{pkt.valid, pkt.tick, pkt.strategyIndex});
         }
       }
     }

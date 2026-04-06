@@ -1,0 +1,9 @@
+README.md
+pyproject.toml
+setup.py
+nanodb.egg-info/PKG-INFO
+nanodb.egg-info/SOURCES.txt
+nanodb.egg-info/dependency_links.txt
+nanodb.egg-info/not-zip-safe
+nanodb.egg-info/top_level.txt
+nanodb_python_module/py_bindings.cpp

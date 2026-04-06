@@ -213,8 +213,6 @@ namespace CommandRunner
     void handleUpdate(const std::unique_ptr<UpdateStatement>& stmt)
     {
         const std::string& tableName = stmt->tableName;
-
-        // 1️⃣ Table-level lock
         std::lock_guard<std::mutex> lock(tableLocks[tableName]);
 
         if (currentDatabase.empty())
@@ -222,7 +220,6 @@ namespace CommandRunner
 
         auto& tableCols = globalTableCache[currentDatabase][tableName].second;
 
-        //  Identify primary key column
         std::string primaryKey;
         for (auto& col : tableCols) {
             if (col->isPrimary) {
@@ -231,13 +228,10 @@ namespace CommandRunner
             }
         }
 
-        //  Reject primary key update
         for (auto& [col, _] : stmt->assignments) {
             if (col == primaryKey)
                 throw std::runtime_error("UPDATE of PRIMARY KEY is not allowed");
         }
-
-        //  File paths
         std::string base = tableDirectory + "/" + currentDatabase + "/" + tableName;
 
         std::fstream indexFile(base + ".index", std::ios::in | std::ios::binary);
@@ -247,7 +241,6 @@ namespace CommandRunner
         if (indexFile.fail() || dataFile.fail() || delFile.fail())
             throw std::runtime_error("Failed to open table files");
 
-        //  Prepare column order
         std::vector<std::string> columnNames;
         for (auto& col : tableCols)
             columnNames.push_back(col->name);
@@ -262,7 +255,6 @@ namespace CommandRunner
 
         int updatedCount = 0;
 
-        //  Scan rows
         for (int64_t row = 0; row < rowCount; row++)
         {
             uint8_t deleted;
@@ -289,17 +281,14 @@ namespace CommandRunner
                 oldRow.columns[columnNames[i]] = val;
             }
 
-            // 7️⃣ WHERE evaluation
             if (!AstParser::evaluateWhere(stmt->where.get(), oldRow))
                 continue;
 
-            // 8️⃣ Build new row
             Row newRow = oldRow;
             for (auto& [col, val] : stmt->assignments) {
                 newRow.columns[col] = val;
             }
 
-            // 9️⃣ Mark old row deleted
             uint8_t dead = 1;
             delFile.seekp(row);
             delFile.write(reinterpret_cast<char*>(&dead), 1);
@@ -327,7 +316,6 @@ namespace CommandRunner
                 }
             }
 
-            // 🔟 INSERT new row
             std::vector<std::pair<std::string,
                 std::pair<std::string, bool>>> insertCols;
 
@@ -463,7 +451,6 @@ namespace CommandRunner
 
     void generateCreateTableStatement(const std::unique_ptr<CreateStatement> &stmt)
     {
-        // Step 1: Convert column definitions to JSON
         std::lock_guard<std::mutex> dbLock(dbMutex);
         JSONParser::JSONArray columnArray;
         std::vector<std::shared_ptr<TableGlobalColumnNode>> newTableCache;
@@ -489,7 +476,6 @@ namespace CommandRunner
                 {"precision",JSONParser::JSONValue(col.precision)},
                 {"type", JSONParser::JSONValue(col.type)}};
 
-            // Extract length if it's a VARCHAR with size, e.g., varchar(255)
             std::cout<<"getting col type\n";
             std::cout<<col.type<<"\n";
             if (col.type.find("varchar(") != std::string::npos)
@@ -504,7 +490,8 @@ namespace CommandRunner
                         int length = std::stoi(lengthStr);
                         node->length = length;
                         colJson["length"] = JSONParser::JSONValue(length);
-                        colJson["type"] = JSONParser::JSONValue("varchar"); // strip size from type
+                        colJson["type"] = JSONParser::JSONValue("varchar");
+                        node->type = "varchar"; 
                     }
                     catch (...)
                     {
@@ -513,7 +500,6 @@ namespace CommandRunner
                 }
             }
 
-            // Convert constraints
             JSONParser::JSONArray constraintArray;
             for (const auto &c : col.constraints)
             {
@@ -554,20 +540,17 @@ namespace CommandRunner
 
         }
 
-        // Step 0: Check if table already exists in globalTableCache
         if (globalTableCache[currentDatabase].find(stmt->name) != globalTableCache[currentDatabase].end())
         {
             throw std::runtime_error(" Table '" + stmt->name + "' already exists in DB '" + currentDatabase + "'");
         }
 
-        // Step 2: Create table JSON
         JSONParser::JSONObject tableJson = {
             {"name", JSONParser::JSONValue(stmt->name)},
             {"symbol", JSONParser::JSONValue(stmt->symbol)},
             {"top", JSONParser::JSONValue(stmt->top)},
             {"columns", JSONParser::JSONValue(columnArray)}};
 
-        // Step 3: Load existing JSON file
         std::string filePath = "./db/" + currentDatabase + ".shivam.db";
         JSONParser parser(filePath);
 
@@ -584,7 +567,6 @@ namespace CommandRunner
 
         auto &dbObj = std::get<JSONParser::JSONObject>(root.value);
 
-        // Step 4: Add table to the JSON
         if (dbObj.find("tables") != dbObj.end() &&
             std::holds_alternative<JSONParser::JSONArray>(dbObj["tables"].value))
         {
@@ -598,7 +580,6 @@ namespace CommandRunner
                 JSONParser::JSONValue(tableJson)});
         }
 
-        // Step 5: Save back to file
         parser.clear();
         parser.appendValue(JSONParser::JSONValue(dbObj));
 
@@ -606,12 +587,10 @@ namespace CommandRunner
         {
             throw std::runtime_error(" Failed to save DB JSON file");
         }
-
-        // Optional: Update in-memory cache too
         
         globalTableCache[currentDatabase][stmt->name].first = std::to_string(stmt->symbol);
-        globalTableCache[currentDatabase][stmt->name].second = newTableCache; // You can populate columns later
-        tableLocks[stmt->name];  // initialize mutex for this table
+        globalTableCache[currentDatabase][stmt->name].second = newTableCache; 
+        tableLocks[stmt->name]; 
                       
         std::cout << " Table '" << stmt->name << "' added to DB '" << currentDatabase << "' successfully.\n";
         std::string tablename = stmt->name;
@@ -638,8 +617,6 @@ namespace CommandRunner
             std::shared_ptr<TableGlobalColumnNode> node = std::make_shared<TableGlobalColumnNode>();
             node->name = col.name;
             node->type = col.type;
-            
-            // Keep constraints empty as requested
             JSONParser::JSONArray constraintArray;
 
             JSONParser::JSONObject colJson = {
@@ -658,8 +635,6 @@ namespace CommandRunner
             node->precision = col.precision;
             newTableCache.push_back(node);
         }
-
-        // Check if table already exists
         if (globalTableCache[currentDatabase].find(stmt->name) != globalTableCache[currentDatabase].end())
         {
             throw std::runtime_error(" Table '" + stmt->name + "' already exists in DB '" + currentDatabase + "'");
@@ -811,10 +786,5 @@ namespace CommandRunner
             memorySchedulerRunning = false;
             expiryCV.notify_all();
         }
-
-    void generateInsertStatement()
-    {
-    }
-
 };
 #endif

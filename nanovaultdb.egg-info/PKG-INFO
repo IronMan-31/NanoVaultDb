@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: nanovaultdb
+Version: 1.0.1
+Summary: High-performance C++ database with Batch writing, web socket support only for high frequency data incoming along with general table storage
+Dynamic: summary

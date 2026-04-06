@@ -97,6 +97,16 @@ bool checkDBexist(const std::string &name)
 void initialDatabseLoad()
 {
     std::string currentDbMeta = "./db/current_db.meta";
+    if (!fs::is_directory("./db")){
+        fs::create_directories("./db/tables");
+        std::ofstream file("./db/current_db.meta");
+        if (file.is_open()){
+            file << "{\"current_db\":\"\"}";
+            file.close();
+        }else{
+            std::cout<<"Failed to create meta file\n";
+        }
+    }
     std::string dbName = getCurrentDatabase(currentDbMeta);
     if (dbName=="") return;
     currentDatabase = dbName;
@@ -139,8 +149,8 @@ void initialDatabseLoad()
                         bool isSymbol = false;
                         bool isTop = false;
                         MyUtility::appendToFile("error.txt", std::format("the tableName is {} and top string is {}",symbolString,topString));
-                        if(!symbolString.empty()) isSymbol = true;
-                        if(topString[0]=='1') isTop = true;
+                        if(!symbolString.empty() && symbolString != "-1") isSymbol = true;
+                        if(topString.length() > 0 && topString[0]=='1') isTop = true;
                         JSONArrayWrapper columnsArray = tablesArray[i][std::string("columns")].asArray();
 
                         std::vector<std::shared_ptr<TableGlobalColumnNode>> columnNodes;
