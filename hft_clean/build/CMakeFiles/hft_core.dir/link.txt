@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhft_core.a CMakeFiles/hft_core.dir/src/order_book.cpp.o CMakeFiles/hft_core.dir/src/exchange_adapter.cpp.o CMakeFiles/hft_core.dir/src/market_data_handler.cpp.o
+/usr/bin/ranlib libhft_core.a

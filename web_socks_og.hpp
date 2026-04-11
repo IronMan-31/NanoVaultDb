@@ -14,6 +14,8 @@
 #include<vector>
 #include<algorithm>
 #include "global.hpp"
+#include "utils/cpu_affinity.hpp"
+
 
 #define PORT "6969"
 std::vector<int>clients;
@@ -77,7 +79,9 @@ bool do_handshake(int new_fd){
     return true;
 }
 
-void init_web_sockets(){
+void init_web_sockets(std::stop_token st, int cpu_id){
+    pin_thread_to_cpu(cpu_id);
+
     struct sockaddr_storage their_addr;
     socklen_t addr_size;
     struct addrinfo hints,*res;
@@ -110,7 +114,8 @@ void init_web_sockets(){
     e.data.fd=sockfd;
     epoll_ctl(epollfd,EPOLL_CTL_ADD,sockfd,&e);
 
-    while(true){
+    while(!st.stop_requested()){
+
         int n=epoll_wait(epollfd,events,100,100);
         
         for (int i=0;i<n;i++){

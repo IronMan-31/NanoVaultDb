@@ -19,20 +19,13 @@
 using namespace std;
 std::string typeToString(TokenType TYPE);
 
-void setup() {
-  std::thread packet_receiver(NetFeed::run_receiver);
-  std::thread packet_parser(NetFeed::run_packet_parser);
-  std::thread strategy_parser(NetFeed::run_strategy_parser);
-  std::thread web_socks(init_web_sockets);
-  pin_thread_to_cpu(packet_receiver, 0);
-  pin_thread_to_cpu(packet_parser, 1);
-  pin_thread_to_cpu(strategy_parser,2);
-  pin_thread_to_cpu(web_socks,3);
+static std::vector<std::jthread> worker_threads;
 
-  packet_receiver.detach();
-  packet_parser.detach();
-  strategy_parser.detach();
-  web_socks.detach();
+void setup() {
+  worker_threads.emplace_back(NetFeed::run_receiver, 0);
+  worker_threads.emplace_back(NetFeed::run_packet_parser, 1);
+  worker_threads.emplace_back(NetFeed::run_strategy_parser, 2);
+  worker_threads.emplace_back(init_web_sockets, 3);
 }
 
 string readLineWithHistory(vector<string> &history, int &historyIndex) {

@@ -16,6 +16,8 @@
 #include <unistd.h>
 #include "hft.hpp"
 #include "global.hpp"
+#include "utils/cpu_affinity.hpp"
+
 
 namespace NetFeed {
 
@@ -123,7 +125,9 @@ HOT void process_packet(const HFTStorage::Packet& packet, ssize_t n) {
               << "\n";
 }
 
-void run_receiver() {
+void run_receiver(std::stop_token st, int cpu_id) {
+  pin_thread_to_cpu(cpu_id);
+
 
   int sock = socket(AF_INET, SOCK_DGRAM, 0);
   if (sock < 0) {
@@ -144,7 +148,8 @@ void run_receiver() {
 
   alignas(CACHELINE) char buffer[HFTStorage::PacketSize];
 
-  while (true) {
+  while (!st.stop_requested()) {
+
 
     ssize_t n = recvfrom(sock, buffer, sizeof(buffer), 0, nullptr, nullptr);
 
@@ -170,9 +175,11 @@ void run_receiver() {
 
 
 
-void run_packet_parser(){
+void run_packet_parser(std::stop_token st, int cpu_id){
+  pin_thread_to_cpu(cpu_id);
   HFTStorage::Packet pkt;
-  while (true) {
+  while (!st.stop_requested()) {
+
     if(HFTStorage::PacketParseQueue.pop(pkt)){
       process_packet(pkt, pkt.size);
     }
@@ -180,9 +187,11 @@ void run_packet_parser(){
 }
 
 
-void run_strategy_parser(){
+void run_strategy_parser(std::stop_token st, int cpu_id){
+  pin_thread_to_cpu(cpu_id);
   HFTStorage::strategyPacket pkt;
-    while (true) {
+    while (!st.stop_requested()) {
+
       if(HFTStorage::webSocketsPacketParser.pop(pkt)){
         std::cout<<"Web socket\n";
         if((pkt.valid)){
