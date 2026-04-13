@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <nlohmann/json.hpp>
+#include "debug_macros.hpp"
 
 namespace beast = boost::beast;
 namespace websocket = beast::websocket;
@@ -57,17 +58,16 @@ int main() {
                 int side = data["m"].get<bool>() ? -1 : 1;
                 double spread = best_ask - best_bid;
 
-                std::cout << timestamp << " | "
+                DEBUG_LOG(timestamp << " | "
                           << price << " | "
                           << volume << " | "
                           << side << " | "
                           << best_bid << " | "
                           << best_ask << " | "
-                          << spread
-                          << std::endl;
+                          << spread);
             }
         }
     } catch (std::exception &e) {
-        std::cerr << "Error: " << e.what() << std::endl;
+        DEBUG_LOG("Error: " << e.what());
     }
 }

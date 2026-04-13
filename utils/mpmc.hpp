@@ -1,4 +1,4 @@
-#pragma  once
+#pragma once
 #include<bits/stdc++.h>
 #include <atomic>
 #include <pthread.h>

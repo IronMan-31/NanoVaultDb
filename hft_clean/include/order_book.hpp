@@ -70,6 +70,7 @@ public:
     AddResult    add_order   (Side, OrderType, Price, Quantity, Exchange = Exchange::GENERIC);
     CancelResult cancel_order(OrderId id);
     ModifyResult modify_order(OrderId id, Price new_price, Quantity new_qty);
+    void         clear();
 
     FORCE_INLINE BBO   best_bbo()  const noexcept;
     FORCE_INLINE Price best_bid()  const noexcept;

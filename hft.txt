@@ -1,22 +1,49 @@
 ADD HFT INDICATOR FROM FILE '/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/m_way_tree.cpp';
-ADD INDICATOR "sma" ("10") ON SYMBOL 1 COLUMN_NO  1 ticks 100;
+ADD INDICATOR "sma" ("10") ON SYMBOL 2 COLUMN_NO  0 ticks 1;
 if no column then -1
 LIST STRATEGY ;
 LIST TABLE TABLE_NAME;
 STATISTICS MEAN FROM "table_name" ON "column_name" WHERE condition;
-ENABLE BATCH WRITING ON TABLE "btc_ticks" TICKS 1000;
+ENABLE BATCH WRITING ON TABLE "btc_ticks" TICKS 1;
 // APPLY WEBSOCKET  ON STRATEGY "strategy_name" URL "string";
 ADD STRATEGY FROM FILE '/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/m_way_tree.cpp';
-ENABLE STRATEGY "again" ("10") on symbol 1 column_no 1 ticks 100;
+ENABLE STRATEGY "again" ("10") on symbol 1 column_no 0 ticks 1;
 
 
 
-SET BINANCE ORDER BOOK ON table TABLE_NAME SYMBOL "USDTC";
-SET BINANCE API_KEY = "";
+SET BINANCE ORDER_BOOK ON SYMBOL 2 SYMBOL "BTCUSDT";
+SET BINANCE API_KEY  "";
 SET BINANCE ORDER EXECUTE ;
-SET BINANCE DATA FEED OHLC 1m;
-SET BANACE DATA FEED LIVE ORDERS;
+SET BINANCE DATA FEED OHLC "1s" ON SYMBOL 2 SYMBOL "BTCUSDT";
+SET BINANCE DATA FEED LIVE ORDERS ON SYMBOL 3 SYMBOL "BTCUSDT";
 
 
+
+
+
+
+CREATE HFT TABLE btc_trades (
+    event_time     DOUBLE PRECISION 0,
+    trade_id       DOUBLE PRECISION 0,
+    price          DOUBLE PRECISION 8,
+    quantity       DOUBLE PRECISION 8,
+    trade_time     DOUBLE PRECISION 0,
+    is_buyer_maker DOUBLE PRECISION 0
+) SYMBOL 3;
+
+
+
+
+
+CREATE HFT TABLE btc_ohlc (
+    open       DOUBLE PRECISION 8,
+    close      DOUBLE PRECISION 8,
+    high       DOUBLE PRECISION 8,
+    low        DOUBLE PRECISION 8,
+    volume     DOUBLE PRECISION 8,
+    q_volume   DOUBLE PRECISION 8,
+    tb_base    DOUBLE PRECISION 8,
+    tb_quote   DOUBLE PRECISION 8
+) SYMBOL 2;
 
 

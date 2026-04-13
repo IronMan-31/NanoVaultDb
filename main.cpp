@@ -1,3 +1,5 @@
+#include "Btrees_testing.hpp"
+#include "IndicatorHandler.hpp"
 #include "SQL_LEXER.hpp"
 #include "SQL_PARSER.hpp"
 #include "UDPReceiver.hpp"
@@ -5,17 +7,16 @@
 #include "initialLoad.hpp"
 #include "logging.hpp"
 #include "strategyHandler.hpp"
+#include "tradePackets.hpp"
+#include "utility.hpp"
 #include "utils/cpu_affinity.hpp"
+#include "web_socks_og.hpp"
 #include <iostream>
 #include <string>
 #include <termios.h>
 #include <thread>
 #include <unistd.h>
 #include <vector>
-#include "IndicatorHandler.hpp"
-#include "Btrees_testing.hpp"
-#include "web_socks_og.hpp"
-
 using namespace std;
 std::string typeToString(TokenType TYPE);
 
@@ -26,6 +27,7 @@ void setup() {
   worker_threads.emplace_back(NetFeed::run_packet_parser, 1);
   worker_threads.emplace_back(NetFeed::run_strategy_parser, 2);
   worker_threads.emplace_back(init_web_sockets, 3);
+  worker_threads.emplace_back(tradeHandler::run_trade_handler, 4);
 }
 
 string readLineWithHistory(vector<string> &history, int &historyIndex) {
@@ -93,12 +95,13 @@ string readLineWithHistory(vector<string> &history, int &historyIndex) {
 }
 
 int main(int argc, char const *argv[]) {
+  ExchangeHelper::load_api_keys();
   initialDatabseLoad();
   HFT::InitalStorage::initialIndicatorLoad();
   HFT::InitalStorage::initialStrategyLoad();
-  runVacuum();
-  initializePrimaryIndexBtrees("abcd",true);
-  cout<<"\n";
+  // runVacuum();
+  initializePrimaryIndexBtrees("abcd", true);
+  cout << "\n";
   test_b_trees();
 
   std::cout << "Finished b+\n";
@@ -128,16 +131,16 @@ int main(int argc, char const *argv[]) {
       R"(
       DELETE FROM StudentRolls WHERE roll_no=12;
       )",
-       R"(
+      R"(
       INSERT INTO StudentRolls (roll_no)
       VALUES ("Woho");
       )",
       R"(
       SELECT * FROM StudentRolls;
-      )" ,
-       R"(
+      )",
+      R"(
       STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="Woho";
-      )" ,
+      )",
       // R"(
       // STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="W";
       // )" ,
@@ -150,9 +153,9 @@ int main(int argc, char const *argv[]) {
       // ) SYMBOL 1 TOP;
       // )",
 
-//       R"(
-// ADD INDICATOR "obi"  ( "10" ) ON SYMBOL 2 COLUMN_NO 3 ticks 100;
-// )",
+      //       R"(
+      // ADD INDICATOR "obi"  ( "10" ) ON SYMBOL 2 COLUMN_NO 3 ticks 100;
+      // )",
       // R"(
       // DROP TABLE StudentRolls;
       // )",
@@ -219,7 +222,7 @@ int main(int argc, char const *argv[]) {
       for (Token *token : tokens) {
         cout << typeToString(token->TYPE) << " : " << token->VALUE << endl;
       }
-      
+
       Parser parser(tokens);
       std::string output = parser.parse();
       std::cout << output << "\n";
@@ -256,7 +259,7 @@ int main(int argc, char const *argv[]) {
     }
 
     try {
-      logging(sql);
+      // logging(sql);
       Lexer lexer(sql);
       vector<Token *> tokens = lexer.tokenize();
       for (Token *token : tokens) {

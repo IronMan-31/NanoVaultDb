@@ -26,3 +26,773 @@ the tableName is -1 and top string is 0
 the tableName is -1 and top string is 0
 
 the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is 1 and top string is 0
+
+the table name is btc_ticks symbol is 1 isTop is false
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true
+
+the tableName is -1 and top string is 0
+
+the tableName is 2 and top string is 0
+
+the table name is btc_ohlc symbol is 2 isTop is false
+
+the tableName is 3 and top string is 0
+
+the table name is btc_trades symbol is 3 isTop is false
+
+the tableName is 1 and top string is 1
+
+the table name is btc_ticks symbol is 1 isTop is true

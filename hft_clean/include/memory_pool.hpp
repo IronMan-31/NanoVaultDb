@@ -56,6 +56,12 @@ public:
     return &storage_[idx];
   }
 
+  FORCE_INLINE void reset() noexcept {
+    for (uint32_t i = 0; i < CAPACITY; ++i)
+      free_list_[i] = i;
+    free_top_ = CAPACITY;
+  }
+
   FORCE_INLINE size_t capacity() const noexcept { return CAPACITY; }
   FORCE_INLINE size_t available() const noexcept { return free_top_; }
   FORCE_INLINE size_t used() const noexcept { return CAPACITY - free_top_; }

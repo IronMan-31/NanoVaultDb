@@ -347,4 +347,15 @@ std::vector<OrderBook::DepthLevel> OrderBook::ask_depth(int levels) const {
   return out;
 }
 
+void OrderBook::clear() {
+  bid_ladder_.clear();
+  ask_ladder_.clear();
+  order_map_.clear();
+  order_pool_.reset();
+  order_id_seq_ = 0;
+  trade_id_seq_ = 0;
+  stats_ = {};
+  notify_bbo();
+}
+
 } // namespace Book

@@ -54,14 +54,14 @@ void registerAllIndicators(
 }
 
 void parseIndicators(std::unique_ptr<AddHftIndicatorStatement> &&statement) {
-  std::cout << "INDICATOR PARSING START\n";
+  // std::cout << "INDICATOR PARSING START\n";
   std::string file_path = statement->file_path;
   std::stringstream error;
   file_path.erase(std::remove(file_path.begin(), file_path.end(), '\r'),
                   file_path.end());
   if (UNLIKELY(!MyUtility::checkIfFileExist(file_path))) {
     error << std::format("the file {} not exist ", file_path);
-    std::cout << error.str();
+    // std::cout << error.str();
     throw std::runtime_error(error.str());
   }
 
@@ -70,20 +70,20 @@ void parseIndicators(std::unique_ptr<AddHftIndicatorStatement> &&statement) {
   std::pair<bool, std::string> data = MyUtility::readAFile(file_path);
   if (!data.first) {
     error << std::format("error while opening the  file {}  ", file_path);
-    std::cout << error.str();
+    // std::cout << error.str();
     throw std::runtime_error(error.str());
   }
 
   if (HFT::InitalStorage::checkIndicatorExists(baseName)) {
     error << std::format("indicator with base name  {}  already exist ",
                          baseName);
-    std::cout << error.str();
+    // std::cout << error.str();
     throw std::runtime_error(error.str());
   }
 
-  std::cout << "CONTENT PRINTING\n";
+  // std::cout << "CONTENT PRINTING\n";
   std::string content = (data.second);
-  std::cout << content << "\n";
+  // std::cout << content << "\n";
 
   fs::path dir = "./fastindicator";
 
@@ -152,10 +152,10 @@ void parsingAddIndicator(
       throw std::runtime_error("no of indicator exceeds the limit");
     }
 
-   std::cout << std::format("the path is {} index is {} ticks is {} columnNo {} "
+   /* std::cout << std::format("the path is {} index is {} ticks is {} columnNo {} "
                            "symbol is {} index is {}",
                            stringIndicatorPath, indicatorIndex, ticks, columnNo,
-                           symbol, indicatorIndex);
+                           symbol, indicatorIndex); */
   auto it = indicatorRegistry.find(indicatorName);
   if (it == indicatorRegistry.end()) {
     throw std::runtime_error("Indicator not registered: " + indicatorName);
@@ -165,7 +165,7 @@ void parsingAddIndicator(
                           HFT::symbolAccessArray[symbol], columnNo, params);
 
   HFT::symbolAccessArray[symbol].indicators[indicatorIndex] = entry;
-  std::cout<<"\nIndicator added \n";
+  // std::cout<<"\nIndicator added \n";
 }
 
 

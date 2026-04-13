@@ -1,0 +1,246 @@
+[1;34m[INFO][0m Configuring project (Debug mode)...
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/build
+[1;34m[INFO][0m Building project using all CPU cores...
+[1/2] /usr/bin/g++-13  -I/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/hft_clean/include -I/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/hft_clean/src -g -std=gnu++20 -Wall -Wextra -fdiagnostics-color=always -O0 -g -fsanitize=address -fno-omit-frame-pointer -MD -MT CMakeFiles/main.dir/main.cpp.o -MF CMakeFiles/main.dir/main.cpp.o.d -o CMakeFiles/main.dir/main.cpp.o -c /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/main.cpp
+[31mFAILED: [0mCMakeFiles/main.dir/main.cpp.o 
+/usr/bin/g++-13  -I/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/hft_clean/include -I/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/hft_clean/src -g -std=gnu++20 -Wall -Wextra -fdiagnostics-color=always -O0 -g -fsanitize=address -fno-omit-frame-pointer -MD -MT CMakeFiles/main.dir/main.cpp.o -MF CMakeFiles/main.dir/main.cpp.o.d -o CMakeFiles/main.dir/main.cpp.o -c /home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/main.cpp
+In file included from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/hft_clean/../hft_clean/include/order_book.hpp:14[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/hft_clean/../tradePackets.hpp:2[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/hft_clean/binance_ohlc.hpp:18[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/hft.hpp:6[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/IndicatorHandler.hpp:5[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/main.cpp:2[m[K:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/hft_clean/../hft_clean/include/types.hpp:20:[m[K [01;35m[Kwarning: [m[K"LIKELY" redefined
+   20 | #define LIKELY(x) __builtin_expect(!!(x), 1)
+      | 
+In file included from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/utils/spsc.hpp:6[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/global.hpp:22[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/Btrees_testing.hpp:2[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/main.cpp:1[m[K:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/utils/types.hpp:11:[m[K [01;36m[Knote: [m[Kthis is the location of the previous definition
+   11 | #define LIKELY(x) __builtin_expect(!!(x) ,1)
+      | 
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/hft_clean/../hft_clean/include/types.hpp:21:[m[K [01;35m[Kwarning: [m[K"UNLIKELY" redefined
+   21 | #define UNLIKELY(x) __builtin_expect(!!(x), 0)
+      | 
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/utils/types.hpp:12:[m[K [01;36m[Knote: [m[Kthis is the location of the previous definition
+   12 | #define UNLIKELY(x) __builtin_expect(!!(x),0)
+      | 
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/hft.hpp:[m[K In member function ‘[01m[Kstd::vector<long int> HFT::TableColumn::[01;32m[KgetWritingData[m[K()[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/hft.hpp:193:21:[m[K [01;35m[Kwarning: [m[Kmoving a local object in a return statement prevents copy elision [[01;35m[K-Wpessimizing-move[m[K]
+  193 |     return [01;35m[Kstd::move(data)[m[K;
+      |            [01;35m[K~~~~~~~~~^~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/hft.hpp:193:21:[m[K [01;36m[Knote: [m[Kremove ‘[01m[Kstd::move[m[K’ call
+In file included from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/./fastindicator/sma.hpp:7[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/indicatorInclude.hpp:2[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/pool.hpp:9[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/IndicatorHandler.hpp:6[m[K:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/./fastindicator/../utility.hpp:[m[K In lambda function:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/./fastindicator/../utility.hpp:424:19:[m[K [01;35m[Kwarning: [m[Ktypedef ‘[01m[Kusing TreePtr = std::decay_t<decltype (treePtr)>[m[K’ locally defined but not used [[01;35m[K-Wunused-local-typedefs[m[K]
+  424 |             using [01;35m[KTreePtr[m[K = std::decay_t<decltype(treePtr)>;
+      |                   [01;35m[K^~~~~~~[m[K
+In file included from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/./fastindicator/../utility.hpp:485[m[K:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/./fastindicator/../selectAstEvaluator.hpp:[m[K In function ‘[01m[Kstd::string SelectQueryHandler::[01;32m[Khandle[m[K(const std::unique_ptr<SelectStatement>&)[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/./fastindicator/../selectAstEvaluator.hpp:308:31:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<std::__cxx11::basic_string<char> >::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+  308 |             for (int i = 1; [01;35m[Ki < allColumnName.size()[m[K; i++)
+      |                             [01;35m[K~~^~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/./fastindicator/../selectAstEvaluator.hpp:344:25:[m[K [01;35m[Kwarning: [m[Kmoving a temporary object prevents copy elision [[01;35m[K-Wpessimizing-move[m[K]
+  344 |         return [01;35m[Kstd::move(json.str())[m[K;
+      |                [01;35m[K~~~~~~~~~^~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/./fastindicator/../selectAstEvaluator.hpp:344:25:[m[K [01;36m[Knote: [m[Kremove ‘[01m[Kstd::move[m[K’ call
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/./fastindicator/../selectAstEvaluator.hpp:282:17:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[KdataFileSize[m[K’ [[01;35m[K-Wunused-variable[m[K]
+  282 |         int64_t [01;35m[KdataFileSize[m[K = PagerHandler::getFileSize(datafilename.str());
+      |                 [01;35m[K^~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/IndicatorHandler.hpp:[m[K In function ‘[01m[Kvoid IndicatorHandler::[01;32m[KparsingAddIndicator[m[K(std::unique_ptr<AddIndicatorOnTableStatement>&&)[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/IndicatorHandler.hpp:156:28:[m[K [01;35m[Kwarning: [m[Kleft operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+  156 |                            [01;35m[K"symbol is {} index is {}"[m[K,
+      |                            [01;35m[K^~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/IndicatorHandler.hpp:157:49:[m[K [01;35m[Kwarning: [m[Kright operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+  157 |                            stringIndicatorPath, [01;35m[KindicatorIndex[m[K, ticks, columnNo,
+      |                                                 [01;35m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/IndicatorHandler.hpp:157:65:[m[K [01;35m[Kwarning: [m[Kright operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+  157 |                            stringIndicatorPath, indicatorIndex, [01;35m[Kticks[m[K, columnNo,
+      |                                                                 [01;35m[K^~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/IndicatorHandler.hpp:157:72:[m[K [01;35m[Kwarning: [m[Kright operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+  157 |                            stringIndicatorPath, indicatorIndex, ticks, [01;35m[KcolumnNo[m[K,
+      |                                                                        [01;35m[K^~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/IndicatorHandler.hpp:158:28:[m[K [01;35m[Kwarning: [m[Kright operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+  158 |                            [01;35m[Ksymbol[m[K, indicatorIndex);
+      |                            [01;35m[K^~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/IndicatorHandler.hpp:158:36:[m[K [01;35m[Kwarning: [m[Kright operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+  158 |                            symbol, [01;35m[KindicatorIndex[m[K);
+      |                                    [01;35m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/IndicatorHandler.hpp:158:50:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[K)[m[K’ token
+  158 |                            symbol, indicatorIndex[01;31m[K)[m[K;
+      |                                                  [01;31m[K^[m[K
+      |                                                  [32m[K;[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/IndicatorHandler.hpp:158:51:[m[K [01;35m[Kwarning: [m[Kright operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+  158 |                            symbol, indicatorIndex)[01;35m[K;[m[K
+      |                                                   [01;35m[K^[m[K
+In file included from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:8[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/main.cpp:4[m[K:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/strategyHandler.hpp:[m[K In function ‘[01m[Kvoid StrategyHandler::[01;32m[KparsingAddStrategy[m[K(std::unique_ptr<AddStrategyOnTableStatement>&&)[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/strategyHandler.hpp:144:28:[m[K [01;35m[Kwarning: [m[Kleft operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+  144 |                            [01;35m[K"symbol is {} index is {}"[m[K,
+      |                            [01;35m[K^~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/strategyHandler.hpp:145:48:[m[K [01;35m[Kwarning: [m[Kright operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+  145 |                            stringStrategyPath, [01;35m[KstrategyIndex[m[K, ticks,
+      |                                                [01;35m[K^~~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/strategyHandler.hpp:145:63:[m[K [01;35m[Kwarning: [m[Kright operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+  145 |                            stringStrategyPath, strategyIndex, [01;35m[Kticks[m[K,
+      |                                                               [01;35m[K^~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/strategyHandler.hpp:146:28:[m[K [01;35m[Kwarning: [m[Kright operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+  146 |                            [01;35m[Ksymbol[m[K, strategyIndex);
+      |                            [01;35m[K^~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/strategyHandler.hpp:146:36:[m[K [01;35m[Kwarning: [m[Kright operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+  146 |                            symbol, [01;35m[KstrategyIndex[m[K);
+      |                                    [01;35m[K^~~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/strategyHandler.hpp:146:49:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[K)[m[K’ token
+  146 |                            symbol, strategyIndex[01;31m[K)[m[K;
+      |                                                 [01;31m[K^[m[K
+      |                                                 [32m[K;[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/strategyHandler.hpp:146:50:[m[K [01;35m[Kwarning: [m[Kright operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+  146 |                            symbol, strategyIndex)[01;35m[K;[m[K
+      |                                                  [01;35m[K^[m[K
+In file included from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:23[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/generator.hpp:16[m[K,
+                 from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:27[m[K:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/batchWriter.hpp:[m[K At global scope:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/batchWriter.hpp:55:28:[m[K [01;31m[Kerror: [m[Kredefinition of ‘[01m[Kvoid IoUringQueue::[01;32m[KbatchWrite[m[K(const std::vector<_Tp>&)[m[K’
+   55 | template <typename T> void [01;31m[KIoUringQueue[m[K::batchWrite(const std::vector<T> &data) {
+      |                            [01;31m[K^~~~~~~~~~~~[m[K
+In file included from [01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/global.hpp:24[m[K:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/io_uring_queue.hpp:43:30:[m[K [01;36m[Knote: [m[K‘[01m[Kvoid IoUringQueue::[01;32m[KbatchWrite[m[K(const std::vector<_Tp>&)[m[K’ previously declared here
+   43 |   template <typename T> void [01;36m[KbatchWrite[m[K(const std::vector<T> &data) {
+      |                              [01;36m[K^~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:[m[K In function ‘[01m[Kvoid[01;32m[K initialDatabseLoad[m[K()[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:141:43:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint64_t[m[K’ {aka ‘[01m[Klong int[m[K’} and ‘[01m[Ksize_t[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+  141 |                     for (int64_t i = 0; [01;35m[Ki < tablesArray.size()[m[K; ++i)
+      |                                         [01;35m[K~~^~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:158:47:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint64_t[m[K’ {aka ‘[01m[Klong int[m[K’} and ‘[01m[Ksize_t[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+  158 |                         for (int64_t j = 0; [01;35m[Kj < columnsArray.size()[m[K; ++j)
+      |                                             [01;35m[K~~^~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:175:51:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint64_t[m[K’ {aka ‘[01m[Klong int[m[K’} and ‘[01m[Ksize_t[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+  175 |                             for (int64_t k = 0; [01;35m[Kk < constraintArray.size()[m[K; ++k)
+      |                                                 [01;35m[K~~^~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:[m[K In function ‘[01m[Kvoid[01;32m[K loadAllNodesOfBtreeForPrimaryKey[m[K(TreeVariant&, std::string, int64_t, std::string)[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:297:35:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[Kend[m[K’ from ‘[01m[Kint64_t[m[K’ {aka ‘[01m[Klong int[m[K’} to ‘[01m[Kint16_t[m[K’ {aka ‘[01m[Kshort int[m[K’} [[01;35m[K-Wnarrowing[m[K]
+  297 |             IndexNode node{start, [01;35m[Kend[m[K};
+      |                                   [01;35m[K^~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:[m[K In function ‘[01m[Kvoid[01;32m[K loadAllNodesOfBtreeForUniqueKey[m[K(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:328:23:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<std::__cxx11::basic_string<char> >::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+  328 |     for (int i = 0; [01;35m[Ki < sortedColumnsVector.size()[m[K; i++)
+      |                     [01;35m[K~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:446:35:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[Kend[m[K’ from ‘[01m[Kint64_t[m[K’ {aka ‘[01m[Klong int[m[K’} to ‘[01m[Kint16_t[m[K’ {aka ‘[01m[Kshort int[m[K’} [[01;35m[K-Wnarrowing[m[K]
+  446 |             IndexNode node{start, [01;35m[Kend[m[K};
+      |                                   [01;35m[K^~~[m[K
+/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp: In instantiation of ‘[01m[KloadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)> [35m[K[with auto:66 = long int&][m[K[m[K’:
+[01m[K/usr/include/c++/13/type_traits:2558:26:[m[K   required by substitution of ‘[01m[Ktemplate<class _Fn, class ... _Args> static std::__result_of_success<decltype (declval<_Fn>()((declval<_Args>)()...)), std::__invoke_other> std::__result_of_other_impl::[01;32m[K_S_test[m[K(int) [35m[K[with _Fn = loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>; _Args = {long int&}][m[K[m[K’
+[01m[K/usr/include/c++/13/type_traits:2569:55:[m[K   required from ‘[01m[Kstruct std::__result_of_impl<false, false, loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>, long int&>[m[K’
+[01m[K/usr/include/c++/13/type_traits:2574:12:[m[K   required from ‘[01m[Kstruct std::__invoke_result<loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>, long int&>[m[K’
+[01m[K/usr/include/c++/13/type_traits:3061:12:[m[K   required from ‘[01m[Kstruct std::invoke_result<loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>, long int&>[m[K’
+[01m[K/usr/include/c++/13/type_traits:3073:11:[m[K   required by substitution of ‘[01m[Ktemplate<class _Fn, class ... _Args> using std::invoke_result_t = typename std::invoke_result::type [35m[K[with _Fn = loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>; _Args = {long int&}][m[K[m[K’
+[01m[K/usr/include/c++/13/variant:1122:11:[m[K   required by substitution of ‘[01m[Ktemplate<class _Visitor, class ... _Variants> using std::__detail::__variant::__visit_result_t = std::invoke_result_t<_Visitor, std::__detail::__variant::__get_t<0, _Variants, decltype (std::__detail::__variant::__as(declval<_Variants>())), typename std::variant_alternative<0, typename std::remove_reference<decltype (std::__detail::__variant::__as(declval<_Variants>()))>::type>::type>...> [35m[K[with _Visitor = loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>; _Variants = {std::variant<long int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&}][m[K[m[K’
+[01m[K/usr/include/c++/13/variant:1851:5:[m[K   required by substitution of ‘[01m[Ktemplate<class _Visitor, class ... _Variants> constexpr std::__detail::__variant::__visit_result_t<_Visitor, _Variants ...> std::[01;32m[Kvisit[m[K(_Visitor&&, _Variants&& ...) [35m[K[with _Visitor = loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>; _Variants = {std::variant<long int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&}][m[K[m[K’
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:448:23:[m[K   required from here
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:448:34:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kvalue[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+  448 |             std::visit([]([01;35m[Kauto &&value[m[K)
+      |                           [01;35m[K~~~~~~~^~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/generator.hpp:[m[K In function ‘[01m[Kvoid CommandRunner::[01;32m[KgenerateInsertTableStatement[m[K(const std::unique_ptr<InsertStatement>&)[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/generator.hpp:132:27:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<std::__cxx11::basic_string<char> >::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+  132 |         for (int i = 0; [01;35m[Ki < stmt->columns.size()[m[K; i++)
+      |                         [01;35m[K~~^~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/generator.hpp:168:32:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<std::pair<std::__cxx11::basic_string<char>, bool> >::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+  168 |                 for(int i = 0;[01;35m[Ki<actualColumn.size()[m[K;i++){
+      |                               [01;35m[K~^~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/generator.hpp:[m[K In function ‘[01m[Kvoid CommandRunner::[01;32m[KhandleDelete[m[K(const std::unique_ptr<DeleteStatement>&)[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/generator.hpp:380:21:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kcols[m[K’ [[01;35m[K-Wunused-variable[m[K]
+  380 |             int64_t [01;35m[Kcols[m[K = allColumnNames.size();
+      |                     [01;35m[K^~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/generator.hpp:[m[K In function ‘[01m[Kvoid CommandRunner::[01;32m[KgenerateCreateTableStatement[m[K(const std::unique_ptr<CreateStatement>&)[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/generator.hpp:467:17:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Klength[m[K’ [[01;35m[K-Wunused-variable[m[K]
+  467 |             int [01;35m[Klength[m[K = INT_MAX;
+      |                 [01;35m[K^~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/generator.hpp:472:17:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Ksymbol[m[K’ [[01;35m[K-Wunused-variable[m[K]
+  472 |             int [01;35m[Ksymbol[m[K=-1;
+      |                 [01;35m[K^~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/generator.hpp:473:17:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Ktop[m[K’ [[01;35m[K-Wunused-variable[m[K]
+  473 |             int [01;35m[Ktop[m[K=-1;
+      |                 [01;35m[K^~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:[m[K In member function ‘[01m[Kvoid Parser::[01;32m[KparseMemoryStatement[m[K()[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:713:5:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K}[m[K’ token
+  713 |     [01;31m[K}[m[K
+      |     [01;31m[K^[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:[m[K In member function ‘[01m[Kstd::unique_ptr<AddIndicatorOnTableStatement> Parser::[01;32m[KparseAddIndicatorOnTableStatement[m[K()[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:941:24:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[KcolumnSymbol[m[K’ [[01;35m[K-Wunused-variable[m[K]
+  941 |                 Token *[01;35m[KcolumnSymbol[m[K = expect(TokenType::NUMBER, "expect a number");
+      |                        [01;35m[K^~~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:[m[K In member function ‘[01m[Kvoid Parser::[01;32m[KprintExpression[m[K(const Expression*, int)[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1133:25:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kid[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1133 |             const auto *[01;35m[Kid[m[K = static_cast<const Identifier *>(expr);
+      |                         [01;35m[K^~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1140:25:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Knum[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1140 |             const auto *[01;35m[Knum[m[K = static_cast<const IntLiteral *>(expr);
+      |                         [01;35m[K^~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1147:25:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kstr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1147 |             const auto *[01;35m[Kstr[m[K = static_cast<const StringLiteral *>(expr);
+      |                         [01;35m[K^~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1154:25:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kb[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1154 |             const auto *[01;35m[Kb[m[K = static_cast<const BoolLiteral *>(expr);
+      |                         [01;35m[K^[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:[m[K In member function ‘[01m[Kstd::unique_ptr<AddHftIndicatorStatement> Parser::[01;32m[KparseAddHftIndicatorStatement[m[K()[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1653:29:[m[K [01;35m[Kwarning: [m[Kmoving a local object in a return statement prevents copy elision [[01;35m[K-Wpessimizing-move[m[K]
+ 1653 |             return [01;35m[Kstd::move(statement)[m[K;
+      |                    [01;35m[K~~~~~~~~~^~~~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1653:29:[m[K [01;36m[Knote: [m[Kremove ‘[01m[Kstd::move[m[K’ call
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1624:21:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Ksymbol[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1624 |             int64_t [01;35m[Ksymbol[m[K;
+      |                     [01;35m[K^~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1625:21:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kcolumn_no[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1625 |             int64_t [01;35m[Kcolumn_no[m[K = -1;
+      |                     [01;35m[K^~~~~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:[m[K In member function ‘[01m[Kvoid Parser::[01;32m[KprintUseStatement[m[K(std::string&)[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1657:41:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kdbname[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+ 1657 |     void printUseStatement([01;35m[Kstd::string &dbname[m[K){
+      |                            [01;35m[K~~~~~~~~~~~~~^~~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:[m[K In member function ‘[01m[Kvoid Parser::[01;32m[KprintSelectStatement[m[K(const SelectStatement&, int)[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1682:26:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kcol[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1682 |         for (const auto &[01;35m[Kcol[m[K : stmt.columns)
+      |                          [01;35m[K^~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:[m[K In member function ‘[01m[Kvoid Parser::[01;32m[KprintInsertStatement[m[K(const InsertStatement&)[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1754:26:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kcol[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1754 |         for (const auto &[01;35m[Kcol[m[K : stmt.columns)
+      |                          [01;35m[K^~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1759:26:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kval[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1759 |         for (const auto &[01;35m[Kval[m[K : stmt.values)
+      |                          [01;35m[K^~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/main.cpp:[m[K In function ‘[01m[Kint[01;32m[K main[m[K(int, const char**)[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/main.cpp:97:14:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kargc[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+   97 | int main([01;35m[Kint argc[m[K, char const *argv[]) {
+      |          [01;35m[K~~~~^~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/main.cpp:97:32:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kargv[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+   97 | int main(int argc, [01;35m[Kchar const *argv[][m[K) {
+      |                    [01;35m[K~~~~~~~~~~~~^~~~~~[m[K
+/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp: In instantiation of ‘[01m[KloadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)> [35m[K[with auto:66 = std::__cxx11::basic_string<char>&][m[K[m[K’:
+[01m[K/usr/include/c++/13/type_traits:2558:26:[m[K   required by substitution of ‘[01m[Ktemplate<class _Fn, class ... _Args> static std::__result_of_success<decltype (declval<_Fn>()((declval<_Args>)()...)), std::__invoke_other> std::__result_of_other_impl::[01;32m[K_S_test[m[K(int) [35m[K[with _Fn = loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>; _Args = {std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&}][m[K[m[K’
+[01m[K/usr/include/c++/13/type_traits:2569:55:[m[K   required from ‘[01m[Kstruct std::__result_of_impl<false, false, loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>[m[K’
+[01m[K/usr/include/c++/13/type_traits:2574:12:[m[K   required from ‘[01m[Kstruct std::__invoke_result<loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>[m[K’
+[01m[K/usr/include/c++/13/type_traits:3061:12:[m[K   required from ‘[01m[Kstruct std::invoke_result<loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>[m[K’
+[01m[K/usr/include/c++/13/type_traits:3073:11:[m[K   required by substitution of ‘[01m[Ktemplate<class _Fn, class ... _Args> using std::invoke_result_t = typename std::invoke_result::type [35m[K[with _Fn = loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>; _Args = {std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&}][m[K[m[K’
+[01m[K/usr/include/c++/13/variant:1131:14:[m[K   required from ‘[01m[Kconstexpr bool std::__detail::__variant::[01;32m[K__check_visitor_results[m[K(std::index_sequence<_Idx ...>) [35m[K[with _Visitor = loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>; _Variant = std::variant<long int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&; long unsigned int ..._Idxs = {0, 1}; std::index_sequence<_Idx ...> = std::integer_sequence<long unsigned int, 0, 1>][m[K[m[K’
+[01m[K/usr/include/c++/13/variant:1868:44:[m[K   required from ‘[01m[Kconstexpr std::__detail::__variant::__visit_result_t<_Visitor, _Variants ...> std::[01;32m[Kvisit[m[K(_Visitor&&, _Variants&& ...) [35m[K[with _Visitor = loadAllNodesOfBtreeForUniqueKey(TreeVariant&, std::string, int64_t, std::string, std::string, const std::vector<std::__cxx11::basic_string<char> >&, const std::string&)::<lambda(auto:66&&)>; _Variants = {variant<long int, __cxx11::basic_string<char, char_traits<char>, allocator<char> > >&}; __detail::__variant::__visit_result_t<_Visitor, _Variants ...> = void][m[K[m[K’
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:448:23:[m[K   required from here
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/initialLoad.hpp:448:34:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kvalue[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+  448 |             std::visit([]([01;35m[Kauto &&value[m[K)
+      |                           [01;35m[K~~~~~~~^~~~~[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:[m[K In member function ‘[01m[Kstd::string Parser::[01;32m[Kparse[m[K()[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1603:5:[m[K [01;35m[Kwarning: [m[Kcontrol reaches end of non-void function [[01;35m[K-Wreturn-type[m[K]
+ 1603 |     [01;35m[K}[m[K
+      |     [01;35m[K^[m[K
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:[m[K In member function ‘[01m[Kstd::unique_ptr<AddHftIndicatorStatement> Parser::[01;32m[KparseAddHftIndicatorStatement[m[K()[m[K’:
+[01m[K/home/shivam/Desktop/learning/NanoVaultdp/NanoVaultDb/SQL_PARSER.hpp:1655:5:[m[K [01;35m[Kwarning: [m[Kcontrol reaches end of non-void function [[01;35m[K-Wreturn-type[m[K]
+ 1655 |     [01;35m[K}[m[K
+      |     [01;35m[K^[m[K
+ninja: build stopped: subcommand failed.
