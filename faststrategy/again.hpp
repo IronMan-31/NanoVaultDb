@@ -1,3 +1,4 @@
+#pragma once
 #include "../hft.hpp"
 #include "../utils//types.hpp"
 #include <charconv>
@@ -29,7 +30,7 @@ public:
     this->precision = tableColumn.precisions;
   }
 
-  void set_parameter(std::vector<std::string> &win) {
+  void set_parameter(const std::vector<std::string> &win) {
     std::string param = win[0];
     int64_t window = 1;
 
@@ -54,7 +55,7 @@ public:
         count = 0;
         auto const * __restrict entry = &this->tableColumn->indicators[0];
         int64_t val = entry->result_fn(entry->ptr);
-        MyUtility::appendToFile("basic.txt", std::format("running val is {} is true {}",val,val > this->window));
+        HFT_DEBUG_FILE("basic.txt", std::format("running val is {} is true {}",val,val > this->window));
         return val > this->window;
   }
 

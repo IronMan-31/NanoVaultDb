@@ -21,7 +21,7 @@
 #include <vector>
 #include "utils/spsc.hpp"
 
-class IoUringQueue;
+#include "io_uring_queue.hpp"
 #include "databaseSchemaReader.hpp"
 #include "storageTree.hpp"
 
@@ -29,6 +29,12 @@ class IoUringQueue;
 #define GREEN "\033[1;32m"
 #define YELLOW "\033[1;33m"
 #define CYAN "\033[1;36m"
+
+#include "debug_macros.hpp"
+
+// for binance
+extern std::unordered_map<std::string, std::string> API;
+
 
 // extern std::thread vacuumThread;
 
@@ -90,28 +96,28 @@ struct  web_socket_Packet{
 };
 // --- JSON Parser Cache ---
 // db_name -> JSON parser
-std::unordered_map<std::string, std::shared_ptr<PythonLikeJSONParser>>
+extern std::unordered_map<std::string, std::shared_ptr<PythonLikeJSONParser>>
     globalJsonCache;
-std::unordered_map<std::string, MemoryEntry> memoryStore;
-std::shared_mutex memoryMutex;
-std::unordered_map<std::string, std::mutex> tableLocks;
-std::unordered_map<int64_t, std::unique_ptr<IoUringQueue>> batchWriterFileMap;
-std::mutex dbMutex;
+extern std::unordered_map<std::string, MemoryEntry> memoryStore;
+extern std::shared_mutex memoryMutex;
+extern std::unordered_map<std::string, std::mutex> tableLocks;
+extern std::unordered_map<int64_t, std::unique_ptr<IoUringQueue>> batchWriterFileMap;
+extern std::mutex dbMutex;
 
-std::atomic<bool> shuttingDown{false};
-std::thread vacuumThread;
+extern std::atomic<bool> shuttingDown;
+extern std::thread vacuumThread;
 
-std::priority_queue<ExpiryNode, std::vector<ExpiryNode>, std::greater<>>
+extern std::priority_queue<ExpiryNode, std::vector<ExpiryNode>, std::greater<>>
     expiryHeap;
 
-std::mutex expiryMutex;
-std::condition_variable expiryCV;
-std::atomic<bool> memorySchedulerRunning{true};
-SPSCQueue<web_socket_Packet,1024>web_socket_queue;
+extern std::mutex expiryMutex;
+extern std::condition_variable expiryCV;
+extern std::atomic<bool> memorySchedulerRunning;
+extern SPSCQueue<web_socket_Packet,1024>web_socket_queue;
 
 // --- Table Metadata Cache ---
 // db_name -> table_name -> vector of column definitions
-std::unordered_map<
+extern std::unordered_map<
     std::string,
     std::unordered_map<std::string,
                        std::pair<std::string,std::vector<std::shared_ptr<TableGlobalColumnNode>>>>>
@@ -133,7 +139,7 @@ using TreeVariant =
 
 // --- B+ Tree Cache ---
 // db_name -> table_name -> column_name -> (B+ Tree, no of columns)
-std::unordered_map<
+extern std::unordered_map<
     std::string,
     std::unordered_map<
         std::string,
@@ -168,7 +174,12 @@ enum class ASTNodeType {
   FETCH_INDICATOR_STATEMENT,
   ADD_HFT_STRATEGY_STATEMENT,
   ADD_HFT_STRATEGY_ON_TABLE_STATEMENT,
-  WEBSOCKET_STATEMENT
+  WEBSOCKET_STATEMENT,
+  BINANCE_ORDER_BOOK_STATEMENT,
+  BINANCE_API_KEY_STATEMENT,
+  BINANCE_LIVE_ORDERS_STATEMENT,
+  BINANCE_LIVE_OHLC_STATEMENT
+  
 };
 
 enum class LogicalOperator { AND, OR };
@@ -475,6 +486,62 @@ struct WebSocketCommand:ASTNode{
     std::cout<<std::format("the symbol is {}",symbol);
   }
 
+};
+
+
+
+
+
+
+
+/////// BINANCE ORDER BOOK
+
+struct BinanceOrderBookStatement : ASTNode{
+  int64_t tableSymbol;
+  std::string binance_symbol ;
+
+
+  void print(){
+    std::cout << std::format("the tableSymbol is {} and binance symbol is {} \n",tableSymbol,binance_symbol) << std::endl;
+  }
+  
+  ASTNodeType getType() const override { return ASTNodeType::BINANCE_ORDER_BOOK_STATEMENT; }
+ 
+};
+
+
+struct  BinanceAPIKEYStatement:ASTNode{
+  std::string key;
+  void print(){
+    std::cout << std::format("the key is {} \n",key) << std::endl;
+  }
+   ASTNodeType getType() const override { return ASTNodeType::BINANCE_API_KEY_STATEMENT; }
+ 
+
+};
+
+
+struct Binance_LIVE_Orders_Statement:ASTNode{
+  int64_t tableSymbol;
+  std::string tradeSymbol;
+  void print(){
+    std::cout << std::format("the table symbol is {} \n",tableSymbol) << std::endl;
+  }
+   ASTNodeType getType() const override { return ASTNodeType::BINANCE_LIVE_ORDERS_STATEMENT; }
+ 
+
+};
+
+struct Binance_LIVE_OHLC_STATEMENT:ASTNode{
+  int64_t tableSymbol;
+  std::string time;
+  std::string trade_symbol;
+
+  void print(){
+    std::cout << std::format("the table symbol is {} and the time is {} ",tableSymbol,time) << std::endl;
+  }
+   ASTNodeType getType() const override { return ASTNodeType::BINANCE_LIVE_OHLC_STATEMENT; }
+ 
 };
 
 

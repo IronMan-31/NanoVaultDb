@@ -107,7 +107,7 @@ public:
             std::error_code ec;
             if (fs::create_directories(parentDir, ec))
             {
-                std::cout << "Created directory: " << parentDir << std::endl;
+                // std::cout << "Created directory: " << parentDir << std::endl;
             }
             else
             {
@@ -121,7 +121,7 @@ public:
             if (outfile.is_open())
             {
                 outfile << "{\"current_db\":\"test\"}" << std::endl; // JSON-style default
-                std::cout << "File '" << filePath << "' created and initialized." << std::endl;
+                // std::cout << "File '" << filePath << "' created and initialized." << std::endl;
                 outfile.close();
                 currentDatabase = "test";
             }
@@ -202,9 +202,9 @@ public:
         if (!check.first)
         throw std::runtime_error(check.second);
         else {
-        std::cout << "#### BEFORE COMMAND RUNNER #### \n";
+        // std::cout << "#### BEFORE COMMAND RUNNER #### \n";
         CommandRunner::generateInsertTableStatement(stmt);
-        std::cout << "#### AFTER COMMAND RUNNER #### \n";
+        // std::cout << "#### AFTER COMMAND RUNNER #### \n";
         }
         return stmt;
     }
@@ -336,7 +336,7 @@ public:
             expect(TokenType::PRECISION, "use keyword precision after double");
             expect(TokenType::NUMBER, "expected bit precision to be a number");
             Token * bitToken = previous(); // BIT VALUE
-            // std::cout<<"BIT TOKEN VALUE "<<bitToken->VALUE<<"\n";
+            // // std::cout<<"BIT TOKEN VALUE "<<bitToken->VALUE<<"\n";
             ColumnDefinition column(colName->VALUE,typeToken->VALUE,static_cast<int16_t>(std::stoi(bitToken->VALUE)));
             
             // column.print();
@@ -472,7 +472,7 @@ public:
             expect(TokenType::TOP, "expected top variable for best bid and best ask price");
             stmt->top = true;
         }else stmt->top = false;
-        std::cout<<"Create HFT Parsed\n";
+        // std::cout<<"Create HFT Parsed\n";
         CommandRunner::generateHFTCreateStatement(stmt);
         
         return stmt;
@@ -562,7 +562,7 @@ public:
                     expect(TokenType::CLOSE_PAREN, "Expected ')' after VARCHAR size");
                     column.type += "(" + size->VALUE + ")";
 
-                    // std::cout<<"PARSER COLUMN TYPE \n" << "COLUMN TYPE "<< column.type <<"  size value  "<<size->VALUE<<"\n";
+                    // // std::cout<<"PARSER COLUMN TYPE \n" << "COLUMN TYPE "<< column.type <<"  size value  "<<size->VALUE<<"\n";
                 }
 
                 // Parse optional constraints
@@ -705,10 +705,10 @@ public:
 
         CommandRunner::memorySet(key, value, ttl);
 
-        std::cout << "MEMORY SET: " << key << " = " << value;
-        if (ttl >= 0)
-            std::cout << " (TTL=" << ttl << "s)";
-        std::cout << "\n";
+        // std::cout << "MEMORY SET: " << key << " = " << value;
+        /* if (ttl >= 0)
+            // std::cout << " (TTL=" << ttl << "s)";
+        // std::cout << "\n"; */
 
     }
 
@@ -732,9 +732,9 @@ public:
             const std::string& key = keyTok->VALUE;
             std::string value;
             if (CommandRunner::memoryGet(key, value)) {
-                std::cout << "MEMORY GET: " << key << " = " << value << "\n";
+                // std::cout << "MEMORY GET: " << key << " = " << value << "\n";
             } else {
-                std::cout << "MEMORY GET: key '" << key << "' not found or expired\n";
+                // std::cout << "MEMORY GET: key '" << key << "' not found or expired\n";
             }
         }
 
@@ -836,7 +836,7 @@ public:
         if(match(TokenType::OPEN_PAREN)){
             while (!match(TokenType::CLOSE_PAREN)) {
                 std::string val = expect(TokenType::STRING, "expect argument to be string")->VALUE;
-                // std::cout<<"val is "<<val<<"\n";
+                // // std::cout<<"val is "<<val<<"\n";
                 params.push_back(val);
                 
                 if (match(TokenType::COMMA)) {
@@ -912,7 +912,7 @@ public:
             if(match(TokenType::OPEN_PAREN)){
                 while (!match(TokenType::CLOSE_PAREN)) {
                     std::string val = expect(TokenType::STRING, "expect argument to be string")->VALUE;
-                    // std::cout<<"val is "<<val<<"\n";
+                    // // std::cout<<"val is "<<val<<"\n";
                     params.push_back(val);
                     
                     if (match(TokenType::COMMA)) {
@@ -930,7 +930,7 @@ public:
             expect(TokenType::SYMBOL,"expect token type symbol");
             
             int64_t symbol ;
-            std::cout<<"curent token type "<<current()->VALUE <<"\n"; 
+            // std::cout<<"curent token type "<<current()->VALUE <<"\n"; 
             Token * symBolToken = expect(TokenType::NUMBER, "expect symbol to be int");
             std::from_chars(symBolToken->VALUE.data(),symBolToken->VALUE.data() +  symBolToken->VALUE.size(),symbol);
             
@@ -1121,7 +1121,7 @@ public:
     void printExpression(const Expression *expr, int indent = 0)
     {
         auto pad = [indent]()
-        { for (int i = 0; i < indent; ++i) std::cout << "  "; };
+        { for (int i = 0; i < indent; ++i) ; };
 
         if (!expr)
             return;
@@ -1132,55 +1132,55 @@ public:
         {
             const auto *id = static_cast<const Identifier *>(expr);
             pad();
-            std::cout << "Identifier: " << id->name << "\n";
+            // std::cout << "Identifier: " << id->name << "\n";
             break;
         }
         case ASTNodeType::INT_LITERAL:
         {
             const auto *num = static_cast<const IntLiteral *>(expr);
             pad();
-            std::cout << "IntLiteral: " << num->value << "\n";
+            // std::cout << "IntLiteral: " << num->value << "\n";
             break;
         }
         case ASTNodeType::STRING_LITERAL:
         {
             const auto *str = static_cast<const StringLiteral *>(expr);
             pad();
-            std::cout << "StringLiteral: \"" << str->value << "\"\n";
+            // std::cout << "StringLiteral: \"" << str->value << "\"\n";
             break;
         }
         case ASTNodeType::BOOLEAN_LITERAL:
         {
             const auto *b = static_cast<const BoolLiteral *>(expr);
             pad();
-            std::cout << "BoolLiteral: " << (b->value ? "true" : "false") << "\n";
+            // std::cout << "BoolLiteral: " << (b->value ? "true" : "false") << "\n";
             break;
         }
         case ASTNodeType::COMPARISON_EXPRESSION:
         {
             const auto *comp = static_cast<const ComparisonExpression *>(expr);
             pad();
-            std::cout << "ComparisonExpression: ";
+            // std::cout << "ComparisonExpression: ";
             switch (comp->op)
             {
             case ComparisonOperator::EQUAL:
                 pad();
-                std::cout << "==\n";
+                // std::cout << "==\n";
                 break;
             case ComparisonOperator::NOT_EQUAL:
-                std::cout << "!=\n";
+                // std::cout << "!=\n";
                 break;
             case ComparisonOperator::GREATER:
-                std::cout << ">\n";
+                // std::cout << ">\n";
                 break;
             case ComparisonOperator::LESS:
-                std::cout << "<\n";
+                // std::cout << "<\n";
                 break;
             case ComparisonOperator::GREATER_EQUAL:
-                std::cout << ">=\n";
+                // std::cout << ">=\n";
                 break;
             case ComparisonOperator::LESS_EQUAL:
-                std::cout << "<=\n";
+                // std::cout << "<=\n";
                 break;
             }
             printExpression(comp->left.get(), indent + 1);
@@ -1191,7 +1191,7 @@ public:
         {
             const auto *log = static_cast<const LogicalExpression *>(expr);
             pad();
-            std::cout << "LogicalExpression: " << (log->op == LogicalOperator::AND ? "AND" : "OR") << "\n";
+            // std::cout << "LogicalExpression: " << (log->op == LogicalOperator::AND ? "AND" : "OR") << "\n";
             printExpression(log->left.get(), indent + 1);
             printExpression(log->right.get(), indent + 1);
             break;
@@ -1200,15 +1200,114 @@ public:
         {
             const auto *paren = static_cast<const ParenthesizedExpression *>(expr);
             pad();
-            std::cout << "ParenthesizedExpression:\n";
+            // std::cout << "ParenthesizedExpression:\n";
             printExpression(paren->expression.get(), indent + 1);
             break;
         }
         default:
             pad();
-            std::cout << "Unknown Expression Type\n";
+            // std::cout << "Unknown Expression Type\n";
         }
     }
+
+    // BINANCE PARSING
+
+    std::unique_ptr<BinanceOrderBookStatement> parse_Binance_OrderBookStatement(){
+            std::unique_ptr<BinanceOrderBookStatement> statement = std::make_unique<BinanceOrderBookStatement>();
+            expect(TokenType::SET, "expect token type set");
+            expect(TokenType::BINANCE, "expect token type binance");
+            expect(TokenType::ORDER_BOOK, "expect token type binance order book");
+            expect(TokenType::ON, "expect token type on");
+            expect(TokenType::SYMBOL, "expect token type symbol");
+
+            Token * table_symbol = expect(TokenType::NUMBER, "the table symbol should be a number");
+            expect(TokenType::SYMBOL, "expect token type symbol");
+
+            Token * binance_symbol = expect(TokenType::STRING, "expect biance symbol to be a token");
+
+            statement->binance_symbol = binance_symbol->VALUE;
+            int64_t sym;
+            std::from_chars(table_symbol->VALUE.data(),table_symbol->VALUE.data() + table_symbol->VALUE.size(),sym);
+            statement->tableSymbol = sym;
+
+            return statement;
+    }
+
+
+
+    std::unique_ptr<BinanceAPIKEYStatement> parse_binance_api_key_statement(){
+        expect(TokenType::SET, "expect token type set");
+        expect(TokenType::BINANCE, "expect token type binance");
+        expect(TokenType::API_KEY, "exepect token type api key\n");
+        Token * api_key  = expect(TokenType::STRING, "expect api key \n");
+
+        expect(TokenType::SEMICOLON, "expect token type semi colon");
+        std::unique_ptr<BinanceAPIKEYStatement> statement = std::make_unique<BinanceAPIKEYStatement>() ;
+        statement->key = api_key->VALUE;
+
+        return statement;
+    }
+
+
+    std::unique_ptr<Binance_LIVE_OHLC_STATEMENT> parse_binance_live_ohlc_statement(){
+        expect(TokenType::SET, "expect token type set");
+        expect(TokenType::BINANCE, "expect token type binance");
+        expect(TokenType::DATA, "expect token type data");
+        expect(TokenType::FEED, "expect token type feed");
+        expect(TokenType::OHLC, "expect token type ohlc");
+        Token * time = expect(TokenType::STRING, "expect time to be string");
+        expect(TokenType::ON, "expect token type on");
+        expect(TokenType::SYMBOL, "expect token type symbol");
+
+        Token * symbol = expect(TokenType::NUMBER, "expect token type number");
+        expect(TokenType::SYMBOL, "expect TokeTypeSymbol");
+        Token* binance =expect(TokenType::STRING,"binance symbol should be string");
+        int64_t sym;
+        std::from_chars(symbol->VALUE.data(),symbol->VALUE.data() + symbol->VALUE.size(),sym);
+
+        std::unique_ptr<Binance_LIVE_OHLC_STATEMENT> statement = std::make_unique<Binance_LIVE_OHLC_STATEMENT>();;
+        statement->tableSymbol = sym;
+        statement->time = time->VALUE;
+        statement->trade_symbol  = binance->VALUE;
+        return statement;
+
+    }
+
+    std::unique_ptr<Binance_LIVE_Orders_Statement> parser_binance_live_orders_statements(){
+         expect(TokenType::SET, "expect token type set");
+        expect(TokenType::BINANCE, "expect token type binance");
+        expect(TokenType::DATA, "expect token type data");
+        expect(TokenType::FEED, "expect token type feed");
+
+        expect(TokenType::LIVE, "expect token type live");
+        expect(TokenType::ORDERS,"expect token type orders");
+        expect(TokenType::ON, "expect token type on");
+        expect(TokenType::SYMBOL, "expect token type symbol");
+
+          Token * symbol = expect(TokenType::NUMBER, "expect token type number");
+        int64_t sym;
+        std::from_chars(symbol->VALUE.data(),symbol->VALUE.data() + symbol->VALUE.size(),sym);
+
+        expect(TokenType::SYMBOL, "expect token type symbol for binance\n");
+        Token * binance_symbol = expect(TokenType::STRING, "expect symbol to be a string");
+
+        std::unique_ptr<Binance_LIVE_Orders_Statement> statement  = std::make_unique<Binance_LIVE_Orders_Statement>();
+        statement->tableSymbol = sym;
+        statement->tradeSymbol = binance_symbol->VALUE;
+        
+        return statement;
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     std::string parse() {
         std::string r = "{\"suceess\" : true}";
@@ -1232,7 +1331,51 @@ public:
             return e.str();
         }
         
-        } else if (match(TokenType::STATISTICS)){
+        }
+        
+        // binance Thing
+        else if(match(TokenType::SET)){
+            if(match(TokenType::BINANCE)){
+                if(match(TokenType::API_KEY)){
+                    rewind(); rewind(); rewind();
+
+                    std::unique_ptr<BinanceAPIKEYStatement> statement = parse_binance_api_key_statement();
+                    statement->print();
+                    ExchangeHelper::update_api_keys("binance",statement->key);
+                    return r;
+                }else if(match(TokenType::ORDER_BOOK)){
+                    rewind(); rewind(); rewind();
+                    std::unique_ptr<BinanceOrderBookStatement> statement = parse_Binance_OrderBookStatement();
+                    BinanceExchangeHandler::handle_binance_order_book_parsing(statement);
+                    return r;
+                }else if(match(TokenType::DATA) && match(TokenType::FEED) && match(TokenType::LIVE)){
+                    rewind(); rewind(); rewind(); rewind(); rewind(); rewind();
+                    std::unique_ptr<Binance_LIVE_Orders_Statement> statement = parser_binance_live_orders_statements();
+                    BinanceExchangeHandler::handle_binance_live_orders(statement);
+                    return r;
+
+                }else if(match(TokenType::OHLC)){
+                    rewind(); rewind(); rewind(); rewind(); rewind(); rewind();
+                    
+                    std::unique_ptr<Binance_LIVE_OHLC_STATEMENT> statement = parse_binance_live_ohlc_statement();
+                    BinanceExchangeHandler::handle_binance_ohlc(statement);
+                    return r;
+                }
+            }
+
+            std::stringstream e;
+            e << "{" << "\"success\": false, " << "\"error\": \"\033[31m"
+            << "no such command exist" << "\033[0m\"" << "}";
+
+            return e.str();
+
+
+        }
+        
+        
+        
+        
+        else if (match(TokenType::STATISTICS)){
             try{
                 rewind();
                 std::unique_ptr<StatisticsStatement> stmt = parseStatisticsStatement();
@@ -1248,7 +1391,7 @@ public:
                 
                 rewind();
                 rewind();
-                std::cout<<"HERE\n";
+                // std::cout<<"HERE\n";
                 std::unique_ptr<AddStrategyOnTableStatement> statement = parseAddStrategystatement();
                 statement->print();
                 StrategyHandler::parsingAddStrategy(std::move(statement));
@@ -1261,7 +1404,7 @@ public:
                 rewind();
                 std::unique_ptr<EnableStatement> statement = parseEnableStatement();
                 statement->print();
-                BatchWriter::parseEnableNatchStatement(std::move(statement));
+                BatchWriter::parseEnableBatchStatement(std::move(statement));
                 return r;
             } catch (const std::exception & err) {
                   std::stringstream e;
@@ -1323,8 +1466,8 @@ public:
             rewind();
             auto stmt = parseSelectStatement();
             std::string json = SelectQueryHandler::handle(stmt);
-            std::cout << "SELECT STATEMENT JSON \n";
-            std::cout << json << "\n";
+            // std::cout << "SELECT STATEMENT JSON \n";
+            // std::cout << json << "\n";
             printSelectStatement(*stmt);
             return json;
         } catch (const std::exception &err) {
@@ -1415,7 +1558,7 @@ public:
                 rewind();
 
                 std::unique_ptr<AddIndicatorOnTableStatement> statement = parseAddIndicatorOnTableStatement() ;
-                std::cout<<"PRINITING THE STATEMNT\n"; 
+                // std::cout<<"PRINITING THE STATEMNT\n"; 
                 statement->print();
                 IndicatorHandler::parsingAddIndicator(std::move(statement));
                 return r;   
@@ -1425,8 +1568,8 @@ public:
             if(match(TokenType::STRATEGY)){
                 rewind();
                 rewind();
-                std::cout<<"INSIDE\n";
-                std::cout<<current()->VALUE<<"\n";
+                // std::cout<<"INSIDE\n";
+                // std::cout<<current()->VALUE<<"\n";
                 std::unique_ptr<AddHftStrategyStatement> statement = parseAddHftStrategyStatement();
                 StrategyHandler::parseStrategy(std::move(statement));
                 return r;
@@ -1509,74 +1652,75 @@ public:
 
             return std::move(statement);
         }
+        throw std::runtime_error("Expected INDICATOR keyword");
     }
 
     void printUseStatement(std::string &dbname){
-        std::cout<<"USE"<<" ";
-        std::cout<<dbname<<";"<<"\n";
+        // std::cout<<"USE"<<" ";
+        // std::cout<<dbname<<";"<<"\n";
     }
 
     void printDropStatement(const DropStatement &stmt){
         bool table=stmt.istable;
-        std::cout<<"DROP"<<" ";
+        // std::cout<<"DROP"<<" ";
         if (table){
-            std::cout<<"TABLE"<<" "<<stmt.name<<";";
+            // std::cout<<"TABLE"<<" "<<stmt.name<<";";
         }else{
-            std::cout<<"DATABASE"<<" "<<stmt.name<<";"<<"\n";
+            // std::cout<<"DATABASE"<<" "<<stmt.name<<";"<<"\n";
         }
     }
 
     void printSelectStatement(const SelectStatement &stmt, int indent = 0)
     {
         auto pad = [indent]()
-        { for (int i = 0; i < indent; ++i) std::cout << "  "; };
+        { for (int i = 0; i < indent; ++i) ; };
 
         pad();
-        std::cout << "SelectStatement\n";
+        // std::cout << "SelectStatement\n";
 
         pad();
-        std::cout << "  Columns:\n";
+        // std::cout << "  Columns:\n";
         for (const auto &col : stmt.columns)
         {
             pad();
-            std::cout << "    - " << col << "\n";
+            // std::cout << "    - " << col << "\n";
         }
 
         pad();
-        std::cout << "  From: " << stmt.table << "\n";
+        // std::cout << "  From: " << stmt.table << "\n";
 
         if (stmt.whereClause)
         {
             pad();
-            std::cout << "  Where:\n";
+            // std::cout << "  Where:\n";
             printExpression(stmt.whereClause->condition.get(), indent + 2);
         }
 
         if (stmt.limitClause)
         {
             pad();
-            std::cout << "  Limit: " << stmt.limitClause->limit << "\n";
+            // std::cout << "  Limit: " << stmt.limitClause->limit << "\n";
         }
     }
     void printCreateStatement(const CreateStatement &stmt)
     {
-        std::cout << "CREATE ";
+        // std::cout << "CREATE ";
         if (stmt.isDatabase)
         {
-            std::cout << "DATABASE ";
+            // std::cout << "DATABASE ";
         }
         else
         {
-            std::cout << "TABLE ";
+            // std::cout << "TABLE ";
         }
 
-        std::cout << stmt.name << "\n";
+        // std::cout << stmt.name << "\n";
 
         if (!stmt.isDatabase)
         {
             for (const auto &col : stmt.columns)
             {
-                std::cout << "  Column: " << col.name << " Type: " << col.type << "\n";
+                // std::cout << "  Column: " << col.name << " Type: " << col.type << "\n";
 
                 for (const auto &constraint : col.constraints)
                 {
@@ -1599,7 +1743,7 @@ public:
                         constraintStr = "UNKNOWN";
                         break;
                     }
-                    std::cout << "    Constraint: " << constraintStr << "\n";
+                    // std::cout << "    Constraint: " << constraintStr << "\n";
                 }
             }
         }
@@ -1607,17 +1751,17 @@ public:
 
     void printInsertStatement(const InsertStatement &stmt)
     {
-        std::cout << "INSERT INTO " << stmt.tableName << " (\n";
+        // std::cout << "INSERT INTO " << stmt.tableName << " (\n";
         for (const auto &col : stmt.columns)
         {
-            std::cout << "  " << col << "\n";
+            // std::cout << "  " << col << "\n";
         }
-        std::cout << ") VALUES (\n";
+        // std::cout << ") VALUES (\n";
         for (const auto &val : stmt.values)
         {
-            std::cout << "  " << val << "\n";
+            // std::cout << "  " << val << "\n";
         }
-        std::cout << ");\n";
+        // std::cout << ");\n";
     }
 };
 

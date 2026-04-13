@@ -39,20 +39,20 @@ public:
     
     // Print all elements
     void print() const {
-        std::cout << "[";
+        // std::cout << "[";
         for (size_t i = 0; i < arr.size(); ++i) {
             if (std::holds_alternative<std::string>(arr[i].value)) {
-                std::cout << "\"" << std::get<std::string>(arr[i].value) << "\"";
+                // std::cout << "\"" << std::get<std::string>(arr[i].value) << "\"";
             } else if (std::holds_alternative<int>(arr[i].value)) {
-                std::cout << std::get<int>(arr[i].value);
+                // std::cout << std::get<int>(arr[i].value);
             } else if (std::holds_alternative<double>(arr[i].value)) {
-                std::cout << std::get<double>(arr[i].value);
+                // std::cout << std::get<double>(arr[i].value);
             } else if (std::holds_alternative<bool>(arr[i].value)) {
-                std::cout << (std::get<bool>(arr[i].value) ? "true" : "false");
+                // std::cout << (std::get<bool>(arr[i].value) ? "true" : "false");
             }
-            if (i < arr.size() - 1) std::cout << ", ";
+            // if (i < arr.size() - 1) // std::cout << ", ";
         }
-        std::cout << "]";
+        // std::cout << "]";
     }
 };
 
@@ -194,25 +194,25 @@ public:
     // Print value
     void print() const {
         if (isString()) {
-            std::cout << "\"" << getString() << "\"";
+            // std::cout << "\"" << getString() << "\"";
         } else if (isInt()) {
-            std::cout << getInt();
+            // std::cout << getInt();
         } else if (isDouble()) {
-            std::cout << getDouble();
+            // std::cout << getDouble();
         } else if (isBool()) {
-            std::cout << (getBool() ? "true" : "false");
+            // std::cout << (getBool() ? "true" : "false");
         } else if (isArray()) {
             asArray().print();
         } else if (isNull()) {
-            std::cout << "null";
+            // std::cout << "null";
         } else {
-            std::cout << "{object}";
+            // std::cout << "{object}";
         }
     }
 };
 
 // Implementation of JSONArrayWrapper::operator[]
-JSONWrapper JSONArrayWrapper::operator[](size_t index) const {
+inline JSONWrapper JSONArrayWrapper::operator[](size_t index) const {
     if (index >= arr.size()) {
         throw std::runtime_error("Array index out of bounds");
     }
@@ -313,77 +313,77 @@ public:
 // ])";
     
 //     if (parser.loadFromString(jsonData)) {
-//         std::cout << "=== Python-like JSON Access Demo ===" << std::endl;
+//         // std::cout << "=== Python-like JSON Access Demo ===" << std::endl;
         
 //         // Access database name - parser[0]["name"]
-//         std::cout << "\nDatabase name: ";
+//         // std::cout << "\nDatabase name: ";
 //         parser[0]["name"].print();
-//         std::cout << std::endl;
+//         // std::cout << std::endl;
         
 //         // Or get as string
 //         std::string dbName = parser[0]["name"];
-//         std::cout << "Database name (as string): " << dbName << std::endl;
+//         // std::cout << "Database name (as string): " << dbName << std::endl;
         
 //         // Access table name - parser[0]["tables"][0]["name"]
-//         std::cout << "\nTable name: ";
+//         // std::cout << "\nTable name: ";
 //         parser[0]["tables"][0]["name"].print();
-//         std::cout << std::endl;
+//         // std::cout << std::endl;
         
 //         // Get all columns - parser[0]["tables"][0]["columns"]
-//         std::cout << "\nAll columns:" << std::endl;
+//         // std::cout << "\nAll columns:" << std::endl;
 //         JSONArrayWrapper columns = parser[0]["tables"][0]["columns"].asArray();
         
 //         for (size_t i = 0; i < columns.size(); ++i) {
 //             JSONWrapper column = columns[i];
-//             std::cout << "Column " << i << ": ";
-//             std::cout << "name=" << column["name"].getString();
-//             std::cout << ", type=" << column["type"].getString();
+//             // std::cout << "Column " << i << ": ";
+//             // std::cout << "name=" << column["name"].getString();
+//             // std::cout << ", type=" << column["type"].getString();
             
 //             // Check if length exists
 //             if (column.hasKey("length")) {
-//                 std::cout << ", length=" << column["length"].getInt();
+//                 // std::cout << ", length=" << column["length"].getInt();
 //             }
             
 //             // Get constraints
 //             if (column.hasKey("constraints")) {
 //                 JSONArrayWrapper constraints = column["constraints"].asArray();
 //                 if (constraints.size() > 0) {
-//                     std::cout << ", constraints=";
+//                     // std::cout << ", constraints=";
 //                     constraints.print();
 //                 }
 //             }
-//             std::cout << std::endl;
+//             // std::cout << std::endl;
 //         }
         
 //         // Access specific column by index - parser[0]["tables"][0]["columns"][2]
-//         std::cout << "\nEmail column (index 2):" << std::endl;
+//         // std::cout << "\nEmail column (index 2):" << std::endl;
 //         JSONWrapper emailColumn = parser[0]["tables"][0]["columns"][2];
-//         std::cout << "Name: " << emailColumn["name"].getString() << std::endl;
-//         std::cout << "Type: " << emailColumn["type"].getString() << std::endl;
-//         std::cout << "Length: " << emailColumn["length"].getInt() << std::endl;
-//         std::cout << "Constraints: ";
+//         // std::cout << "Name: " << emailColumn["name"].getString() << std::endl;
+//         // std::cout << "Type: " << emailColumn["type"].getString() << std::endl;
+//         // std::cout << "Length: " << emailColumn["length"].getInt() << std::endl;
+//         // std::cout << "Constraints: ";
 //         emailColumn["constraints"].asArray().print();
-//         std::cout << std::endl;
+//         // std::cout << std::endl;
         
 //         // More examples
-//         std::cout << "\n=== More Examples ===" << std::endl;
+//         // std::cout << "\n=== More Examples ===" << std::endl;
         
 //         // Get all column names
-//         std::cout << "\nAll column names:" << std::endl;
+//         // std::cout << "\nAll column names:" << std::endl;
 //         for (size_t i = 0; i < columns.size(); ++i) {
-//             std::cout << "- " << columns[i]["name"].getString() << std::endl;
+//             // std::cout << "- " << columns[i]["name"].getString() << std::endl;
 //         }
         
 //         // Get constraints for specific column
-//         std::cout << "\nConstraints for 'id' column:" << std::endl;
+//         // std::cout << "\nConstraints for 'id' column:" << std::endl;
 //         JSONArrayWrapper idConstraints = parser[0]["tables"][0]["columns"][0]["constraints"].asArray();
 //         std::vector<std::string> constraintsList = idConstraints.toStringVector();
 //         for (const auto& constraint : constraintsList) {
-//             std::cout << "- " << constraint << std::endl;
+//             // std::cout << "- " << constraint << std::endl;
 //         }
         
 //     } else {
-//         std::cout << "Failed to load JSON data!" << std::endl;
+//         // std::cout << "Failed to load JSON data!" << std::endl;
 //     }
     
 //     return 0;

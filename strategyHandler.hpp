@@ -53,14 +53,14 @@ void registerAllStrategy(
 }
 
 void parseStrategy(std::unique_ptr<AddHftStrategyStatement> &&statement) {
-  std::cout << "strategy PARSING START\n";
+  // std::cout << "strategy PARSING START\n";
   std::string file_path = statement->file_path;
   std::stringstream error;
   file_path.erase(std::remove(file_path.begin(), file_path.end(), '\r'),
                   file_path.end());
   if (UNLIKELY(!MyUtility::checkIfFileExist(file_path))) {
     error << std::format("the file {} not exist ", file_path);
-    std::cout << error.str();
+    // std::cout << error.str();
     throw std::runtime_error(error.str());
   }
 
@@ -68,20 +68,20 @@ void parseStrategy(std::unique_ptr<AddHftStrategyStatement> &&statement) {
   std::pair<bool, std::string> data = MyUtility::readAFile(file_path);
   if (!data.first) {
     error << std::format("error while opening the  file {}  ", file_path);
-    std::cout << error.str();
+    // std::cout << error.str();
     throw std::runtime_error(error.str());
   }
 
   if (HFT::InitalStorage::checkStrategyExits(baseName)) {
     error << std::format("strategy with base name  {}  already exist ",
                          baseName);
-    std::cout << error.str();
+    // std::cout << error.str();
     throw std::runtime_error(error.str());
   }
 
-  std::cout << "CONTENT PRINTING\n";
+  // std::cout << "CONTENT PRINTING\n";
   std::string content = (data.second);
-  std::cout << content << "\n";
+  // std::cout << content << "\n";
 
   fs::path dir = "./faststrategy";
 
@@ -140,10 +140,10 @@ void parsingAddStrategy(
     }
 
 
-     std::cout << std::format("the path is {} index is {} ticks is {}  "
+     /* std::cout << std::format("the path is {} index is {} ticks is {}  "
                            "symbol is {} index is {}",
                            stringStrategyPath, strategyIndex, ticks,
-                           symbol, strategyIndex);
+                           symbol, strategyIndex); */
   auto it = strategyRegistry.find(strategyName);
 
    if (it == strategyRegistry.end()) {
@@ -154,7 +154,7 @@ void parsingAddStrategy(
                           HFT::symbolAccessArray[symbol], params);
 
   HFT::symbolAccessArray[symbol].strategys[strategyIndex] = entry;
-  std::cout<<"\n strategy added \n";
+  // std::cout<<"\n strategy added \n";
 
   
 };

@@ -1,1 +1,4 @@
 /build
+/hft_clean/build/
+/db*
+

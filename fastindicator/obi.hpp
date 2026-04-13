@@ -1,3 +1,4 @@
+#pragma once
 #include "iostream"
 #include "../utils//types.hpp"
 #include "../hft.hpp"
@@ -15,9 +16,9 @@ private:
     // scaled imbalance (to avoid float)
 
 public:
-    OBI(std::array<HFT::TableColumn, HFT::MAXHFTSYMBOL>& symbolAccessArr,
+    OBI(std::array<HFT::TableColumn, HFT::MAXHFTSYMBOL>& /*symbolAccessArr*/,
         int64_t tick,
-        HFT::TableColumn& tableColumn,int64_t column_to_use = -1)
+        HFT::TableColumn& tableColumn,int64_t /*column_to_use*/ = -1)
     {
         this->tick = tick;
         this->count = 0;

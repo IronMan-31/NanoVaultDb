@@ -17,144 +17,68 @@
 #include <unistd.h>
 #include <vector>
 
-class IoUringQueue {
-private:
-  struct io_uring ring_;
-  int fd_;
-  off_t offset_;
-  std::string file_name;
+#include "io_uring_queue.hpp"
 
-public:
-  explicit IoUringQueue(const std::string &filename, unsigned entries = 256) {
-    int ret = io_uring_queue_init(entries, &ring_, 0);
-    if (ret < 0)
-      throw std::runtime_error("io_uring_queue_init failed");
-    this->file_name = filename.c_str();
-    fd_ = open(filename.c_str(), O_WRONLY | O_CREAT, 0644);
-    if (fd_ < 0) {
-      io_uring_queue_exit(&ring_);
-      throw std::runtime_error("open failed");
-    }
-
-    offset_ = lseek(fd_, 0, SEEK_END);
-    if (offset_ < 0) {
-      close(fd_);
-      io_uring_queue_exit(&ring_);
-      throw std::runtime_error("lseek failed");
-    }
-  }
-
-  ~IoUringQueue() {
-    close(fd_);
-    io_uring_queue_exit(&ring_);
-  }
-
-private:
-  void wait_all(size_t expected, size_t expected_bytes = 0) {
+void IoUringQueue::wait_all(size_t expected, size_t expected_bytes) {
     for (size_t i = 0; i < expected; i++) {
-      io_uring_cqe *cqe;
-      int r = io_uring_wait_cqe(&ring_, &cqe);
-      if (r < 0) {
-        MyUtility::appendToFile("batch.txt", "wait_cqe failed with error: " + std::to_string(r));
-        throw std::runtime_error("wait_cqe failed");
-      }
+        io_uring_cqe *cqe;
+        int r = io_uring_wait_cqe(&ring_, &cqe);
+        if (r < 0) {
+            HFT_DEBUG_FILE("batch.txt", "wait_cqe failed with error: " + std::to_string(r));
+            throw std::runtime_error("wait_cqe failed");
+        }
 
-      MyUtility::appendToFile("batch.txt", "CQE received, res (bytes written): " + std::to_string(cqe->res));
+        HFT_DEBUG_FILE("batch.txt", "CQE received, res (bytes written): " + std::to_string(cqe->res));
 
-      if (cqe->res < 0) {
-        MyUtility::appendToFile("batch.txt", "write failed with error code: " + std::to_string(cqe->res));
-        throw std::runtime_error("write failed");
-      }
+        if (cqe->res < 0) {
+            HFT_DEBUG_FILE("batch.txt", "write failed with error code: " + std::to_string(cqe->res));
+            throw std::runtime_error("write failed");
+        }
 
-      if (expected_bytes > 0 &&
-          static_cast<size_t>(cqe->res) != expected_bytes) {
-        MyUtility::appendToFile("batch.txt", "partial write detected: " + std::to_string(cqe->res) + " bytes");
-        throw std::runtime_error("partial write detected");
-      }
+        if (expected_bytes > 0 &&
+            static_cast<size_t>(cqe->res) != expected_bytes) {
+            HFT_DEBUG_FILE("batch.txt", "partial write detected: " + std::to_string(cqe->res) + " bytes");
+            throw std::runtime_error("partial write detected");
+        }
 
-      io_uring_cqe_seen(&ring_, cqe);
+        io_uring_cqe_seen(&ring_, cqe);
     }
-  }
+}
 
-  void submit_and_drain() {
+void IoUringQueue::submit_and_drain() {
     int ret = io_uring_submit(&ring_);
     if (ret < 0)
-      throw std::runtime_error("submit failed");
+        throw std::runtime_error("submit failed");
     wait_all(static_cast<size_t>(ret));
-  }
+}
 
-public:
-  template <typename T> void batchWrite(const std::vector<T> &data) {
-    static_assert(std::is_trivially_copyable<T>::value,
-                  "T must be trivially copyable");
-    char pathBuf[PATH_MAX];
-    ssize_t len = readlink(("/proc/self/fd/" + std::to_string(fd_)).c_str(), pathBuf, sizeof(pathBuf)-1);
-    if(len >= 0) {
-        pathBuf[len] = '\0';
-        MyUtility::appendToFile("batch.txt", "batchWrite called for file: " + this->file_name + " fd: " + std::to_string(fd_) + " actually points to: " + pathBuf);
-    } else {
-        MyUtility::appendToFile("batch.txt", "batchWrite called for fd: " + std::to_string(fd_) + " but readlink failed!");
-    }
+
+void IoUringQueue::batchWrite(const std::vector<std::string> &data) {
     if (data.empty())
-      return;
+        return;
 
     size_t submitted = 0;
-    size_t pending = 0;
-
     while (submitted < data.size()) {
-      auto *sqe = io_uring_get_sqe(&ring_);
-      if (!sqe) {
-        int ret = io_uring_submit(&ring_);
-        if (ret < 0)
-          throw std::runtime_error("submit failed");
-        wait_all(static_cast<size_t>(ret));
-        pending = 0;
-        continue;
-      }
+        auto *sqe = io_uring_get_sqe(&ring_);
+        if (!sqe) {
+            int ret = io_uring_submit(&ring_);
+            if (ret < 0)
+                throw std::runtime_error("submit failed");
+            wait_all(static_cast<size_t>(ret));
+            continue;
+        }
 
-      io_uring_prep_write(sqe, fd_, &data[submitted], sizeof(T), offset_);
-      offset_ += sizeof(T);
-      submitted++;
-      pending++;
+        const std::string &s = data[submitted];
+        io_uring_prep_write(sqe, fd_, s.data(), s.size(), offset_);
+        offset_ += s.size();
+        submitted++;
     }
 
     int ret = io_uring_submit(&ring_);
     if (ret < 0)
-      throw std::runtime_error("submit failed");
+        throw std::runtime_error("submit failed");
     wait_all(static_cast<size_t>(ret));
-  }
-
-  void batchWrite(const std::vector<std::string> &data) {
-    if (data.empty())
-      return;
-
-    size_t submitted = 0;
-    size_t pending = 0;
-
-    while (submitted < data.size()) {
-      auto *sqe = io_uring_get_sqe(&ring_);
-      if (!sqe) {
-        int ret = io_uring_submit(&ring_);
-        if (ret < 0)
-          throw std::runtime_error("submit failed");
-        wait_all(static_cast<size_t>(ret));
-        pending = 0;
-        continue;
-      }
-
-      const std::string &s = data[submitted];
-      io_uring_prep_write(sqe, fd_, s.data(), s.size(), offset_);
-      offset_ += s.size();
-      submitted++;
-      pending++;
-    }
-
-    int ret = io_uring_submit(&ring_);
-    if (ret < 0)
-      throw std::runtime_error("submit failed");
-    wait_all(static_cast<size_t>(ret));
-  }
-};
+}
 
 namespace BatchWriter {
 
@@ -166,7 +90,7 @@ struct alignas(CACHELINE) batchWriterPacket {
 
 // SPSCQueue<batchWriterPacket, batchWriterQueueSize> batchWriterPacketQueue;
 
-void parseEnableNatchStatement(std::unique_ptr<EnableStatement> &&statement) {
+void parseEnableBatchStatement(std::unique_ptr<EnableStatement> &&statement) {
   std::string currentDb =
       dbDirectoryPath + "/" + currentDatabase + ".shivam" + ".db";
   std::cout << currentDb << "\n";
@@ -211,15 +135,18 @@ void parseEnableNatchStatement(std::unique_ptr<EnableStatement> &&statement) {
         throw std::runtime_error("Invalid type for symbol in JSON");
       }
     }
-    std::cout << "THE SYMBOL IS " << symbol << "\n";
-    if (symbol != -1) {
-      std::cout << "storage symbol and ticks is " << symbol << " " << ticks
-                << "\n";
-      HFT::symbolAccessArray[symbol].storageTicks = ticks;
-    }
-
     if (tableName == statement->tableName) {
-
+      if (symbol != -1) {
+        std::cout << "storage symbol and ticks is " << symbol << " " << ticks
+                  << "\n";
+        HFT::symbolAccessArray[symbol].storageTicks = ticks;
+        auto it_f = batchWriterFileMap.find(symbol);
+        if (it_f == batchWriterFileMap.end() || !it_f->second) {
+          std::string indexFileName = tableDirectory + "/" + currentDatabase + "/" + tableName + ".data";
+          std::cout << "[BATCH_WRITER] Initializing IoUringQueue for " << indexFileName << " (Symbol " << symbol << ")\n";
+          batchWriterFileMap[symbol] = std::make_unique<IoUringQueue>(indexFileName);
+        }
+      }
       table["ticks"] = JSONParser::JSONValue(ticks);
       break;
     }
@@ -236,18 +163,18 @@ bool writeHFTDataToIndexFile(int symbol) {
 
   entry->count++;
   if (entry->count % 1000 == 0) {
-      MyUtility::appendToFile("batch.txt", "writeHFTDataToIndexFile: symbol=" + std::to_string(symbol) + " count=" + std::to_string(entry->count) + " storageTicks=" + std::to_string(entry->storageTicks));
+      HFT_DEBUG_FILE("batch.txt", "writeHFTDataToIndexFile: symbol=" + std::to_string(symbol) + " count=" + std::to_string(entry->count) + " storageTicks=" + std::to_string(entry->storageTicks));
   }
 
   if (UNLIKELY(entry->count >= entry->storageTicks && entry->storageTicks > 0)) {
     entry->count = 0;
     if (it != batchWriterFileMap.end() && it->second) {
       std::vector data = HFT::symbolAccessArray[symbol].getWritingData();
-      MyUtility::appendToFile("batch.txt", "Batch writing started. Data size: " + std::to_string(data.size()));
+      HFT_DEBUG_FILE("batch.txt", "Batch writing started. Data size: " + std::to_string(data.size()));
       it->second->batchWrite(data);
       return true;
     } else {
-      MyUtility::appendToFile("batch.txt", "the symbol does not exist " + std::to_string(symbol));
+      HFT_DEBUG_FILE("batch.txt", "the symbol does not exist " + std::to_string(symbol));
     }
   }
 

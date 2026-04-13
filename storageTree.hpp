@@ -11,6 +11,9 @@
 
 template<typename K, typename V>
 class BPlusTree {
+public:
+    using key_type = K;
+    using value_type = V;
 private:
     static const int DEGREE = 100;
     static const int MAX_KEYS = 2 * DEGREE - 1;
@@ -50,7 +53,7 @@ private:
         Node* node = root;
         while (!node->is_leaf) {
             std::shared_lock<std::shared_mutex> node_lock(node->mutex);
-            int i = 0;
+            size_t i = 0;
             while (i < node->keys.size() && key >= node->keys[i]) {
                 i++;
             }
@@ -185,7 +188,7 @@ private:
 
         std::unique_lock<std::shared_mutex> parent_lock(parent->mutex);
         
-        int pos = 0;
+        size_t pos = 0;
         while (pos < parent->children.size() && parent->children[pos] != node) {
             pos++;
         }
@@ -371,20 +374,20 @@ private:
         std::shared_lock<std::shared_mutex> node_lock(node->mutex);
         
         for (int i = 0; i < level; i++) {
-            std::cout << "  ";
+            // std::cout << "  ";
         }
 
-        std::cout << (node->is_leaf ? "Leaf: " : "Internal: ");
-        for (int i = 0; i < node->keys.size(); i++) {
-            std::cout << node->keys[i];
+        // std::cout << (node->is_leaf ? "Leaf: " : "Internal: ");
+        for (size_t i = 0; i < node->keys.size(); i++) {
+            // std::cout << node->keys[i];
             if (node->is_leaf) {
-                std::cout << "(" << node->values[i] << ")";
+                // std::cout << "(" << node->values[i] << ")";
             }
             if (i < node->keys.size() - 1) {
-                std::cout << ", ";
+                // std::cout << ", ";
             }
         }
-        std::cout << std::endl;
+        // std::cout << std::endl;
 
         // Copy children vector to avoid holding lock during recursion
         std::vector<Node*> children_copy;
@@ -445,9 +448,9 @@ public:
 
     void print() {
         std::shared_lock<std::shared_mutex> tree_lock(tree_mutex);
-        std::cout << "B+ Tree Structure:" << std::endl;
+        // std::cout << "B+ Tree Structure:" << std::endl;
         print_node(root, 0);
-        std::cout << std::endl;
+        // std::cout << std::endl;
     }
 
     // Traverse all leaf nodes in order and call fn(key) for each key
@@ -481,7 +484,7 @@ public:
 // #include <chrono>
 
 // int main() {
-//     std::cout << "=== Thread-Safe B+ Tree Example ===" << std::endl;
+//     // std::cout << "=== Thread-Safe B+ Tree Example ===" << std::endl;
 //     BPlusTree<int, std::string> tree;
 
 //     // Function to insert random values
@@ -508,7 +511,7 @@ public:
 //             int key = dis(gen);
 //             std::string value;
 //             if (tree.search(key, value)) {
-//                 std::cout << "Thread " << thread_id << " found key " << key << " with value: " << value << std::endl;
+//                 // std::cout << "Thread " << thread_id << " found key " << key << " with value: " << value << std::endl;
 //             }
 //             std::this_thread::sleep_for(std::chrono::milliseconds(15));
 //         }
@@ -532,7 +535,7 @@ public:
 //         t.join();
 //     }
     
-//     std::cout << "\nFinal tree structure:" << std::endl;
+//     // std::cout << "\nFinal tree structure:" << std::endl;
 //     tree.print();
 //     tree.print_leaf_sequence();
 

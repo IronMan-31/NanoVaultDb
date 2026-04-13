@@ -104,7 +104,16 @@ enum class TokenType
     APPLY,
     STDDEV_N,
     WEBSOCKET,
-    URL
+    URL,
+    API_KEY,
+    ORDER_BOOK,
+    BINANCE,
+    DATA,
+    FEED,
+    OHLC,
+    LIVE,
+    ORDERS
+
 };
 
 // Make these static const to avoid multiple definition errors
@@ -132,6 +141,14 @@ static const std::unordered_map<std::string, TokenType> keywords = {
     {"apply",TokenType::APPLY},
     {"websocket",TokenType::WEBSOCKET},
     {"url",TokenType::URL},
+    {"api_key",TokenType::API_KEY},
+    {"binance",TokenType::BINANCE},
+    {"order_book",TokenType::ORDER_BOOK},
+    {"data",TokenType::DATA},
+    {"feed",TokenType::FEED},
+    {"ohlc",TokenType::OHLC},
+    {"live",TokenType::LIVE},
+    {"orders",TokenType::ORDERS},
 
     {"mean",TokenType::MEAN},
     {"mean_n",TokenType::MEAN_N},
@@ -193,6 +210,15 @@ std::string typeToString(TokenType TYPE)
     switch (TYPE)
     {
     // HFT SPECIFIC
+    case TokenType::DATA: return "data";
+    case TokenType::FEED: return "feed";
+    case TokenType::OHLC:return "ohlc";
+    case TokenType::LIVE: return "live";
+    case TokenType::ORDERS:return "orders";
+
+    case TokenType::BINANCE: return "binance";
+    case TokenType::API_KEY : return "api_key";
+    case TokenType::ORDER_BOOK : return "order_book";
     case TokenType::APPLY: return "apply";
     case TokenType::DOUBLE: return "DOUBLE";
     case TokenType::TICKS: return "TICKS";

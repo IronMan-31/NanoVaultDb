@@ -117,7 +117,7 @@ public:
         parser.clear();
         parser.appendValue(schema);
         
-        std::cout << "Added column '" << columnName << "' to table '" << tableName << "'" << std::endl;
+        // std::cout << "Added column '" << columnName << "' to table '" << tableName << "'" << std::endl;
         return true;
     }
     
@@ -182,7 +182,7 @@ public:
         parser.clear();
         parser.appendValue(schema);
         
-        std::cout << "Added table '" << tableName << "'" << std::endl;
+        // std::cout << "Added table '" << tableName << "'" << std::endl;
         return true;
     }
     
@@ -207,7 +207,7 @@ public:
         parser.clear();
         parser.appendValue(schema);
         
-        std::cout << "Changed database name to '" << newName << "'" << std::endl;
+        // std::cout << "Changed database name to '" << newName << "'" << std::endl;
         return true;
     }
     
@@ -249,7 +249,7 @@ public:
                     parser.clear();
                     parser.appendValue(schema);
                     
-                    std::cout << "Removed column '" << columnName << "' from table '" << tableName << "'" << std::endl;
+                    // std::cout << "Removed column '" << columnName << "' from table '" << tableName << "'" << std::endl;
                     return true;
                 }
             }
@@ -302,7 +302,7 @@ public:
 //         return 1;
 //     }
     
-//     std::cout << "=== Original Database ===" << std::endl;
+//     // std::cout << "=== Original Database ===" << std::endl;
 //     modifier.printDatabase();
     
 //     // Add a new column
@@ -333,12 +333,12 @@ public:
 //     // Change database name
 //     modifier.changeDatabaseName("updated_mydb");
     
-//     std::cout << "\n=== Modified Database ===" << std::endl;
+//     // std::cout << "\n=== Modified Database ===" << std::endl;
 //     modifier.printDatabase();
     
 //     // Save the changes
 //     if (modifier.saveDatabase()) {
-//         std::cout << "\nDatabase saved successfully!" << std::endl;
+//         // std::cout << "\nDatabase saved successfully!" << std::endl;
 //     }
     
 //     return 0;

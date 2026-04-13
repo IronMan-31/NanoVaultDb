@@ -367,7 +367,7 @@ public:
             JSONValue value = parseValue(jsonStr, pos);
             data.push_back(std::move(value));
             
-            std::cout << "Object appended successfully. Total objects: " << data.size() << std::endl;
+            // std::cout << "Object appended successfully. Total objects: " << data.size() << std::endl;
             return true;
         } catch (const std::exception& e) {
             std::cerr << "Error parsing JSON: " << e.what() << std::endl;
@@ -378,13 +378,13 @@ public:
     // Append a simple object (key-value pairs)
     void appendObject(const JSONObject& obj) {
         data.push_back(JSONValue(obj));
-        std::cout << "Object appended successfully. Total objects: " << data.size() << std::endl;
+        // std::cout << "Object appended successfully. Total objects: " << data.size() << std::endl;
     }
 
     // Append any JSONValue
     void appendValue(const JSONValue& value) {
         data.push_back(value);
-        std::cout << "Value appended successfully. Total objects: " << data.size() << std::endl;
+        // std::cout << "Value appended successfully. Total objects: " << data.size() << std::endl;
     }
 
     // Get object by index
@@ -403,7 +403,7 @@ public:
         }
         
         data.erase(data.begin() + index);
-        std::cout << "Object at index " << index << " removed successfully." << std::endl;
+        // std::cout << "Object at index " << index << " removed successfully." << std::endl;
         return true;
     }
 
@@ -415,7 +415,7 @@ public:
     // Clear all data
     void clear() {
         data.clear();
-        std::cout << "All data cleared." << std::endl;
+        // std::cout << "All data cleared." << std::endl;
     }
 
     // Save to file
@@ -450,8 +450,8 @@ public:
             
             file.close();
             
-            std::cout << "Data saved successfully to: " << targetPath << std::endl;
-            std::cout << "Saved " << data.size() << " objects" << std::endl;
+            // std::cout << "Data saved successfully to: " << targetPath << std::endl;
+            // std::cout << "Saved " << data.size() << " objects" << std::endl;
             return true;
             
         } catch (const std::exception& e) {
@@ -499,14 +499,14 @@ public:
                 for (auto& item : arr) {
                     data.push_back(std::move(item));
                 }
-                std::cout << "Loaded " << arr.size() << " objects from: " << targetPath << std::endl;
+                // std::cout << "Loaded " << arr.size() << " objects from: " << targetPath << std::endl;
             } else {
                 // If it's a single object, add it
                 data.push_back(std::move(loadedValue));
-                std::cout << "Loaded 1 object from: " << targetPath << std::endl;
+                // std::cout << "Loaded 1 object from: " << targetPath << std::endl;
             }
             
-            std::cout << "Total objects in parser: " << data.size() << std::endl;
+            // std::cout << "Total objects in parser: " << data.size() << std::endl;
             return true;
             
         } catch (const std::exception& e) {
@@ -517,12 +517,12 @@ public:
 
     // Print all objects
     void printAll() const {
-        std::cout << "\n=== JSON Parser Contents ===" << std::endl;
-        std::cout << "Total objects: " << data.size() << std::endl;
+        // std::cout << "\n=== JSON Parser Contents ===" << std::endl;
+        // std::cout << "Total objects: " << data.size() << std::endl;
         
         for (size_t i = 0; i < data.size(); ++i) {
-            std::cout << "\nObject " << i << ":" << std::endl;
-            std::cout << valueToString(data[i]) << std::endl;
+            // std::cout << "\nObject " << i << ":" << std::endl;
+            // std::cout << valueToString(data[i]) << std::endl;
         }
     }
 
@@ -533,8 +533,8 @@ public:
             return;
         }
         
-        std::cout << "Object " << index << ":" << std::endl;
-        std::cout << valueToString(data[index]) << std::endl;
+        // std::cout << "Object " << index << ":" << std::endl;
+        // std::cout << valueToString(data[index]) << std::endl;
     }
 
     // Set file path

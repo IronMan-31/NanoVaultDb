@@ -92,7 +92,7 @@ namespace CommandRunner
                 throw std::runtime_error("Failed to save updated DB metadata");
             }
 
-            std::cout << "Table '" << name << "' dropped successfully.\n";
+            // std::cout << "Table '" << name << "' dropped successfully.\n";
         }
         else {
             std::string metaFile = "./db/" + name + ".shivam.db";
@@ -117,7 +117,7 @@ namespace CommandRunner
                 currentDatabase.clear();
             }
 
-            std::cout << "Database '" << name << "' dropped successfully.\n";
+            // std::cout << "Database '" << name << "' dropped successfully.\n";
         }
     }
     
@@ -157,7 +157,7 @@ namespace CommandRunner
                     }
                     // Example: assuming TableGlobalColumnNode has a `name` field
 
-                    //std::cout << col->name << '\n';
+                    //// std::cout << col->name << '\n';
                 }
 
                 sort(actualColumn.begin(),actualColumn.end(),[](const auto &a, const auto &b)
@@ -302,13 +302,14 @@ namespace CommandRunner
                     std::string colValueStr = valueToStorageString(oldRow.columns[colName]);
                     
                     std::visit([&](auto& treePtr) {
-                        using TreePtr = std::decay_t<decltype(treePtr)>;
                         if (treePtr) {
-                            if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<int64_t, IndexNode>>>) {
+                            using TreePtr = std::decay_t<decltype(treePtr)>;
+                            using K = typename TreePtr::element_type::key_type;
+                            if constexpr (requires { { std::stoll(colValueStr) } -> std::same_as<int64_t>; } && std::is_same_v<K, int64_t>) {
                                 int64_t val = 0;
                                 try { val = std::stoll(colValueStr); } catch (...) {}
                                 treePtr->remove(val);
-                            } else if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<std::string, IndexNode>>>) {
+                            } else if constexpr (std::is_same_v<K, std::string>) {
                                 treePtr->remove(colValueStr);
                             }
                         }
@@ -344,7 +345,7 @@ namespace CommandRunner
 
         delFile.flush();
 
-        std::cout << "UPDATE affected rows: " << updatedCount << "\n";
+        // std::cout << "UPDATE affected rows: " << updatedCount << "\n";
     }
 
 
@@ -429,13 +430,14 @@ namespace CommandRunner
                         std::string colValueStr = valueToStorageString(r.columns[colName]);
                         
                         std::visit([&](auto& treePtr) {
-                            using TreePtr = std::decay_t<decltype(treePtr)>;
                             if (treePtr) {
-                                if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<int64_t, IndexNode>>>) {
+                                using TreePtr = std::decay_t<decltype(treePtr)>;
+                                using K = typename TreePtr::element_type::key_type;
+                                if constexpr (requires { { std::stoll(colValueStr) } -> std::same_as<int64_t>; } && std::is_same_v<K, int64_t>) {
                                     int64_t val = 0;
                                     try { val = std::stoll(colValueStr); } catch (...) {}
                                     treePtr->remove(val);
-                                } else if constexpr (std::is_same_v<TreePtr, std::shared_ptr<BPlusTree<std::string, IndexNode>>>) {
+                                } else if constexpr (std::is_same_v<K, std::string>) {
                                     treePtr->remove(colValueStr);
                                 }
                             }
@@ -445,7 +447,7 @@ namespace CommandRunner
             }
         }
 
-        std::cout<<"Delete affected rows "<<count<<"\n";
+        // std::cout<<"Delete affected rows "<<count<<"\n";
         deleteFile.flush();
     }
 
@@ -476,8 +478,8 @@ namespace CommandRunner
                 {"precision",JSONParser::JSONValue(col.precision)},
                 {"type", JSONParser::JSONValue(col.type)}};
 
-            std::cout<<"getting col type\n";
-            std::cout<<col.type<<"\n";
+            // std::cout<<"getting col type\n";
+            // std::cout<<col.type<<"\n";
             if (col.type.find("varchar(") != std::string::npos)
             {
                 size_t start = col.type.find("(") + 1;
@@ -592,7 +594,7 @@ namespace CommandRunner
         globalTableCache[currentDatabase][stmt->name].second = newTableCache; 
         tableLocks[stmt->name]; 
                       
-        std::cout << " Table '" << stmt->name << "' added to DB '" << currentDatabase << "' successfully.\n";
+        // std::cout << " Table '" << stmt->name << "' added to DB '" << currentDatabase << "' successfully.\n";
         std::string tablename = stmt->name;
         std::stringstream indexFile, dataFile, delFile;
 
@@ -686,8 +688,15 @@ namespace CommandRunner
         globalTableCache[currentDatabase][stmt->name].first=std::to_string(stmt->symbol);
         globalTableCache[currentDatabase][stmt->name].second = newTableCache; 
         tableLocks[stmt->name];  // initialize mutex
+
+        // Initialize symbolAccessArray for the new HFT table immediately
+        std::vector<int64_t> precisions;
+        for (const auto &col : stmt->columns) {
+            precisions.push_back(col.precision);
+        }
+        HFT::symbolAccessArray[stmt->symbol].init(precisions, stmt->columns.size(), stmt->top ? 1 : 0, stmt->symbol);
                       
-        std::cout << " HFT Table '" << stmt->name << "' added to DB '" << currentDatabase << "' successfully.\n";
+        // std::cout << " HFT Table '" << stmt->name << "' added to DB '" << currentDatabase << "' successfully.\n";
         
         std::string tablename = stmt->name;
         std::stringstream indexFile, dataFile, delFile;

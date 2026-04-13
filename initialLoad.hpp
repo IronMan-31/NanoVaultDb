@@ -63,7 +63,7 @@ void runVacuum() {
     }
 
     for (auto& [db, table] : tablesToVacuum) {
-        std::cout<<table<<"\n";
+        DEBUG_LOG(table);
         PagerHandler::vacuumTable(db, table);
     }
 }
@@ -104,132 +104,143 @@ void initialDatabseLoad()
             file << "{\"current_db\":\"\"}";
             file.close();
         }else{
-            std::cout<<"Failed to create meta file\n";
+            DEBUG_LOG("Failed to create meta file");
         }
     }
     std::string dbName = getCurrentDatabase(currentDbMeta);
-    if (dbName=="") return;
+    if (dbName == "") return;
     currentDatabase = dbName;
-    for (const auto &entry : fs::directory_iterator(dbDirectoryPath))
+    
+    std::string filename = dbName + ".shivam.db";
+    std::string fullPath = dbDirectoryPath + "/" + filename;
+
+    if (!fs::exists(fullPath)) {
+        DEBUG_LOG("Database file does not exist: " << fullPath);
+        return;
+    }
+
+    std::string dbname = dbName;
+    std::shared_ptr<PythonLikeJSONParser> parser = std::make_shared<PythonLikeJSONParser>();
+
+    // Store parser in global cache
+    globalJsonCache[dbname] = parser;
+
+    DEBUG_LOG("dbname " << dbname);
+    DEBUG_LOG("FULL PATH " << fullPath);
+    if (!parser->loadFromFile(fullPath))
     {
-        if (fs::is_regular_file(entry.status()))
+        DEBUG_LOG("Failed to load file: " << fullPath);
+        std::stringstream err;
+        err << "Failed to load file: " << fullPath;
+        throw std::runtime_error(err.str());
+    }
+
+    try
+    {
+        JSONArrayWrapper tablesArray = (*parser)[0][std::string("tables")].asArray();
+        for (int64_t i = 0; i < tablesArray.size(); ++i)
         {
-            std::string filename = entry.path().filename().string();
+            std::string tableName = tablesArray[i][std::string("name")].getString();
+            std::string indexFileName = tableDirectory + "/" + dbname + "/" + tableName + ".data"; 
+            std::unique_ptr<IoUringQueue> io_queue = std::make_unique<IoUringQueue>(indexFileName);
+            std::string symbolString = std::to_string(tablesArray[i][std::string("symbol")].getInt());
+            std::string  topString = std::to_string(tablesArray[i][std::string("top")].getInt());
+            DEBUG_LOG(symbolString << " " << topString);
+            bool isSymbol = false;
+            bool isTop = false;
+            HFT_DEBUG_FILE("error.txt", std::format("the tableName is {} and top string is {}",symbolString,topString));
+            if(!symbolString.empty() && symbolString != "-1") isSymbol = true;
+            if(topString.length() > 0 && topString[0]=='1') isTop = true;
+            JSONArrayWrapper columnsArray = tablesArray[i][std::string("columns")].asArray();
 
-            if (filename.find(".db") != std::string::npos)
+            std::vector<std::shared_ptr<TableGlobalColumnNode>> columnNodes;
+            std::vector<int64_t> precisions;
+            for (int64_t j = 0; j < columnsArray.size(); ++j)
             {
-                std::string dbname = MyUtility::extractBaseName(filename);
-                std::cout << "dbname " << dbname << "\n";
-                std::shared_ptr<PythonLikeJSONParser> parser = std::make_shared<PythonLikeJSONParser>();
+                std::shared_ptr<TableGlobalColumnNode> node = std::make_shared<TableGlobalColumnNode>();
 
-                // Store parser in global cache
-                globalJsonCache[dbname] = parser;
+                std::string columnDataName = columnsArray[j][std::string("name")].getString();
+                std::string columnDataType = columnsArray[j][std::string("type")].getString();
+                JSONArrayWrapper constraintArray = columnsArray[j][std::string("constraints")].asArray();
+                int64_t precision = columnsArray[j][std::string(std::string("precision"))].getInt();
+                precisions.push_back(precision);
 
-                std::string fullPath = dbDirectoryPath + "/" + filename;
-                std::cout << "FULL PATH " << fullPath << "\n";
-                if (!parser->loadFromFile(fullPath))
+                DEBUG_LOG("the precision is " << precision);
+                int length = INT_MAX;
+                bool isUnique = false;
+                bool isPrimary = false;
+                bool autoIncrement = false;
+                bool createIndex = false;
+
+                for (int64_t k = 0; k < constraintArray.size(); ++k)
                 {
-                    std::cerr << "Failed to load file: " << fullPath << std::endl;
-                    std::stringstream err;
-                    err << "Failed to load file: " << fullPath;
-                    throw std::runtime_error(err.str());
+                    std::string constraint = constraintArray[k].getString();
+                    if (constraint == "primary_key")
+                        isPrimary = true;
+                    if (constraint == "auto_increment")
+                        autoIncrement = true;
+                    if (constraint == "unique")
+                        isUnique = true;
+                    if (constraint == "create_index")
+                        createIndex = true;
                 }
 
-                try
+                if (columnsArray[j].hasKey(std::string("length")))
                 {
-                    JSONArrayWrapper tablesArray = (*parser)[0][std::string("tables")].asArray();
-                    for (int64_t i = 0; i < tablesArray.size(); ++i)
-                    {
-                        std::string tableName = tablesArray[i][std::string("name")].getString();
-                        std::string indexFileName = tableDirectory + "/" + dbname + "/" + tableName + ".data"; 
-                        std::unique_ptr<IoUringQueue> io_queue = std::make_unique<IoUringQueue>(indexFileName);
-                        std::string symbolString = std::to_string(tablesArray[i][std::string("symbol")].getInt());
-                        std::string  topString = std::to_string(tablesArray[i][std::string("top")].getInt());
-                        std::cout<<symbolString<<" "<<topString<<"\n";
-                        bool isSymbol = false;
-                        bool isTop = false;
-                        MyUtility::appendToFile("error.txt", std::format("the tableName is {} and top string is {}",symbolString,topString));
-                        if(!symbolString.empty() && symbolString != "-1") isSymbol = true;
-                        if(topString.length() > 0 && topString[0]=='1') isTop = true;
-                        JSONArrayWrapper columnsArray = tablesArray[i][std::string("columns")].asArray();
-
-                        std::vector<std::shared_ptr<TableGlobalColumnNode>> columnNodes;
-                        std::vector<int64_t> precisions;
-                        for (int64_t j = 0; j < columnsArray.size(); ++j)
-                        {
-                            std::shared_ptr<TableGlobalColumnNode> node = std::make_shared<TableGlobalColumnNode>();
-
-                            std::string columnDataName = columnsArray[j][std::string("name")].getString();
-                            std::string columnDataType = columnsArray[j][std::string("type")].getString();
-                            JSONArrayWrapper constraintArray = columnsArray[j][std::string("constraints")].asArray();
-                            int64_t precision = columnsArray[j][std::string(std::string("precision"))].getInt();
-                            precisions.push_back(precision);
-
-                            std::cout<<"the precision is "<<precision<<"\n";
-                            int length = INT_MAX;
-                            bool isUnique = false;
-                            bool isPrimary = false;
-                            bool autoIncrement = false;
-                            bool createIndex = false;
-
-                            for (int64_t k = 0; k < constraintArray.size(); ++k)
-                            {
-                                std::string constraint = constraintArray[k].getString();
-                                if (constraint == "primary_key")
-                                    isPrimary = true;
-                                if (constraint == "auto_increment")
-                                    autoIncrement = true;
-                                if (constraint == "unique")
-                                    isUnique = true;
-                                if (constraint == "create_index")
-                                    createIndex = true;
-                            }
-
-                            if (columnsArray[j].hasKey(std::string("length")))
-                            {
-                                length = columnsArray[j][std::string("length")];
-                            }
-
-                            node->constraint = constraintArray.toStringVector();
-                            node->length = length;
-                            node->precision = precision;
-                            node->name = columnDataName;
-                            node->type = columnDataType;
-                            node->autoIncrement = autoIncrement;
-                            node->isUnique = isUnique;
-                            node->createIndex = createIndex;
-                            node->isPrimary = isPrimary;
-
-                            columnNodes.push_back(node);
-
-                            if (isPrimary || isUnique)
-                            {
-
-                                TreeVariant tree = std::make_shared<BPlusTree<int64_t, IndexNode>>();
-                                dbBtrees[currentDatabase][tableName][columnDataName] = std::make_pair(tree, 0);
-                            }
-                        }
-                        
-                        // Save table columns in globalTableCache
-                        auto it=std::move(columnNodes);
-                        globalTableCache[dbname][tableName] = {symbolString,it};
-                        if(isSymbol){
-                            int64_t symbol = static_cast<int64_t>(std::stoi(symbolString));
-
-                            MyUtility::appendToFile("error.txt", std::format("the table name is {} symbol is {} isTop is {}",tableName,symbol,isTop));
-                            HFT::symbolAccessArray[symbol].init(precisions,columnsArray.size(),isTop?1:0,symbol);
-                            batchWriterFileMap[symbol] = std::move(io_queue);
-                        }
-
-                        std::cout << "Loaded table: " << tableName << " from DB: " << dbname << std::endl;
-                    }
+                    length = columnsArray[j][std::string("length")];
                 }
-                catch (const std::exception &e)
+
+                node->constraint = constraintArray.toStringVector();
+                node->length = length;
+                node->precision = precision;
+                node->name = columnDataName;
+                node->type = columnDataType;
+                node->autoIncrement = autoIncrement;
+                node->isUnique = isUnique;
+                node->createIndex = createIndex;
+                node->isPrimary = isPrimary;
+
+                columnNodes.push_back(node);
+
+                if (isPrimary || isUnique)
                 {
-                    std::cerr << "Error accessing 'tables' in " << fullPath << ": " << e.what() << std::endl;
+                    TreeVariant tree = std::make_shared<BPlusTree<int64_t, IndexNode>>();
+                    dbBtrees[dbname][tableName][columnDataName] = std::make_pair(tree, 0);
                 }
             }
+            
+            int ticks = -1;
+            if (tablesArray[i].hasKey(std::string("ticks"))) {
+                ticks = tablesArray[i][std::string("ticks")].getInt();
+            }
+
+            // Save table columns in globalTableCache
+            auto it=std::move(columnNodes);
+            globalTableCache[dbname][tableName] = {symbolString,it};
+            if(isSymbol){
+                int64_t symbol = static_cast<int64_t>(std::stoi(symbolString));
+
+                HFT_DEBUG_FILE("error.txt", std::format("the table name is {} symbol is {} isTop is {}",tableName,symbol,isTop));
+                HFT::symbolAccessArray[symbol].init(precisions,columnsArray.size(),isTop?1:0,symbol);
+                if (ticks > 0) {
+                    HFT::symbolAccessArray[symbol].storageTicks = ticks;
+                }
+                
+                auto it_f = batchWriterFileMap.find(symbol);
+                if (it_f == batchWriterFileMap.end() || !it_f->second) {
+                    batchWriterFileMap[symbol] = std::move(io_queue);
+                } else {
+                    // Reuse existing writer
+                    DEBUG_LOG("[INITIAL_LOAD] Reusing existing writer for symbol " << symbol);
+                }
+            }
+
+            DEBUG_LOG("Loaded table: " << tableName << " from DB: " << dbname);
         }
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Error accessing 'tables' in " << fullPath << ": " << e.what() << std::endl;
     }
 }
 
@@ -237,7 +248,7 @@ void loadAllNodesOfBtreeForPrimaryKey(TreeVariant &tree,std::string dbName, int6
 {
     std::stringstream indexFileName;
     indexFileName << tableDirectory << "/" << dbName << "/" << tableName << ".index";
-    std::cout << "INDEX FILE NAME " << indexFileName.str() << "\n";
+    DEBUG_LOG("INDEX FILE NAME " << indexFileName.str());
     if (MyUtility::checkIfFileExist(indexFileName.str()))
     {
 
@@ -288,7 +299,7 @@ void loadAllNodesOfBtreeForPrimaryKey(TreeVariant &tree,std::string dbName, int6
             }
 
             IndexNode node{start, end};
-            std::cout << "id " << id << " start " << start << "end " << end << "\n";
+            DEBUG_LOG("id " << id << " start " << start << " end " << end);
             std::visit([id, node](auto &treePtr)
                        {
             using TreeType = std::decay_t<decltype(*treePtr)>;
@@ -313,14 +324,14 @@ void loadAllNodesOfBtreeForUniqueKey(TreeVariant &tree,std::string dbName, int64
     dataFileName << tableDirectory << "/" << dbName << "/" << tableName << ".data";
 
     int64_t columnNameIndexInSortedOrder = -1;
-    std::cout<<"### --- startedSorted---\n";
+    DEBUG_LOG("### --- startedSorted---");
     for(auto ele:sortedColumnsVector){
-        std::cout<<ele<<"\n";
+        DEBUG_LOG(ele);
     }
     
     for (int i = 0; i < sortedColumnsVector.size(); i++)
     {
-        std::cout<<sortedColumnsVector[i]<<" ";
+        DEBUG_LOG(sortedColumnsVector[i] << " ");
         if (columnName == sortedColumnsVector[i])
         {
             columnNameIndexInSortedOrder = i + 1;
@@ -337,8 +348,8 @@ void loadAllNodesOfBtreeForUniqueKey(TreeVariant &tree,std::string dbName, int64
         throw std::runtime_error(err.str());
     }
 
-    std::cout << "INDEX FILE NAME " << indexFileName.str() << "\n";
-    std::cout<<"DATATYPE IS "<<dataType<<"\n";
+    DEBUG_LOG("INDEX FILE NAME " << indexFileName.str());
+    DEBUG_LOG("DATATYPE IS " << dataType);
     if (MyUtility::checkIfFileExist(indexFileName.str()))
     {
 
@@ -355,11 +366,11 @@ void loadAllNodesOfBtreeForUniqueKey(TreeVariant &tree,std::string dbName, int64
         }
 
         int64_t indexFileSize = PagerHandler::getFileSize(indexFileName.str());
-        std::cout << "index file size is " << indexFileSize << "\n";
+        DEBUG_LOG("index file size is " << indexFileSize);
         int64_t divider = 8 * (2 * size - 1);
         int64_t getTotalNoOfRows = (int64_t)(indexFileSize / divider);
-        std::cout << "Total No Of rows " << getTotalNoOfRows << "\n";
-        std::cout << "columnNameIndexSortedOrder " << columnNameIndexInSortedOrder << "\n";
+        DEBUG_LOG("Total No Of rows " << getTotalNoOfRows);
+        DEBUG_LOG("columnNameIndexSortedOrder " << columnNameIndexInSortedOrder);
         while (getTotalNoOfRows--)
         {
             std::variant<int64_t, std::string> id;
@@ -397,17 +408,17 @@ void loadAllNodesOfBtreeForUniqueKey(TreeVariant &tree,std::string dbName, int64
                 uint64_t strSize = uniqueReadEndIndex - uniqueReadStartIndex;
                 std::string strValue(strSize, '\0');
                 dataFile.read(strValue.data(), strSize);
-                std::cout<<"VALUE READ (int) "<<strValue<<"\n";
+                DEBUG_LOG("VALUE READ (int) " << strValue);
                 int64_t value = std::stoll(strValue);
                 id = value;
             }
             else
             {
                 uint64_t strSize = uniqueReadEndIndex - uniqueReadStartIndex;
-                std::cout<<"start "<<uniqueReadStartIndex<<" and end "<<uniqueReadEndIndex<<"\n";
+                DEBUG_LOG("start " << uniqueReadStartIndex << " and end " << uniqueReadEndIndex);
                 std::string value(strSize, '\0');
                 dataFile.read(value.data(), strSize);
-                std::cout<<"VALUE READ "<<value<<"\n";
+                DEBUG_LOG("VALUE READ " << value);
                 id = value;
             }
             }
@@ -437,10 +448,10 @@ void loadAllNodesOfBtreeForUniqueKey(TreeVariant &tree,std::string dbName, int64
             }
 
             IndexNode node{start, end};
-            std::cout << "id ";
+            DEBUG_LOG("id ");
             std::visit([](auto &&value)
-                       { std::cout << value; }, id);
-            std::cout << " start " << start << " end " << end << "\n";
+                       { DEBUG_LOG(value); }, id);
+            DEBUG_LOG(" start " << start << " end " << end);
 
             std::visit([&](auto &treePtr, auto &&val)
                        {
@@ -494,7 +505,7 @@ void initializePrimaryIndexBtrees(std::string tabName,bool first)
 
             for (const auto &columnPtr : columns)
             {
-                std::cout << columnPtr->name << " " << columnPtr->isPrimary << "hh\n";
+                DEBUG_LOG(columnPtr->name << " " << columnPtr->isPrimary << "hh");
                 if (columnPtr->isPrimary)
                 {
                     const std::string &columnName = columnPtr->name;
@@ -513,11 +524,11 @@ void initializePrimaryIndexBtrees(std::string tabName,bool first)
                         continue;
                     }
                     dbBtrees[dbName][tableName][columnName] = std::make_pair(std::move(tree), noOfColumns);
-                    std::cout<<"btreecalled"<<"\n";
+                    DEBUG_LOG("btreecalled");
                     loadAllNodesOfBtreeForPrimaryKey(dbBtrees[dbName][tableName][columnName].first,dbName, noOfColumns, tableName);
 
-                    std::cout << "Initialized B+ Tree for " << dbName
-                              << "." << tableName << "." << columnName << " " << "and size is " << noOfColumns << std::endl;
+                    DEBUG_LOG("Initialized B+ Tree for " << dbName
+                              << "." << tableName << "." << columnName << " " << "and size is " << noOfColumns);
                 }
                 else if (columnPtr->isUnique)
                 {
@@ -538,16 +549,16 @@ void initializePrimaryIndexBtrees(std::string tabName,bool first)
 
                     else
                     {
-                        std::cerr << "Unsupported Unique key type: " << type
-                                  << " for column: " << columnName << std::endl;
+                        DEBUG_LOG("Unsupported Unique key type: " << type
+                                  << " for column: " << columnName);
                         continue;
                     }
 
                     dbBtrees[dbName][tableName][columnName] = std::make_pair(std::move(tree), noOfColumns);
                     loadAllNodesOfBtreeForUniqueKey(dbBtrees[dbName][tableName][columnName].first,dbName, noOfColumns, tableName,columnName, sortedColumnVector, type);
 
-                    std::cout << "Initialized B+ Tree for Unique Key" << dbName
-                              << "." << tableName << "." << columnName << " " << "and size is " << noOfColumns << std::endl;
+                    DEBUG_LOG("Initialized B+ Tree for Unique Key" << dbName
+                              << "." << tableName << "." << columnName << " " << "and size is " << noOfColumns);
                 }
             }
         }

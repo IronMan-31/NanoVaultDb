@@ -1,3 +1,4 @@
+#pragma once
 #include "../FastIndicators.hpp"
 #include "../hft.hpp"
 #include "../utils//types.hpp"
@@ -6,6 +7,7 @@
 #include "../utility.hpp"
 #include "format"
 
+#include "../global.hpp"
 #include <iostream>
 
 class alignas(CACHELINE) SMA {
@@ -41,7 +43,7 @@ public:
     this->precision = tableColumn.precisions;
   }
 
-  void set_parameter(std::vector<std::string> &win) {
+  void set_parameter(const std::vector<std::string> &win) {
     std::string param = win[0];
     int64_t window = 1;
 
@@ -55,7 +57,7 @@ public:
     this->running_sum = 0;
     this->filled = 0;
 
-    std::cout << "[SMA] Window set to: " << this->window << "\n";
+    DEBUG_LOG("[SMA] Window set to: " << this->window);
   }
 
   inline int64_t result() const {
@@ -65,14 +67,14 @@ public:
   }
 
   void on_tick() {
-    std::cout<<"on tick called "<<"\n";
+    DEBUG_LOG("on tick called");
     if (!columnRing)
       return;
-    std::cout<<"on tick called 1"<<"\n";
+    DEBUG_LOG("on tick called 1");
     count++;
     if (count != tick)
       return;
-    std::cout<<"on tick called 2"<<"\n";
+    DEBUG_LOG("on tick called 2");
     // MyUtility::appendToFile("hello.txt", "called");
     count = 0;
 
@@ -95,17 +97,17 @@ public:
       running_sum -= old_val;
     }
 
-    MyUtility::appendToFile(
+    HFT_DEBUG_FILE(
     "hello.txt",
     std::format("latest is {} old val is {} sum is {} column is {} \n", latest, old_val, running_sum,column_to_use)
 );
-    std::cout << "[SMA DEBUG]\n";
-    std::cout << "Latest: " << latest << "\n";
-    std::cout << "Old Val: " << old_val << "\n";
-    std::cout << "Running Sum: " << running_sum << "\n";
-    std::cout << "Filled: " << filled << "\n";
-    std::cout << "SMA: " << result() << "\n";
-    std::cout << "----------------------\n";
+    DEBUG_LOG("[SMA DEBUG]");
+    DEBUG_LOG("Latest: " << latest);
+    DEBUG_LOG("Old Val: " << old_val);
+    DEBUG_LOG("Running Sum: " << running_sum);
+    DEBUG_LOG("Filled: " << filled);
+    DEBUG_LOG("SMA: " << result());
+    DEBUG_LOG("----------------------");
   }
 
 

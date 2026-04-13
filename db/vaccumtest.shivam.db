@@ -26,6 +26,137 @@
         "name": "tst",
         "symbol": -1,
         "top": false
+      },
+      {
+        "columns": [
+          {
+            "constraints": [],
+            "name": "open",
+            "precision": 8,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "close",
+            "precision": 8,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "high",
+            "precision": 8,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "low",
+            "precision": 8,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "volume",
+            "precision": 8,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "q_volume",
+            "precision": 8,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "tb_base",
+            "precision": 8,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "tb_quote",
+            "precision": 8,
+            "type": "double"
+          }
+        ],
+        "name": "btc_ohlc",
+        "symbol": 2,
+        "ticks": 1,
+        "top": 0
+      },
+      {
+        "columns": [
+          {
+            "constraints": [],
+            "name": "event_time",
+            "precision": 0,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "trade_id",
+            "precision": 0,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "price",
+            "precision": 8,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "quantity",
+            "precision": 8,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "trade_time",
+            "precision": 0,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "is_buyer_maker",
+            "precision": 0,
+            "type": "double"
+          }
+        ],
+        "name": "btc_trades",
+        "symbol": 3,
+        "top": 0
+      },
+      {
+        "columns": [
+          {
+            "constraints": [],
+            "name": "timestamp",
+            "precision": 0,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "price",
+            "precision": 10,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "volume",
+            "precision": 2,
+            "type": "double"
+          },
+          {
+            "constraints": [],
+            "name": "side",
+            "precision": 0,
+            "type": "double"
+          }
+        ],
+        "name": "btc_ticks",
+        "symbol": 1,
+        "ticks": 1,
+        "top": 1
       }
     ]
   }
