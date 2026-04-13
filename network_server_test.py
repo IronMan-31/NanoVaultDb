@@ -8,10 +8,12 @@ def send(sock, cmd):
     resp = sock.recv(8192).decode()
     print(resp)
 
-# s = socket.socket()
-# s.connect(("127.0.0.1", 6969))
+s = socket.socket()
+s.connect(("127.0.0.1", 6970))
+send(s, "ADD STRATEGY FROM FILE '/home/pranab/nano_db_latest/m_way_tree.cpp';")
+send(s, '''ENABLE STRATEGY "again" ("10") on symbol 1 column_no 1 ticks 100;''')
+send(s,";")
 
-# send(s, "CREATE DATABASE vaccumtest;")
 
 # send(s, """
 # CREATE TABLE StudentRolls (
@@ -33,14 +35,13 @@ def send(sock, cmd):
 # s.close()
 # # time.sleep(2)
 
-s = socket.socket()
-s.connect(("127.0.0.1", 6969))
+# s = socket.socket()
+# s.connect(("127.0.0.1", 6969))
 
-# 9️⃣ Use DB again
-send(s, "USE vaccumtest;")
-send(s, "INSERT INTO StudentRolls (roll_no) VALUES (10);")
-# 🔟 Select after vacuum (physical delete)
-send(s, "SELECT * FROM StudentRolls;")
+# send(s, "USE vaccumtest;")
+# send(s, "INSERT INTO StudentRolls (roll_no) VALUES (10);")
+
+# send(s, "SELECT * FROM StudentRolls;")
 
 # Exit cleanly
 send(s, "exit;")

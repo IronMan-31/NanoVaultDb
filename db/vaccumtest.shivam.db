@@ -1,0 +1,31 @@
+[
+  {
+    "name": "vaccumtest",
+    "tables": [
+      {
+        "columns": [
+          {
+            "constraints": [
+              "primary_key",
+              "auto_increment"
+            ],
+            "name": "id",
+            "precision": 0,
+            "type": "int"
+          },
+          {
+            "constraints": [
+              "not_null"
+            ],
+            "name": "roll_no",
+            "precision": 0,
+            "type": "int"
+          }
+        ],
+        "name": "studentrolls",
+        "symbol": -1,
+        "top": false
+      }
+    ]
+  }
+]
