@@ -38,6 +38,16 @@ The engine implements a multi-way B+ Tree for primary and unique key indexing.
 - **Persistence**: Index structures are rebuilt automatically on server restart from high-speed binary `.index` files.
 - **Index-Safe Operations**: Updates and deletions maintain structural integrity through atomic pointer swaps and node rebalancing.
 
+### General-Purpose Table Support
+
+Beyond HFT-grade workloads, the SQL engine provides full relational capabilities for standard application tables:
+
+- **Fast Querying**: B+ Tree-backed lookups deliver sub-100ns point queries on general-purpose tables, matching the performance profile of the HFT layer.
+- **Aggregate Operations**: Native support for `SUM`, `COUNT`, `AVG`, `MIN`, and `MAX` over both indexed and full-scan paths.
+- **Full CRUD**: `INSERT`, `SELECT`, `UPDATE`, and `DELETE` are all supported with index-aware execution plans that avoid unnecessary full-table scans.
+- **Shared Indexing Infrastructure**: General tables benefit from the same persistent B+ Tree infrastructure as HFT order tables — including automatic index rebuild on restart and background vacuuming for compaction.
+
+
 ### Background Vacuum and Cleanup
 
 A specialized background vacuum thread periodically cleanses the database by:
@@ -91,6 +101,24 @@ Strategies are implemented as standalone modules that consume indicator outputs 
 
 ## 5. High-Performance Networking Stack
 
+### Multi-Client TCP Network Server
+
+A purpose-built TCP server handles concurrent client sessions without sacrificing throughput.
+
+- **Connection Multiplexing**: The server uses non-blocking I/O and an event-driven dispatch loop to manage multiple simultaneous clients on a single thread, avoiding the overhead of a thread-per-client model.
+- **Request Pipelining**: Clients can issue back-to-back SQL or HFT commands without waiting for prior responses to complete, keeping the wire saturated.
+- **Backpressure Handling**: Slow or stalled clients are isolated so they cannot block or degrade service for other active connections.
+
+### From-Scratch WebSocket Server (C++, `epoll`)
+
+The WebSocket implementation is written entirely in C++ with zero external dependencies, designed for maximum throughput and minimal latency.
+
+- **Full Handshake Implementation**: RFC 6455-compliant HTTP upgrade negotiation and SHA-1/Base64 key exchange are handled natively in C++.
+- **`epoll`-Driven Concurrency**: A single `epoll` event loop manages all WebSocket clients simultaneously, scaling to hundreds of concurrent connections without spawning additional threads.
+- **Frame-Level Optimization**: Frame parsing and assembly operate directly on raw socket buffers, avoiding intermediate copies and minimizing heap allocation in the read path.
+- **Broadcast Support**: Market data updates and strategy signals are fanned out to all subscribed WebSocket clients in a single pass through the connection list.
+
+
 ### WebSockets and UDP Ingest
 
 - **Binance Ingestion**: A specialized, non-allocating JSON parser scans incoming WebSocket frames in-place, extracting depth updates with minimal CPU cycles.
@@ -105,7 +133,12 @@ The system utilizes a compact binary stream format for data persistence.
 
 ---
 
-## 5. Performance Metrics (AVX-512, Isolated Core)
+## 6. Python Client Library
+
+NanoVaultDb ships a native Python extension that exposes the full SQL and HFT API surface without requiring a separate query language layer. It is currently supported in python 3.10, 3.11 and 3.12 and in linux enviroments only. Also the binaries are also available in Nano_db_binaries folder, you can use that directly as well.
+
+
+## 7. Performance Metrics (AVX-512, Isolated Core)
 
 | Component           | Operation             | Latency                 |
 | ------------------- | --------------------- | ----------------------- |
@@ -116,7 +149,7 @@ The system utilizes a compact binary stream format for data persistence.
 
 ---
 
-## 6. Project Structure and Module Responsibility
+## 8. Project Structure and Module Responsibility
 
 ### Core Database System
 
@@ -135,6 +168,6 @@ The system utilizes a compact binary stream format for data persistence.
 
 ---
 
-## 7. Engineering Philisophy: Mechanical Sympathy
+## 9. Engineering Philisophy: Mechanical Sympathy
 
 NanoVaultDb is not merely a database; it is a demonstration of hardware-software co-design. By meticulously controlling memory layouts, instruction paths, and I/O scheduling, the system achieves level of performance typically reserved for institutional-grade proprietary trading systems.
