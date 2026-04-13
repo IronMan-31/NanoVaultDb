@@ -93,8 +93,8 @@ inline void handle_trade_packet(tradePackets::webSocketDataPacket &packet) {
             static_cast<int64_t>(std::stod(k["Q"].get<std::string>()) * 1e8);
 
         // Debug print to verify parsing
-        std::cout << "[TRADE_HANDLER] OHLC " << packet.symbol
-                  << " | CLOSE=" << ohlc.close << std::endl;
+        DEBUG_LOG("[TRADE_HANDLER] OHLC " << packet.symbol
+                  << " | CLOSE=" << ohlc.close);
 
         // Directly push to HFTStorage queue for processing
         HFTStorage::Packet hftPkt{};
@@ -135,9 +135,8 @@ inline void handle_trade_packet(tradePackets::webSocketDataPacket &packet) {
         trade.tradeTime = j["T"].get<int64_t>();
         trade.isBuyerMaker = j["m"].get<bool>() ? 1 : 0;
 
-        std::cout << "[TRADE_HANDLER] TRADE " << packet.symbol 
-                  << " | PRICE=" << trade.price << " QTY=" << trade.quantity << std::endl;
-
+        DEBUG_LOG("[TRADE_HANDLER] TRADE " << packet.symbol 
+                  << " | PRICE=" << trade.price << " QTY=" << trade.quantity);
         HFTStorage::Packet hftPkt{};
         hftPkt.size = sizeof(tradePackets::BinanceLiveTradeData);
         

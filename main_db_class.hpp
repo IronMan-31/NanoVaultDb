@@ -20,20 +20,13 @@
 
 class NanoVaultDB{
     private:
+        inline static std::vector<std::jthread> worker_threads;
         void setup() {
-            std::thread packet_receiver(NetFeed::run_receiver);
-            std::thread packet_parser(NetFeed::run_packet_parser);
-            std::thread strategy_parser(NetFeed::run_strategy_parser);
-            std::thread web_socks(init_web_sockets);
-            pin_thread_to_cpu(packet_receiver, 0);
-            pin_thread_to_cpu(packet_parser, 1);
-            pin_thread_to_cpu(strategy_parser,2);
-            pin_thread_to_cpu(web_socks,3);
-
-            packet_receiver.detach();
-            packet_parser.detach();
-            strategy_parser.detach();
-            web_socks.detach();
+            worker_threads.emplace_back(NetFeed::run_receiver, 0);
+            worker_threads.emplace_back(NetFeed::run_packet_parser, 1);
+            worker_threads.emplace_back(NetFeed::run_strategy_parser, 2);
+            worker_threads.emplace_back(init_web_sockets, 3);
+            worker_threads.emplace_back(tradeHandler::run_trade_handler, 4);
         }
         string readLineWithHistory(vector<string> &history, int &historyIndex) {
             termios oldt, newt;
@@ -107,8 +100,6 @@ class NanoVaultDB{
         NanoVaultDB() = default;
 
         void init(){
-            std::streambuf* og_buf=std::cout.rdbuf();
-            std::cout.rdbuf(NULL);
             initialDatabseLoad();
             HFT::InitalStorage::initialIndicatorLoad();
             HFT::InitalStorage::initialStrategyLoad();
@@ -117,22 +108,17 @@ class NanoVaultDB{
             setup();
             IndicatorHandler::registerAllIndicators(IndicatorHandler::indicatorRegistry);
             StrategyHandler::registerAllStrategy(StrategyHandler::strategyRegistry);
-            std::cout.rdbuf(og_buf);
         }
         std::string execute(const std::string &query){
-            std::streambuf* og_buf=std::cout.rdbuf();
             try {
-                std::cout.rdbuf(NULL);
                 logging(query); 
                 Lexer lexer(query);
                 vector<Token *> tokens = lexer.tokenize();
                 Parser parser(tokens);
                 std::string output=parser.parse();
                 clear_log();
-                std::cout.rdbuf(og_buf);
                 return output; 
             } catch (const std::exception &e) {
-                std::cout.rdbuf(og_buf);
                 cerr << "Error: " << e.what() << endl;
                 return "Error\n";
             }
@@ -158,7 +144,6 @@ class NanoVaultDB{
             streambuf* og_buf;
             int historyIndex = 0;
             while (true) {
-                og_buf=std::cout.rdbuf();
                 cout << "nanoVaultDb> ";
                 string sql = readLineWithHistory(history, historyIndex);
 
@@ -183,7 +168,6 @@ class NanoVaultDB{
                 }
 
                 try {
-                    cout.rdbuf(NULL);
                     logging(sql);
                     Lexer lexer(sql);
                     vector<Token *> tokens = lexer.tokenize();
@@ -192,11 +176,9 @@ class NanoVaultDB{
                     }
                     Parser parser(tokens);
                     std::string output = parser.parse();
-                    cout.rdbuf(og_buf);
                     std::cout << output << "\n";
                     clear_log();
                 } catch (const std::exception &e) {
-                    cout.rdbuf(og_buf);
                     cerr << "Error: " << e.what() << endl;
                 }
             }

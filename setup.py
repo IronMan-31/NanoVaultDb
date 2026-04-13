@@ -4,8 +4,8 @@ from pybind11.setup_helpers import Pybind11Extension, build_ext
 ext_modules = [
     Pybind11Extension(
         "nanodb",
-        ["nanodb_python_module/py_bindings.cpp"],
-        include_dirs=["."],
+        ["nanodb_python_module/py_bindings.cpp", "global.cpp","hft_clean/src/exchange_adapter.cpp","hft_clean/src/market_data_handler.cpp","hft_clean/src/order_book.cpp"],
+        include_dirs=[".", "hft_clean/include"],
         extra_compile_args=["-O3", "-std=c++20", "-fPIC"],
         libraries=["uring", "crypto", "ssl"],
     ),
@@ -18,4 +18,5 @@ setup(
     ext_modules=ext_modules,
     cmdclass={"build_ext": build_ext},
     zip_safe=False,
+    packages=[],
 )

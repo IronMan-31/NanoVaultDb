@@ -1,9 +1,0 @@
-README.md
-pyproject.toml
-setup.py
-nanodb_python_module/py_bindings.cpp
-nanovaultdb.egg-info/PKG-INFO
-nanovaultdb.egg-info/SOURCES.txt
-nanovaultdb.egg-info/dependency_links.txt
-nanovaultdb.egg-info/not-zip-safe
-nanovaultdb.egg-info/top_level.txt
