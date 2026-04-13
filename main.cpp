@@ -100,6 +100,8 @@ string readLineWithHistory(vector<string> &history, int &historyIndex) {
 }
 
 int main(int argc, char const *argv[]) {
+  streambuf* orig_buf=cout.rdbuf();
+  cout.rdbuf(NULL);
   initialDatabseLoad();
   HFT::InitalStorage::initialIndicatorLoad();
   HFT::InitalStorage::initialStrategyLoad();
@@ -112,39 +114,39 @@ int main(int argc, char const *argv[]) {
 
   setup();
   std::vector<std::string> testSQLs = {
-      R"(
-          CREATE DATABASE test2;
-      )",
-      R"(
-      CREATE TABLE StudentRolls (
-          id INT PRIMARY KEY AUTO_INCREMENT,
-          roll_no VARCHAR(10) NOT NULL UNIQUE
-      );
-      // // // // // // // // // )",
-      R"(
-      INSERT INTO StudentRolls (roll_no)
-      VALUES ("Hey");
-      )",
-      R"(
-      INSERT INTO StudentRolls (roll_no)
-      VALUES ("Hello");
-      )",
-      R"(
-      UPDATE StudentRolls SET roll_no="WH" WHERE roll_no="Hey";
-      )",
-      R"(
-      DELETE FROM StudentRolls WHERE roll_no=12;
-      )",
-       R"(
-      INSERT INTO StudentRolls (roll_no)
-      VALUES ("Woho");
-      )",
-      R"(
-      SELECT * FROM StudentRolls;
-      )" ,
-       R"(
-      STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="Woho";
-      )" ,
+      // R"(
+      //     CREATE DATABASE test2;
+      // )",
+      // R"(
+      // CREATE TABLE StudentRolls (
+      //     id INT PRIMARY KEY AUTO_INCREMENT,
+      //     roll_no VARCHAR(10) NOT NULL UNIQUE
+      // );
+      // // // // // // // // // // )",
+      // R"(
+      // INSERT INTO StudentRolls (roll_no)
+      // VALUES ("Hey");
+      // )",
+      // R"(
+      // INSERT INTO StudentRolls (roll_no)
+      // VALUES ("Hello");
+      // )",
+      // R"(
+      // UPDATE StudentRolls SET roll_no="WH" WHERE roll_no="Hey";
+      // )",
+      // R"(
+      // DELETE FROM StudentRolls WHERE roll_no=12;
+      // )",
+      //  R"(
+      // INSERT INTO StudentRolls (roll_no)
+      // VALUES ("Woho");
+      // )",
+      // R"(
+      // SELECT * FROM StudentRolls;
+      // )" ,
+      //  R"(
+      // STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="Woho";
+      // )" ,
       // R"(
       // STATISTICS COUNT FROM StudentRolls ON roll_no WHERE roll_no="W";
       // )" ,
@@ -231,14 +233,14 @@ int main(int argc, char const *argv[]) {
       std::string output = parser.parse();
       std::cout << output << "\n";
     } catch (const std::exception &e) {
-      cerr << "Warning: Failed to execute recovered SQL -> " << e.what()
-           << endl;
+      cerr << "Warning: Failed to execute recovered SQL -> " << e.what()<< endl;
     }
   }
 
   int historyIndex = 0;
-
+  cout.rdbuf(orig_buf);
   while (true) {
+    orig_buf=cout.rdbuf();
     cout << "nanoVaultDb> ";
     string sql = readLineWithHistory(history, historyIndex);
 
@@ -263,6 +265,7 @@ int main(int argc, char const *argv[]) {
     }
 
     try {
+      cout.rdbuf(NULL);
       logging(sql);
       Lexer lexer(sql);
       vector<Token *> tokens = lexer.tokenize();
@@ -271,9 +274,11 @@ int main(int argc, char const *argv[]) {
       }
       Parser parser(tokens);
       std::string output = parser.parse();
+      cout.rdbuf(orig_buf);
       std::cout << output << "\n";
       clear_log();
     } catch (const std::exception &e) {
+      cout.rdbuf(orig_buf);
       cerr << "Error: " << e.what() << endl;
     }
   }

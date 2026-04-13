@@ -107,6 +107,8 @@ class NanoVaultDB{
         NanoVaultDB() = default;
 
         void init(){
+            std::streambuf* og_buf=std::cout.rdbuf();
+            std::cout.rdbuf(NULL);
             initialDatabseLoad();
             HFT::InitalStorage::initialIndicatorLoad();
             HFT::InitalStorage::initialStrategyLoad();
@@ -115,17 +117,22 @@ class NanoVaultDB{
             setup();
             IndicatorHandler::registerAllIndicators(IndicatorHandler::indicatorRegistry);
             StrategyHandler::registerAllStrategy(StrategyHandler::strategyRegistry);
+            std::cout.rdbuf(og_buf);
         }
         std::string execute(const std::string &query){
+            std::streambuf* og_buf=std::cout.rdbuf();
             try {
+                std::cout.rdbuf(NULL);
                 logging(query); 
                 Lexer lexer(query);
                 vector<Token *> tokens = lexer.tokenize();
                 Parser parser(tokens);
                 std::string output=parser.parse();
                 clear_log();
+                std::cout.rdbuf(og_buf);
                 return output; 
             } catch (const std::exception &e) {
+                std::cout.rdbuf(og_buf);
                 cerr << "Error: " << e.what() << endl;
                 return "Error\n";
             }
@@ -145,14 +152,13 @@ class NanoVaultDB{
                 std::string output = parser.parse();
                 std::cout << output << "\n";
                 } catch (const std::exception &e) {
-                cerr << "Warning: Failed to execute recovered SQL -> " << e.what()
-                    << endl;
+                    cerr << "Warning: Failed to execute recovered SQL -> " << e.what()<< endl;
                 }
             }
-
+            streambuf* og_buf;
             int historyIndex = 0;
-
             while (true) {
+                og_buf=std::cout.rdbuf();
                 cout << "nanoVaultDb> ";
                 string sql = readLineWithHistory(history, historyIndex);
 
@@ -177,18 +183,21 @@ class NanoVaultDB{
                 }
 
                 try {
-                logging(sql);
-                Lexer lexer(sql);
-                vector<Token *> tokens = lexer.tokenize();
-                for (Token *token : tokens) {
-                    cout << typeToString(token->TYPE) << " : " << token->VALUE << endl;
-                }
-                Parser parser(tokens);
-                std::string output = parser.parse();
-                std::cout << output << "\n";
-                clear_log();
+                    cout.rdbuf(NULL);
+                    logging(sql);
+                    Lexer lexer(sql);
+                    vector<Token *> tokens = lexer.tokenize();
+                    for (Token *token : tokens) {
+                        cout << typeToString(token->TYPE) << " : " << token->VALUE << endl;
+                    }
+                    Parser parser(tokens);
+                    std::string output = parser.parse();
+                    cout.rdbuf(og_buf);
+                    std::cout << output << "\n";
+                    clear_log();
                 } catch (const std::exception &e) {
-                cerr << "Error: " << e.what() << endl;
+                    cout.rdbuf(og_buf);
+                    cerr << "Error: " << e.what() << endl;
                 }
             }
         }

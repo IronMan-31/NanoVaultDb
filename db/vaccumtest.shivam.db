@@ -15,14 +15,15 @@
           },
           {
             "constraints": [
-              "not_null"
+              "not_null",
+              "unique"
             ],
             "name": "roll_no",
             "precision": 0,
             "type": "int"
           }
         ],
-        "name": "studentrolls",
+        "name": "tst",
         "symbol": -1,
         "top": false
       }
