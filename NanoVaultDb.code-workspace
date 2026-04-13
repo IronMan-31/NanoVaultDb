@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../../advanceCpp"
+		},
+		{
+			"path": "../../../dl/iit_mandi_fake_detection"
 		}
 	],
 	"settings": {
