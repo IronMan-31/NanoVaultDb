@@ -10,12 +10,18 @@
 #include <mutex>
 #include <atomic>
 #include <csignal>
-
+#include "UDPReceiver.hpp"
 #include "SQL_LEXER.hpp"
 #include "SQL_PARSER.hpp"
 #include "generator.hpp"
 #include "logging.hpp"
 #include "global.hpp"
+#include "IndicatorHandler.hpp"
+#include "Btrees_testing.hpp"
+#include "web_socks_og.hpp"
+#include "strategyHandler.hpp"
+#include "utils/cpu_affinity.hpp"
+#include "hft.hpp"
 
 std::atomic<bool> serverRunning(true);
 
@@ -23,6 +29,23 @@ std::mutex clientMutex;
 std::vector<std::thread> clientThreads;
 
 int server_fd_global = -1;
+
+void setup() {
+  std::thread packet_receiver(NetFeed::run_receiver);
+  std::thread packet_parser(NetFeed::run_packet_parser);
+  std::thread strategy_parser(NetFeed::run_strategy_parser);
+  std::thread web_socks(init_web_sockets);
+  pin_thread_to_cpu(packet_receiver, 0);
+  pin_thread_to_cpu(packet_parser, 1);
+  pin_thread_to_cpu(strategy_parser,2);
+  pin_thread_to_cpu(web_socks,3);
+
+  packet_receiver.detach();
+  packet_parser.detach();
+  strategy_parser.detach();
+  web_socks.detach();
+}
+
 
 void handleSignal(int) {
     serverRunning.store(false);
@@ -40,8 +63,8 @@ std::string handleSQL(const std::string &sql) {
         Lexer lexer(sql);
         auto tokens = lexer.tokenize();
         Parser parser(tokens);
-        parser.parse();
-        return "OK\n";
+        std::string r=parser.parse();
+        return r;
     } catch (const std::exception &e) {
         return std::string("ERROR: ") + e.what() + "\n";
     }
@@ -102,14 +125,14 @@ void handleClient(int client_fd) {
 
 int main() {
     signal(SIGINT, handleSignal);
-    initialDatabseLoad();
-    try {
-        initializePrimaryIndexBtrees("abcd",true;);
-    } catch (const std::exception &e) {
-        std::cerr << "[WARN] B-tree init failed: " << e.what() << "\n";
-    }
+     initialDatabseLoad();
+    HFT::InitalStorage::initialIndicatorLoad();
+    HFT::InitalStorage::initialStrategyLoad();
+    runVacuum();
+    initializePrimaryIndexBtrees("abcd",true);
+    test_b_trees();
 
-    startVacuumThread();
+    setup();
 
 
     int server_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -125,7 +148,7 @@ int main() {
 
     sockaddr_in server_addr{};
     server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(6969);
+    server_addr.sin_port = htons(6970);
     server_addr.sin_addr.s_addr = INADDR_ANY;
 
     if (bind(server_fd, (sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
@@ -140,7 +163,7 @@ int main() {
         return 1;
     }
 
-    std::cout << "NanoDB server running on port 6969...\n";
+    std::cout << "NanoDB server running on port 6970...\n";
 
     while (serverRunning.load()) {
         int client_fd = accept(server_fd, nullptr, nullptr);

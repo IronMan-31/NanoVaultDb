@@ -7,14 +7,14 @@
 
 # =============================================================================
 # Project: main
-# Configurations: Debug
+# Configurations: 
 # =============================================================================
 # =============================================================================
 
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__main_Debug
+rule CXX_COMPILER__main_
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++-13 $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -24,7 +24,7 @@ rule CXX_COMPILER__main_Debug
 #############################################
 # Rule for linking CXX executable.
 
-rule CXX_EXECUTABLE_LINKER__main_Debug
+rule CXX_EXECUTABLE_LINKER__main_
   command = $PRE_LINK && /usr/bin/g++-13 $FLAGS $LINK_FLAGS $in -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
   description = Linking CXX executable $TARGET_FILE
   restat = $RESTAT

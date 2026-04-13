@@ -11,7 +11,6 @@
 		"commands" : 
 		[
 			"add_executable",
-			"target_link_options",
 			"target_link_libraries",
 			"target_compile_options"
 		],
@@ -33,25 +32,13 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 24,
+				"line" : 32,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 32,
-				"parent" : 0
-			},
-			{
-				"command" : 3,
-				"file" : 0,
 				"line" : 13,
-				"parent" : 0
-			},
-			{
-				"command" : 3,
-				"file" : 0,
-				"line" : 20,
 				"parent" : 0
 			}
 		]
@@ -62,35 +49,16 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g"
-				},
-				{
-					"backtrace" : 4,
+					"backtrace" : 3,
 					"fragment" : "-Wall"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 3,
 					"fragment" : "-Wextra"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 3,
 					"fragment" : "-fdiagnostics-color=always"
-				},
-				{
-					"backtrace" : 5,
-					"fragment" : "-O0"
-				},
-				{
-					"backtrace" : 5,
-					"fragment" : "-g"
-				},
-				{
-					"backtrace" : 5,
-					"fragment" : "-fsanitize=address"
-				},
-				{
-					"backtrace" : 5,
-					"fragment" : "-fno-omit-frame-pointer"
 				},
 				{
 					"fragment" : "-std=gnu++20"
@@ -117,30 +85,21 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-g",
-				"role" : "flags"
-			},
-			{
 				"fragment" : "",
 				"role" : "flags"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-fsanitize=address",
-				"role" : "flags"
-			},
-			{
-				"backtrace" : 3,
 				"fragment" : "-luring",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 3,
+				"backtrace" : 2,
 				"fragment" : "-lcrypto",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 3,
+				"backtrace" : 2,
 				"fragment" : "-lssl",
 				"role" : "libraries"
 			}
