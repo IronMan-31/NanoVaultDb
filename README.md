@@ -2,7 +2,47 @@
 
 NanoVaultDb is a sophisticated, low-latency relational database engine and high-frequency trading (HFT) matching engine implemented from scratch in C++20. The system is engineered for "Mechanical Sympathy," optimizing software execution with a deep understanding of underlying hardware architectures, including CPU cache hierarchies, SIMD instruction sets, and asynchronous kernel I/O.
 
-![System Architecture](./hft_clean/architecture_diagram.png)
+## System Performance Benchmarks (CPU Pinned, Real-time Priority)
+
+| Scale | Min | Mean | P50 (Median) | P90 | P99 | P99.9 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **100K** | 17.00 ns | 32.48 ns | 27.00 ns | 32.00 ns | 103.00 ns | 273.00 ns |
+| **1M** | 16.00 ns | 33.04 ns | 28.00 ns | 35.00 ns | 98.00 ns | 256.00 ns |
+| **10M** | 16.00 ns | 32.75 ns | 28.00 ns | 35.00 ns | 98.00 ns | 257.00 ns |
+| **100M** | 15.00 ns | 32.09 ns | 27.00 ns | 35.00 ns | 97.00 ns | 255.00 ns |
+
+## Memory Hierarchy Performance (L1, L2, RAM)
+
+Results gathered using `cachebenchmark.cpp` (1,000,000 iterations per test, pinned to CPU 1):
+
+| Level | Min | Mean | P50 (Median) | P90 | P99 | P99.9 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **L1 Load** | 11.00 ns | 13.33 ns | 13.00 ns | 14.00 ns | 15.00 ns | 19.00 ns |
+| **L2 Load** | 11.00 ns | 15.21 ns | 14.00 ns | 17.00 ns | 27.00 ns | 40.00 ns |
+| **RAM Load** | 12.00 ns | 101.12 ns | 96.00 ns | 117.00 ns | 234.00 ns | 288.00 ns |
+| **L1 Store** | 10.00 ns | 12.84 ns | 13.00 ns | 13.00 ns | 16.00 ns | 21.00 ns |
+| **RAM Store** | 11.00 ns | 19.29 ns | 18.00 ns | 19.00 ns | 89.00 ns | 157.00 ns |
+
+## Hardware-Level Performance Analysis (100M+ Scale)
+
+Detailed CPU metrics captured via `perf stat` during ultra-scale packet processing (pinned to Isolated Core):
+
+| Metric | Value |
+| :--- | :--- |
+| **Instructions Per Cycle (IPC)** | 2.19 |
+| **Core Clock Frequency** | 4.671 GHz |
+| **Branch Prediction Accuracy** | 98.92% (1.08% miss rate) |
+| **Execution Efficiency (TMA Retiring)** | 38.9% |
+| **Backend Bound (Stalled)** | 39.8% |
+| **Frontend Bound (Stalled)** | 12.2% |
+| **Speculation Overhead** | 9.1% |
+
+### Latency Summary (Ultra-Scale)
+- **Mean Latency**: 21.52 ns
+- **P50 (Median)**: 18.00 ns
+- **P99 (Tail)**: 99.00 ns
+
+![System Architecture](./finak.png)
 
 ## 1. Core Architectural Principles
 
@@ -37,16 +77,6 @@ The engine implements a multi-way B+ Tree for primary and unique key indexing.
 - **Dynamic Rebalancing**: Ensures O(log N) lookup, insertion, and deletion complexity.
 - **Persistence**: Index structures are rebuilt automatically on server restart from high-speed binary `.index` files.
 - **Index-Safe Operations**: Updates and deletions maintain structural integrity through atomic pointer swaps and node rebalancing.
-
-### General-Purpose Table Support
-
-Beyond HFT-grade workloads, the SQL engine provides full relational capabilities for standard application tables:
-
-- **Fast Querying**: B+ Tree-backed lookups deliver sub-100ns point queries on general-purpose tables, matching the performance profile of the HFT layer.
-- **Aggregate Operations**: Native support for `SUM`, `COUNT`, `AVG`, `MIN`, and `MAX` over both indexed and full-scan paths.
-- **Full CRUD**: `INSERT`, `SELECT`, `UPDATE`, and `DELETE` are all supported with index-aware execution plans that avoid unnecessary full-table scans.
-- **Shared Indexing Infrastructure**: General tables benefit from the same persistent B+ Tree infrastructure as HFT order tables — including automatic index rebuild on restart and background vacuuming for compaction.
-
 
 ### Background Vacuum and Cleanup
 
@@ -101,24 +131,6 @@ Strategies are implemented as standalone modules that consume indicator outputs 
 
 ## 5. High-Performance Networking Stack
 
-### Multi-Client TCP Network Server
-
-A purpose-built TCP server handles concurrent client sessions without sacrificing throughput.
-
-- **Connection Multiplexing**: The server uses non-blocking I/O and an event-driven dispatch loop to manage multiple simultaneous clients on a single thread, avoiding the overhead of a thread-per-client model.
-- **Request Pipelining**: Clients can issue back-to-back SQL or HFT commands without waiting for prior responses to complete, keeping the wire saturated.
-- **Backpressure Handling**: Slow or stalled clients are isolated so they cannot block or degrade service for other active connections.
-
-### From-Scratch WebSocket Server (C++, `epoll`)
-
-The WebSocket implementation is written entirely in C++ with zero external dependencies, designed for maximum throughput and minimal latency.
-
-- **Full Handshake Implementation**: RFC 6455-compliant HTTP upgrade negotiation and SHA-1/Base64 key exchange are handled natively in C++.
-- **`epoll`-Driven Concurrency**: A single `epoll` event loop manages all WebSocket clients simultaneously, scaling to hundreds of concurrent connections without spawning additional threads.
-- **Frame-Level Optimization**: Frame parsing and assembly operate directly on raw socket buffers, avoiding intermediate copies and minimizing heap allocation in the read path.
-- **Broadcast Support**: Market data updates and strategy signals are fanned out to all subscribed WebSocket clients in a single pass through the connection list.
-
-
 ### WebSockets and UDP Ingest
 
 - **Binance Ingestion**: A specialized, non-allocating JSON parser scans incoming WebSocket frames in-place, extracting depth updates with minimal CPU cycles.
@@ -133,12 +145,7 @@ The system utilizes a compact binary stream format for data persistence.
 
 ---
 
-## 6. Python Client Library
-
-NanoVaultDb ships a native Python extension that exposes the full SQL and HFT API surface without requiring a separate query language layer. It is currently supported in python 3.10, 3.11 and 3.12 and in linux enviroments only. Also the binaries are also available in Nano_db_binaries folder, you can use that directly as well.
-
-
-## 7. Performance Metrics (AVX-512, Isolated Core)
+## 5. Performance Metrics (AVX-512, Isolated Core)
 
 | Component           | Operation             | Latency                 |
 | ------------------- | --------------------- | ----------------------- |
@@ -149,7 +156,7 @@ NanoVaultDb ships a native Python extension that exposes the full SQL and HFT AP
 
 ---
 
-## 8. Project Structure and Module Responsibility
+## 6. Project Structure and Module Responsibility
 
 ### Core Database System
 
@@ -168,6 +175,6 @@ NanoVaultDb ships a native Python extension that exposes the full SQL and HFT AP
 
 ---
 
-## 9. Engineering Philisophy: Mechanical Sympathy
+## 7. Engineering Philisophy: Mechanical Sympathy
 
 NanoVaultDb is not merely a database; it is a demonstration of hardware-software co-design. By meticulously controlling memory layouts, instruction paths, and I/O scheduling, the system achieves level of performance typically reserved for institutional-grade proprietary trading systems.
