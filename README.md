@@ -6,7 +6,7 @@ NanoVaultDB is a high-performance experimental database and matching engine writ
 
 - Custom B+ Tree storage engine
 - Low-latency FIFO matching engine
-- SIMD-optimized hot paths (AVX2 / AVX-512)
+- SIMD-optimized hot paths
 - Lock-free / low-allocation data paths
 - Sub-microsecond critical operations (microbenchmarked)
 
@@ -218,10 +218,6 @@ The system implements a strict Price-Time Priority (FIFO) matching algorithm acr
 - **Fixed-Point Arithmetic**: All prices and quantities are handled as 64-bit integers scaled by 1e8, ensuring deterministic math and avoiding floating-point jitter.
 - **O(1) Order Management**: An internal hash map provides instantaneous order retrieval for cancellations and modifications, bypassing the need for linear scans.
 
-### SIMD-Accelerated Hot Paths
-
-The engine leverages AVX-512 and AVX2 instruction sets for parallel task execution.
-
 - **Parallel BBO Discovery**: SIMD primitives allow the engine to scan multiple price levels simultaneously to identify the Best Bid and Offer.
 
 ---
@@ -262,14 +258,12 @@ The system utilizes a compact binary stream format for data persistence.
 
 ---
 
-## 5. Performance Metrics (AVX-512, Isolated Core)
+## 5. Performance Metrics
 
-| Component           | Operation             | Latency                 |
-| ------------------- | --------------------- | ----------------------- |
-| **Matching Engine** | Resting Order (Limit) | 11.4 ns                 |
-| **Matching Engine** | Match Round-Trip      | 132.3 ns                |
-| **SQL Engine**      | B+ Tree Point Lookup  | ~45 ns                  |
-| **Persistence**     | Binary Batch Write    | Sub-microsecond (async) |
+| Component           | Operation             | Latency  |
+| ------------------- | --------------------- | -------- |
+| **Matching Engine** | Resting Order (Limit) | 11.4 ns  |
+| **Matching Engine** | Match Round-Trip      | 132.3 ns |
 
 ---
 
