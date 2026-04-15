@@ -12,6 +12,10 @@ NanoVaultDB is a high-performance experimental database and matching engine writ
 
 NanoVaultDb is implemented from scratch in C++20. The system is engineered for "Mechanical Sympathy," optimizing software execution with a deep understanding of underlying hardware architectures, including CPU cache hierarchies, SIMD instruction sets, and asynchronous kernel I/O.
 
+![System Architecture](./architecture.png)
+
+The entire system is governed by a set of high-performance engineering constraints designed to eliminate non-deterministic behavior and maximize instruction throughput.
+
 ## Performance Benchmarks
 
 Benchmarks were conducted on:
@@ -108,9 +112,59 @@ sudo systemctl status nanovaultdb
 sudo systemctl restart nanovaultdb
 ```
 
-![System Architecture](./architecture.png)
+### 4. HFT & SQL Usage Syntax
 
-The entire system is governed by a set of high-performance engineering constraints designed to eliminate non-deterministic behavior and maximize instruction throughput.
+NanoVaultDB uses a SQL-like DSL for real-time HFT operations. Below are common commands for managing indicators, strategies, and exchange feeds:
+
+#### Indicator & Strategy Management
+
+```sql
+-- Add an indicator from a shared source
+ADD HFT INDICATOR FROM FILE '/path/to/indicator.cpp';
+
+-- Initialize an indicator (e.g., SMA) on a specific symbol
+ADD INDICATOR "sma" ("10") ON SYMBOL 2 COLUMN_NO 0 TICKS 1;
+
+-- Add and enable strategies
+ADD STRATEGY FROM FILE '/path/to/strategy.cpp';
+ENABLE STRATEGY "again" ("10") ON SYMBOL 1 COLUMN_NO 0 TICKS 1;
+
+-- Monitor active strategies or list tables
+LIST STRATEGY;
+LIST TABLE "btc_ticks";
+```
+
+#### Binance Exchange Integration
+
+```sql
+-- Configure Order Book tracking for a symbol
+SET BINANCE ORDER_BOOK ON SYMBOL 2 SYMBOL "BTCUSDT";
+
+-- Configure Data Feeds (OHLC and Live Orders)
+SET BINANCE DATA FEED OHLC "1s" ON SYMBOL 2 SYMBOL "BTCUSDT";
+SET BINANCE DATA FEED LIVE ORDERS ON SYMBOL 3 SYMBOL "BTCUSDT";
+
+-- Enable order execution
+SET BINANCE API_KEY "your_api_key";
+SET BINANCE ORDER EXECUTE;
+```
+
+#### Table Creation & Batch Writing
+
+```sql
+-- Create optimized HFT tables
+CREATE HFT TABLE btc_trades (
+    event_time     DOUBLE PRECISION 0,
+    trade_id       DOUBLE PRECISION 0,
+    price          DOUBLE PRECISION 8,
+    quantity       DOUBLE PRECISION 8,
+    trade_time     DOUBLE PRECISION 0,
+    is_buyer_maker DOUBLE PRECISION 0
+) SYMBOL 3;
+
+-- Enable high-speed batch writing to disk
+ENABLE BATCH WRITING ON TABLE "btc_ticks" TICKS 1;
+```
 
 ### Zero-Allocation Hot Path
 
